@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<div class="container my-5 bg-white shadow p-3 rounded">
+		<table class="table table-dark table-striped">
+			<caption>Products List</caption>
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Product Description</th>
+					<th scope="col">Stock Availability</th>
+					<th scope="col">Size</th>
+					<th scope="col">Categories</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products %}
+					<tr>
+						<th scope="row">{{product.id}}</th>
+						<td>{{product.name}}</td>
+						<td>{{product.description}}</td>
+						<td>{{product.stockAvailability ? 'Yes' : 'No'}}</td>
+						<td>{{product.size}}</td>
+						<td>
+							{% for category in product.categories %}
+								{{category.name}}{{ not loop.last ? ', ' }}
+							{% endfor %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
