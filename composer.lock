@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "53529a1d0b9c43a5991c0cbb5f377462",
+    "content-hash": "f6cd94fc5ba862239ec4e25fa99c2bd2",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -4009,6 +4009,47 @@
                 "source": "https://github.com/pimcore/admin-ui-classic-bundle/tree/v1.2"
             },
             "time": "2023-10-23T15:45:26+00:00"
+        },
+        {
+            "name": "pimcore/bundle-generator",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pimcore/bundle-generator.git",
+                "reference": "411ab3b2187e07d049990452f825e772794e0e88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pimcore/bundle-generator/zipball/411ab3b2187e07d049990452f825e772794e0e88",
+                "reference": "411ab3b2187e07d049990452f825e772794e0e88",
+                "shasum": ""
+            },
+            "require": {
+                "pimcore/pimcore": "^11.0"
+            },
+            "type": "pimcore-bundle",
+            "extra": {
+                "pimcore": {
+                    "bundles": [
+                        "Pimcore\\Bundle\\BundleGeneratorBundle\\PimcoreBundleGeneratorBundle"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pimcore\\Bundle\\BundleGeneratorBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "description": "Pimcore Bundle Generator",
+            "support": {
+                "issues": "https://github.com/pimcore/bundle-generator/issues",
+                "source": "https://github.com/pimcore/bundle-generator/tree/v2.0.0"
+            },
+            "time": "2023-05-03T12:45:56+00:00"
         },
         {
             "name": "pimcore/pimcore",

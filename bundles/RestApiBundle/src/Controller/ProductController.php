@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace RestApiBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
-use Pimcore\Model\DataObject\Product;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends FrontendController
 {
+    const NO_PRODUCT_FOUND_ERROR = 'No product found.';
+
     /**
      * @Route("/get-product/{id}", name="getProduct",methods={"GET"})
      * @param Request $request
@@ -25,7 +26,7 @@ class ProductController extends FrontendController
             $productObject = DataObject\Product::getById($id);
             if (!$productObject) {
                 return $this->render('error.html.twig', [
-                    'error' => 'No product found.',
+                    'error' => self::NO_PRODUCT_FOUND_ERROR,
                 ]);
             }
 
@@ -132,7 +133,7 @@ class ProductController extends FrontendController
             $productObject = DataObject\Product::getById($productId);
             if (!$productObject) {
                 return $this->json([
-                    'error' => 'No product found.'
+                    'error' => self::NO_PRODUCT_FOUND_ERROR
                 ], 404);
             }
 
@@ -186,7 +187,7 @@ class ProductController extends FrontendController
             $productObject = DataObject\Product::getById($id);
             if (!$productObject) {
                 return $this->json([
-                    'error' => 'No product found.'
+                    'error' => self::NO_PRODUCT_FOUND_ERROR
                 ], 404);
             }
 

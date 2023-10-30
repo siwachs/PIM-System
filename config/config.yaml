@@ -2,6 +2,12 @@ imports:
     - { resource: "local/" }
 
 pimcore:
+    bundles:
+        search_paths:
+            - bundles/RestApiBundle
+
+twig:
+    paths: ["%kernel.project_dir%/bundles/RestApiBundle/Resources/views"]
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:

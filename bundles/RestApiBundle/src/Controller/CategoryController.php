@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace RestApiBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CategoryController extends FrontendController
 {
+    const NO_CATEGORY_FOUND_ERROR = 'No category found.';
+
     /**
      * @Route("/get-category/{id}", name="getCategory",methods={"GET"})
      * @param Request $request
@@ -24,7 +26,7 @@ class CategoryController extends FrontendController
             $categoryObject = DataObject\Category::getById($id);
             if (!$categoryObject) {
                 return $this->render('error.html.twig', [
-                    'error' => 'No category found.',
+                    'error' => self::NO_CATEGORY_FOUND_ERROR,
                 ]);
             }
 
@@ -116,7 +118,7 @@ class CategoryController extends FrontendController
             $categoryObject = DataObject\Category::getById($categoryId);
             if (!$categoryObject) {
                 return $this->json([
-                    'error' => 'No category found.'
+                    'error' => self::NO_CATEGORY_FOUND_ERROR
                 ], 404);
             }
 
@@ -149,7 +151,7 @@ class CategoryController extends FrontendController
             $categoryObject = DataObject\Category::getById($id);
             if (!$categoryObject) {
                 return $this->json([
-                    'error' => 'No category found.'
+                    'error' => self::NO_CATEGORY_FOUND_ERROR
                 ], 404);
             }
 
