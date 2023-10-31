@@ -9,6 +9,18 @@ pimcore:
 twig:
     paths: ["%kernel.project_dir%/bundles/RestApiBundle/Resources/views"]
 
+services:
+    _defaults:
+        autowire: true, # Auto inject dependency in services
+        autoconfigure: true # Auto registers your services as commands, event subscribers, etc.
+
+    App\:
+        resource: "../src/"
+        exclude:
+            - "../src/DependencyInjection/"
+            - "../src/Entity/"
+            - "../src/Kernel.php"
+
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
 # ./bin/console debug:config pimcore

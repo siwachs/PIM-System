@@ -1,0 +1,102 @@
+pimcore_data_hub:
+    configurations:
+        ProductsImporter:
+            general:
+                type: dataImporterDataObject
+                name: ProductsImporter
+                description: 'For Importing product data.'
+                group: ''
+                active: false
+                path: null
+                modificationDate: 1698754842
+                createDate: 1698754121
+            loaderConfig:
+                type: asset
+                settings:
+                    assetPath: '/Files to Import/products.csv'
+            interpreterConfig:
+                type: csv
+                settings:
+                    skipFirstRow: true
+                    delimiter: ','
+                    enclosure: '"'
+                    escape: \
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: '2'
+                loadingStrategy:
+                    type: notLoad
+                createLocationStrategy:
+                    type: staticPath
+                    settings:
+                        path: /Products
+                locationUpdateStrategy:
+                    type: noChange
+                publishingStrategy:
+                    type: noChangeUnpublishNew
+            processingConfig:
+                executionType: sequential
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: '0'
+                    dataSourceIndex:
+                        - '0'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: '1'
+                    dataSourceIndex:
+                        - '1'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: description
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: '3'
+                    dataSourceIndex:
+                        - '3'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: size
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: '2'
+                    dataSourceIndex:
+                        - '2'
+                    transformationResultType: boolean
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: stockAvailability
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: boolean
+            executionConfig:
+                scheduleType: job
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }
