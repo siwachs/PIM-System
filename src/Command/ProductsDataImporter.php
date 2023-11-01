@@ -10,51 +10,55 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class ProductsDataImporter extends Command
 {
     protected static $defaultName = 'app:import-products';
+    private $appKernel;
     private $transformData;
-    public function __construct(TransformData $transformData)
+    public function __construct(KernelInterface $appKernel, TransformData $transformData)
     {
         parent::__construct();
+        $this->appKernel = $appKernel;
         $this->transformData = new $transformData;
     }
 
     protected function configure()
     {
-        $this->setDescription('For Import Products in Pimcore')->addArgument('csvPath', InputArgument::REQUIRED, 'Path to produts csv')->addArgument('parentIdProducts', InputArgument::REQUIRED, 'The Parent Id of products')->addArgument('parentIdCategories', InputArgument::REQUIRED, 'The Parent Id of categories');
+        $this->setDescription('For Import Products in Pimcore.')->addArgument('csvPath', InputArgument::OPTIONAL, 'Path to produts csv', '/csvs/products.csv')->addArgument('parentIdProducts', InputArgument::OPTIONAL, 'The Parent Id of products', 2)->addArgument('parentIdCategories', InputArgument::OPTIONAL, 'The Parent Id of categories', 3)->addArgument('versionNote', InputArgument::OPTIONAL, 'Version note of object', 'Default version note is used');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         try {
-            $csvFilePath = $input->getArgument('csvPath');
+            $projectRoot = $this->appKernel->getProjectDir();
+            $csvFilePath = $projectRoot . $input->getArgument('csvPath');
             $parentIdProducts = $input->getArgument('parentIdProducts');
             $parentIdCategories = $input->getArgument('parentIdCategories');
+            $versionNote = $input->getArgument('versionNote');
             $file = fopen($csvFilePath, 'r');
             $headers = fgetcsv($file);
 
-            $mandatoryFields = ['name', 'productName', 'categoryName'];
-            $missingFields = array_diff($mandatoryFields, $headers);
-            if (!empty($missingFields)) {
-                $output->writeln('<error>' . 'Error: Mandatory fields are missing' . '</error>');
+            $mandatoryColumns = ['name', 'productName', 'categoryName'];
+            $missingColumns = array_diff($mandatoryColumns, $headers);
+            if (!empty($missingColumns)) {
+                $output->writeln('<error>' . 'Error:Some of Colums are missing' . '</error>');
                 return Command::FAILURE;
             }
 
             $productsArray = $this->transformData->transformProductsCsvToAssocArray($file, $headers);
 
             foreach ($productsArray as $data) {
-                $categoryObject = DataObject\Category::getById($data['categoryId']);
+                $categoryObject = DataObject\Category::getByPath('/Categories' . '/' . $data['categoryName']);
 
                 if (!$categoryObject) {
                     $newCategory = new DataObject\Category();
                     $newCategory->setKey(\Pimcore\Model\Element\Service::getValidKey($data['categoryName'], 'object'));
-                    $newCategory->setParentId($parentIdCategories);
+                    $newCategory->setParentId($parentIdCategories); //1
                     $newCategory->setName($data['categoryName']);
                     $newCategory->setDescription($data['categoryDescription']);
-                    $newCategory->save(["versionNote" => 'For now a hardcode value is use']);
+                    $newCategory->save(["versionNote" => $versionNote]);
 
                     $categoryObject = $newCategory;
                 }
@@ -68,7 +72,7 @@ class ProductsDataImporter extends Command
                 $newProduct->setSize($data['size']);
 
                 $newProduct->setCategories([$categoryObject]);
-                $newProduct->save(["versionNote" => 'For now a hardcode value is use']);
+                $newProduct->save(["versionNote" => $versionNote]);
             }
 
             return Command::SUCCESS;
