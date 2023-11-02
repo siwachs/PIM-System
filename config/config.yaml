@@ -5,6 +5,7 @@ pimcore:
     bundles:
         search_paths:
             - bundles/RestApiBundle
+            - bundles/FileHandlingBundle
 
 twig:
     paths: ["%kernel.project_dir%/bundles/RestApiBundle/Resources/views"]

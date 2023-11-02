@@ -1,5 +1,5 @@
-name,description,stockAvailability,size,productName,categoryName,categoryDescription,categoryId
-1,albert einstein,Yes,4*7,P1,Electro,CD1,15
-2,isaac newton,Yes,6*7,P2,C1,CD2,15
-3,marie curie,Yes,7*4,P3,C2,CD3,15
-4,galilée,Yes,6*9,P4,C3,CD4,15
+name,description,stockAvailability,size,productName,categoryName,categoryDescription
+1,albert einstein,Yes,4*7,P1,Categoy Update,CD1
+2,isaac newton,Yes,6*7,P2,C1,CD2
+3,marie curie,Yes,7*4,P3,C2,CD3
+4,galilée,Yes,6*9,P4,C3,CD4

@@ -1,0 +1,5 @@
+file_handling:
+    resource: "@FileHandlingBundle/src/Controller/"
+    type:     annotation
+    prefix:   /
+

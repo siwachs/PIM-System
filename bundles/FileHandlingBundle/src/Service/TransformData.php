@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace FileHandlingBundle\Service;
 
 class TransformData
 {

@@ -49,14 +49,15 @@ services:
         public: true
         tags: ["controller.service_arguments"]
 
+    # Listners
+    App\EventListener\ExceptionListener:
+        tags: [kernel.event_listener]
+    App\EventListener\RequestListener:
+        tags: [kernel.event_listener]
+
     #
     # COMMANDS
     #
-
-    # auto-register all commands as services
-    App\Command\:
-        resource: "../src/Command/*"
-        tags: ["console.command"]
 
     # Example custom templating helper
     # App\Templating\Helper\Example:

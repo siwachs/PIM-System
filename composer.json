@@ -12,6 +12,7 @@
   },
   "prefer-stable": true,
   "require": {
+    "phpoffice/phpspreadsheet": "^1.29",
     "pimcore/admin-ui-classic-bundle": "^1.2",
     "pimcore/bundle-generator": "^2.0",
     "pimcore/data-hub": "^1.6",
@@ -31,13 +32,15 @@
     "psr-4": {
       "App\\": "src/",
       "Pimcore\\Model\\DataObject\\": "var/classes/DataObject",
-      "RestApiBundle\\": "bundles/RestApiBundle/src/"
+      "RestApiBundle\\": "bundles/RestApiBundle/src/",
+      "FileHandlingBundle\\": "bundles/FileHandlingBundle/src"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "App\\Tests\\": "tests/",
-      "RestApiBundle\\": "bundles/RestApiBundle/src/"
+      "RestApiBundle\\": "bundles/RestApiBundle/src/",
+      "FileHandlingBundle\\": "bundles/FileHandlingBundle/src"
     }
   },
   "scripts": {
