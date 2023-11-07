@@ -49,12 +49,6 @@ services:
         public: true
         tags: ["controller.service_arguments"]
 
-    # Listners
-    App\EventListener\ExceptionListener:
-        tags: [kernel.event_listener]
-    App\EventListener\RequestListener:
-        tags: [kernel.event_listener]
-
     #
     # COMMANDS
     #

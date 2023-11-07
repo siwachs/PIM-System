@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventListener;
+namespace EventsListenersBundle\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -10,7 +10,6 @@ class ExceptionListener
 {
     public function __invoke(ExceptionEvent $event): void
     {
-        // You get the exception object from the received event
         $exception = $event->getThrowable();
         $message = sprintf(
             'Error: %s with code: %s',
@@ -18,12 +17,9 @@ class ExceptionListener
             $exception->getCode()
         );
 
-        // Customize your response object to display the exception details
         $response = new Response();
         $response->setContent($message);
 
-        // HttpExceptionInterface is a special type of exception that
-        // holds status code and header details
         if ($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
@@ -31,7 +27,6 @@ class ExceptionListener
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        // sends the modified response object to the event
         $event->setResponse($response);
     }
 }
