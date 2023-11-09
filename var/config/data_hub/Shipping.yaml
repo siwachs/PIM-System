@@ -1,0 +1,222 @@
+pimcore_data_hub:
+    configurations:
+        Shipping:
+            general:
+                active: true
+                type: graphql
+                name: Shipping
+                description: 'For Shipping Class'
+                group: ''
+                sqlObjectCondition: ''
+                modificationDate: 1699508804
+                path: null
+                createDate: 1699508108
+            schema:
+                queryEntities:
+                    Shipping:
+                        id: Shipping
+                        name: Shipping
+                        columnConfig:
+                            columns:
+                                -
+                                    attributes:
+                                        attribute: orderNumber
+                                        label: 'Order Number'
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: orderPackageName
+                                        label: 'Order Package   Name'
+                                        dataType: input
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: invoiceNumber
+                                        label: 'Invoice Number'
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: cost
+                                        label: Cost
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: tax
+                                        label: Tax
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: orderDate
+                                        label: 'Order Date'
+                                        dataType: datetime
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: vendor
+                                        label: Vendor
+                                        dataType: input
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: deliveryDate
+                                        label: 'Delivery Date'
+                                        dataType: datetime
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: shipFromAddress
+                                        label: 'Ship From Address'
+                                        dataType: textarea
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: shipToAddress
+                                        label: 'Ship To Address'
+                                        dataType: textarea
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: description
+                                        label: Description
+                                        dataType: textarea
+                                    isOperator: false
+                mutationEntities:
+                    Shipping:
+                        id: Shipping
+                        name: Shipping
+                        update: true
+                        create: true
+                        delete: true
+                        columnConfig:
+                            columns:
+                                -
+                                    attributes:
+                                        attribute: orderNumber
+                                        label: 'Order Number'
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: orderPackageName
+                                        label: 'Order Package   Name'
+                                        dataType: input
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: invoiceNumber
+                                        label: 'Invoice Number'
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: cost
+                                        label: Cost
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: tax
+                                        label: Tax
+                                        dataType: numeric
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: orderDate
+                                        label: 'Order Date'
+                                        dataType: datetime
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: vendor
+                                        label: Vendor
+                                        dataType: input
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: deliveryDate
+                                        label: 'Delivery Date'
+                                        dataType: datetime
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: shipFromAddress
+                                        label: 'Ship From Address'
+                                        dataType: textarea
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: shipToAddress
+                                        label: 'Ship To Address'
+                                        dataType: textarea
+                                    isOperator: false
+                                -
+                                    attributes:
+                                        attribute: description
+                                        label: Description
+                                        dataType: textarea
+                                    isOperator: false
+                specialEntities:
+                    document:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+                    document_folder:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+                    asset:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+                    asset_folder:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+                    asset_listing:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+                    object_folder:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+                    translation:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+                    translation_listing:
+                        read: false
+                        create: false
+                        update: false
+                        delete: false
+            security:
+                method: datahub_apikey
+                apikey:
+                    - 67c36444308d9c107edba213cbaa7344
+                skipPermissionCheck: false
+                disableIntrospection: false
+            workspaces:
+                asset: {  }
+                document: {  }
+                object:
+                    -
+                        read: true
+                        cpath: /Shipping
+                        create: true
+                        update: true
+                        delete: true
+                        id: extModel795-1
+            permissions:
+                user: {  }
+                role: {  }

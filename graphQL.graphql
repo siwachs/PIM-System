@@ -1,0 +1,114 @@
+# Get List Without pagination (Select *).
+{
+    getShippingListing(published: true) {
+        totalCount
+        edges {
+            node {
+                id
+            }
+        }
+    }
+}
+
+# Get List with Pagination (Slect with Limit)
+{
+    getShippingListing(published: true, first: 2, after: 1) {
+        totalCount
+        edges {
+            node {
+                id
+                orderPackageName
+            }
+        }
+    }
+}
+
+# Sorting
+{
+    getShippingListing(published: true, sortBy: "id", sortOrder: "DESC") {
+        totalCount
+        edges {
+            node {
+                id
+                orderPackageName
+            }
+        }
+    }
+}
+
+# Listing with ids
+{
+    getShippingListing(published: true, ids: "104, 103, 102") {
+        totalCount
+        edges {
+            node {
+                id
+                orderPackageName
+            }
+        }
+    }
+}
+
+# Listing with fullpaths
+{
+    getShippingListing(published: true, fullpaths: "/Shipping/Shipping 1") {
+        totalCount
+        edges {
+            node {
+                id
+                orderPackageName
+            }
+        }
+    }
+}
+
+# This Query use to write data in Shipping directory (Insert).
+mutation {
+    createShipping(
+        parentId: 91
+        key: "Shipping 10"
+        published: true
+        input: {
+            orderNumber: 1
+            orderPackageName: "Package 1"
+            invoiceNumber: 829
+            cost: 90.89
+            tax: 6733
+            orderDate: "05/10/2000"
+            vendor: "New vendor"
+            deliveryDate: "10/10/2023"
+            shipToAddress: "Ship to address"
+            shipFromAddress: "Ship From Address"
+            description: "Desc of product"
+        }
+    ) {
+        success
+        message
+        output {
+            orderNumber
+        }
+    }
+}
+
+#update
+mutation {
+    updateShipping(
+        parentId: 91
+        id: 93
+        input: { description: "This is description of product that update." }
+    ) {
+        success
+        message
+        output {
+            modificationDate
+        }
+    }
+}
+
+#delete
+mutation {
+    deleteShipping(id: 93) {
+        success
+        message
+    }
+}
