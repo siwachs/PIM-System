@@ -1,0 +1,27 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    bruteForce:
+                        items:
+                            -
+                                method: contain
+                                arguments:
+                                    width: 800
+                                    height: 600
+                                    forceResize: true
+                        medias: {  }
+                        name: bruteForce
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1699720449
+                        creationDate: 1699720383
+                        preserveAnimation: false

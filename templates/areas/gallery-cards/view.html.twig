@@ -14,24 +14,44 @@
   </div>
 {% endif %}
 
-{% set id = 'gallery-cards-' ~ uniqid() %}
+{% set id = 'cards-carousel-' ~ uniqid() %}
 {% set cards = cardsSelect.getData()|default(1) %}
 
-{% for i in 0..slides - 1 %}
-  <div class="col-12 col-md-6 col-lg-4 mb-4">
-    <div class="card">
-      <img src="https://via.placeholder.com/150" class="card-img-top" alt="Product 1" />
-      <div class="card-body">
-        <h5 class="card-title">Product 1</h5>
-        <p class="card-text">Description of Product 1.</p>
-        <p class="card-text">
-          <strong>$19.99</strong>
-        </p>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-outline-secondary">Add to Cart</button>
-          <button type="button" class="btn btn-primary">Buy Now</button>
-        </div>
+<div class="row">
+  {% for i in 0..cards - 1 %}
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="card">
+        {% if editmode %}
+          {{ pimcore_image('card_image_' ~ i, { thumbnail: 'productCard', hideText: true, dropClass: id ~ '-' ~ i }) }}
+
+          <div class="card-body">
+            <h5 class="card-title">{{ pimcore_input('card_title_' ~ i, { width: 130 }) }}</h5>
+            <p class="card-text">{{ pimcore_input('card_text_' ~ i, { width: 130 }) }}</p>
+            <p class="card-text">
+              <strong>${{ pimcore_input('card_price_' ~ i, { width: 130 }) }}</strong>
+            </p>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-secondary">Add to Cart</button>
+              <button type="button" class="btn btn-primary">Buy Now</button>
+            </div>
+          </div>
+        {% else %}
+          {% set thumbnail = pimcore_image('card_image_' ~ i).getThumbnail('productCard') %}
+          <img src="{{ thumbnail }}" width="{{ thumbnail.width }}" height="{{ thumbnail.height }}" alt="" class="card-img-top" />
+
+          <div class="card-body">
+            <h5 class="card-title">{{ pimcore_input('card_title_' ~ i).getData() }}</h5>
+            <p class="card-text">{{ pimcore_input('card_text_' ~ i).getData() }}</p>
+            <p class="card-text">
+              <strong>${{ pimcore_input('card_price_' ~ i).getData() }}</strong>
+            </p>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-secondary">Add to Cart</button>
+              <button type="button" class="btn btn-primary">Buy Now</button>
+            </div>
+          </div>
+        {% endif %}
       </div>
     </div>
-  </div>
-{% endfor %}
+  {% endfor %}
+</div>

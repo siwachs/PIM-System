@@ -9,6 +9,7 @@
 
   <div class="container mt-3 mb-5">
     <h2 class="mb-3">{{ pimcore_input('featured-products', { width: 540 }) }}</h2>
-    <div class="row">{{ pimcore_areablock('product-cards-contnet', { allowed: ['gallery-cards'] }) }}</div>
+
+    {{ pimcore_areablock('product-cards-contnet', { allowed: ['gallery-cards'] }) }}
   </div>
 {% endblock %}

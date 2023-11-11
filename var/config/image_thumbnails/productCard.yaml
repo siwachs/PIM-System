@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    productCard:
+                        items:
+                            -
+                                method: resize
+                                arguments:
+                                    width: 200
+                                    height: 200
+                        medias: {  }
+                        name: productCard
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1699721161
+                        creationDate: 1699720638
+                        preserveAnimation: false
