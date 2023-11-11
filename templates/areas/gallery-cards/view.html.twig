@@ -1,0 +1,37 @@
+{% set selectStore = [] %}
+{% for i in 1..6 %}
+  {% set selectStore = selectStore|merge([i]) %}
+{% endfor %}
+
+{% set cardsSelect = pimcore_select('cards', { store: selectStore, reload: true, width: 70, class: 'align-middle' }) %}
+
+{% if editmode %}
+  <div class="alert alert-secondary col-xs-12" style="height: 75px;">
+    <div class="col-xs-6 d-inline mx-auto">
+      <span class="editmode-label align-middle">How many cards do you want to show?</span>
+      {{ cardsSelect|raw }}
+    </div>
+  </div>
+{% endif %}
+
+{% set id = 'gallery-cards-' ~ uniqid() %}
+{% set cards = cardsSelect.getData()|default(1) %}
+
+{% for i in 0..slides - 1 %}
+  <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <div class="card">
+      <img src="https://via.placeholder.com/150" class="card-img-top" alt="Product 1" />
+      <div class="card-body">
+        <h5 class="card-title">Product 1</h5>
+        <p class="card-text">Description of Product 1.</p>
+        <p class="card-text">
+          <strong>$19.99</strong>
+        </p>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-outline-secondary">Add to Cart</button>
+          <button type="button" class="btn btn-primary">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}

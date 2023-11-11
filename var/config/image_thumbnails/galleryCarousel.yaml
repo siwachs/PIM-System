@@ -6,39 +6,21 @@ pimcore:
                     galleryCarousel:
                         items:
                             -
-                                method: cover
+                                method: resize
                                 arguments:
-                                    width: 1920
-                                    height: 640
-                                    positioning: center
-                                    forceResize: true
-                        medias:
-                            '(min-width: 1280px)':
-                                -
-                                    method: cover
-                                    arguments:
-                                        width: 1280
-                                        height: 500
-                                        positioning: center
-                                        forceResize: false
-                            '(min-width: 768px)':
-                                -
-                                    method: cover
-                                    arguments:
-                                        width: 768
-                                        height: 650
-                                        positioning: center
-                                        forceResize: false
+                                    width: 1280
+                                    height: 620
+                        medias: {  }
                         name: galleryCarousel
-                        description: Areas
-                        group: ''
-                        format: SOURCE
-                        quality: 85
-                        highResolution: null
+                        description: ''
+                        group: Areas
+                        format: ORIGINAL
+                        quality: 100
+                        highResolution: 1.0
                         preserveColor: false
                         preserveMetaData: false
                         rasterizeSVG: false
                         downloadable: false
-                        modificationDate: 1699696260
-                        creationDate: 1699696004
+                        modificationDate: 1699714100
+                        creationDate: 1699704482
                         preserveAnimation: false
