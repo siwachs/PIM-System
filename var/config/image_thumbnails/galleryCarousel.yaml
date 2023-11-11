@@ -1,0 +1,44 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    galleryCarousel:
+                        items:
+                            -
+                                method: cover
+                                arguments:
+                                    width: 1920
+                                    height: 640
+                                    positioning: center
+                                    forceResize: true
+                        medias:
+                            '(min-width: 1280px)':
+                                -
+                                    method: cover
+                                    arguments:
+                                        width: 1280
+                                        height: 500
+                                        positioning: center
+                                        forceResize: false
+                            '(min-width: 768px)':
+                                -
+                                    method: cover
+                                    arguments:
+                                        width: 768
+                                        height: 650
+                                        positioning: center
+                                        forceResize: false
+                        name: galleryCarousel
+                        description: Areas
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1699696260
+                        creationDate: 1699696004
+                        preserveAnimation: false

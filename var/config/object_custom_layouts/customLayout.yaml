@@ -7,7 +7,7 @@ pimcore:
                     name: customLayout
                     description: ''
                     creationDate: 1698926650
-                    modificationDate: 1698926666
+                    modificationDate: 1699627846
                     userOwner: 2
                     classId: '2'
                     layoutDefinitions:

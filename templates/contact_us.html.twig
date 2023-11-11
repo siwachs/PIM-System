@@ -1,0 +1,39 @@
+{% extends 'layout/app.html.twig' %}
+
+{% block PAGE_TITLE %}
+  <title>Contact Us</title>
+{% endblock %}
+
+{% block PAGE_CONTENT %}
+  <div class="container mt-3 mb-5">
+    <h1>Contact Us</h1>
+    <p>Feel free to reach out to us with any questions or inquiries. We are here to help!</p>
+
+    <div class="row">
+      <div class="col-md-6">
+        <form>
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" name="fullName" required />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" required />
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <h4>Our Office</h4>
+        <p class="mb-5">{{ pimcore_textarea('office_address', { nl2br: true, height: 300, placeholder: 'Office Address' }) }}</p>
+
+        <p class="mb-5">{{ pimcore_textarea('email_and_mobile', { nl2br: true, height: 300, placeholder: 'Email And Mobile' }) }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    custom:
+                        items:
+                            -
+                                method: contain
+                                arguments:
+                                    width: 800
+                                    height: 400
+                                    forceResize: true
+                        medias: {  }
+                        name: custom
+                        description: 'for custom images.'
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1699638283
+                        creationDate: 1699637865
+                        preserveAnimation: false

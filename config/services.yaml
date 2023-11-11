@@ -49,6 +49,10 @@ services:
         public: true
         tags: ["controller.service_arguments"]
 
+    # Twig Ext
+    App\Twig\Extension\UniqidExtension:
+        tags: ["twig.extension"]
+
     #
     # COMMANDS
     #

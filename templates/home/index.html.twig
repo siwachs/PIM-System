@@ -1,0 +1,10 @@
+{% extends 'layout/app.html.twig' %}
+
+{% block PAGE_TITLE %}
+  <title>HOME</title>
+{% endblock %}
+
+{% block PAGE_CONTENT %}
+  {{ pimcore_snippet('carousel', { width: 800, height: 200 }) }}
+  <div class="container"></div>
+{% endblock %}

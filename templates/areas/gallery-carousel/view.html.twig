@@ -1,0 +1,66 @@
+<section class="area-gallery-carousel">
+  {% set selectStore = [] %}
+  {% for i in 2..29 %}
+    {% set selectStore = selectStore|merge([i]) %}
+  {% endfor %}
+
+  {% set slidesSelect = pimcore_select('slides', { store: selectStore, reload: true, width: 70, class: 'align-middle' }) %}
+
+  {% set showPreviewsCheckbox = pimcore_checkbox('showPreviews', { class: 'align-middle pt-7px' }) %}
+  {% set showPreviewsCheckbox = showPreviewsCheckbox.isChecked and not editmode %}
+
+  {% set id = 'gallery-carousel-' ~ uniqid() %}
+  {% set slides = slidesSelect.getData()|default(2) %}
+
+  {% if editmode %}
+    <div class="alert alert-secondary col-xs-12" style="height: 75px;">
+      <div class="col-xs-6 d-inline mx-auto">
+        <span class="editmode-label align-middle">How many images do you want to show?</span>
+        {{ slidesSelect|raw }}
+      </div>
+      <div class="col-xs-6 d-inline mx-auto">
+        <span class="editmode-label align-middle">Show Previews?</span>
+        {{ showPreviewsCheckbox|raw }}
+      </div>
+    </div>
+  {% endif %}
+
+  <div id="{{ id }}" class="carousel slide mb-0" data-bs-ride="carousel" {{ editmode ? 'data-bs-interval="false"' : '' }}>
+    <div class="carousel-indicators {{ showPreviewsCheckbox ? 'preview visible-lg' : '' }} ">
+      {% for i in 0..slides - 1 %}
+        <button type="button" data-bs-target="#{{ id }}" data-bs-slide-to="{{ i }}" class="{{ loop.first ? 'active' : '' }}">
+          {% if showPreviews %}
+            {{ pimcore_image('image_' ~ i, { thumbnail: 'galleryCarouselPreview' }) }}
+          {% endif %}
+        </button>
+      {% endfor %}
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <rect width="100%" height="100%" fill="#777" />
+        </svg>
+
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Example headline.</h1>
+            <p>Some representative placeholder content for the first slide of the carousel.</p>
+            <p>
+              <a class="btn btn-lg btn-primary" href="#">Sign up today</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#{{ id }}" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#{{ id }}" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
