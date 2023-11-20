@@ -34,10 +34,12 @@
               <button type="button" class="btn btn-outline-secondary">Add to Cart</button>
               <button type="button" class="btn btn-primary">Buy Now</button>
             </div>
+
+            <p>Add a link for this product: {{ pimcore_link('card_link' ~ i, { class: 'btn btn-primary' }) }}</p>
           </div>
         {% else %}
           {% set thumbnail = pimcore_image('card_image_' ~ i).getThumbnail('productCard') %}
-          <img src="{{ thumbnail }}" width="{{ thumbnail.width }}" height="{{ thumbnail.height }}" alt="" class="card-img-top" />
+          <a href="{{ pimcore_link('card_link' ~ i).getHref() }}"><img src="{{ thumbnail }}" width="{{ thumbnail.width }}" height="{{ thumbnail.height }}" alt="" class="card-img-top" /></a>
 
           <div class="card-body">
             <h5 class="card-title">{{ pimcore_input('card_title_' ~ i).getData() }}</h5>

@@ -51,4 +51,13 @@ class ShopController extends FrontendController
     {
         return [];
     }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function productDetailsAction(Request $request)
+    {
+        return [];
+    }
 }

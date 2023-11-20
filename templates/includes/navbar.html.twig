@@ -1,0 +1,50 @@
+{% set navStartNode = document.getProperty('navigation_root') %}
+{% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page')  %}
+    {% if pimcore_site_is_request() %}
+        {% set site = pimcore_site_current() %}
+        {% set navStartNode = site.getRootDocument() %}
+    {% else %}
+        {% set navStartNode = pimcore_document(1) %}
+    {% endif %}
+{% endif %}
+ 
+{% set mainNavigation = pimcore_build_nav({active: document, root: navStartNode}) %}
+ 
+{% set menuRenderer = pimcore_nav_renderer('menu') %}
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Navbar Logo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% for page in mainNavigation %}
+            {% if page.isVisible() and menuRenderer.accept(page) %}
+              {% set hasChildren = page.hasPages() %}
+              {% if not hasChildren %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ page.getHref() }}">{{ page.getLabel() }}</a>
+                </li>
+              {% else %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ page.getLabel() }}</a>
+                  <ul class="dropdown-menu">
+                    {% for child in page.getPages() %}
+                      {% if child.isVisible() and menuRenderer.accept(child) %}
+                        <li>
+                          <a class="dropdown-item" href="{{ child.getHref() }}">{{ child.getLabel() }}</a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -3,16 +3,15 @@ pimcore:
         image:
             thumbnails:
                 definitions:
-                    bruteForce:
+                    productDetails:
                         items:
                             -
-                                method: contain
+                                method: resize
                                 arguments:
-                                    width: 800
+                                    width: 430
                                     height: 600
-                                    forceResize: true
                         medias: {  }
-                        name: bruteForce
+                        name: productDetails
                         description: ''
                         group: ''
                         format: SOURCE
@@ -22,6 +21,6 @@ pimcore:
                         preserveMetaData: false
                         rasterizeSVG: false
                         downloadable: false
-                        modificationDate: 1699720449
-                        creationDate: 1699720383
+                        modificationDate: 1700459309
+                        creationDate: 1700459295
                         preserveAnimation: false

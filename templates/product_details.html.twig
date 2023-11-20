@@ -1,0 +1,104 @@
+{% extends 'layout/app.html.twig' %}
+
+{% block PAGE_TITLE %}
+  <title>Product Details</title>
+{% endblock %}
+
+{% block PAGE_STYLE %}
+  <style>
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 0 solid transparent;
+      border-radius: 0;
+    }
+    
+    .card .card-subtitle {
+      font-weight: 300;
+      margin-bottom: 10px;
+      color: #8898aa;
+    }
+    
+    .table-product.table-striped tbody tr:nth-of-type(odd) {
+      background-color: #f3f8fa !important;
+    }
+    
+    .table-product td {
+      border-top: 0px solid #dee2e6 !important;
+      color: #728299 !important;
+    }
+  </style>
+{% endblock %}
+
+{% block PAGE_CONTENT %}
+  <div class="container my-3">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">{{ pimcore_input('product_details_title', { width: 540 }) }}</h3>
+        <h6 class="card-subtitle">{{ pimcore_input('product_details_subtitle', { width: 540 }) }}</h6>
+
+        <div class="row">
+          <div class="col-lg-5 col-md-5 col-sm-6">
+            <div class="white-box text-center">{{ pimcore_image('product_details_image', { title: 'Drag your image here.', width: 430, height: 600, thumbnail: 'productDetails' }) }}</div>
+          </div>
+
+          <div class="col-lg-7 col-md-7 col-sm-6">
+            <h4 class="box-title mt-5">{{ pimcore_input('product_details_short_description', { width: 540 }) }}</h4>
+
+            <p>{{ pimcore_textarea('product_details_logn_description', { nl2br: true, height: 300, placeholder: 'Decription' }) }}</p>
+
+            <h2 class="mt-5">${{ pimcore_input('product_details_price', { width: 200 }) }}<small class="text-success">({{ pimcore_input('product_details_offer_percentage', { width: 200 }) }}%off)</small></h2>
+
+            <button class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">Add to cart</button>
+            <button class="btn btn-primary btn-rounded">Buy Now</button>
+
+            {% set selectStore = [] %}
+            {% for i in 1..6 %}
+              {% set selectStore = selectStore|merge([i]) %}
+            {% endfor %}
+
+            {% set highlightsSelect = pimcore_select('highligth', { store: selectStore, reload: true, width: 70, class: 'align-middle' }) %}
+
+            {% if editmode %}
+              <div class="alert alert-secondary col-xs-12" style="height: 75px;">
+                <div class="col-xs-6 d-inline mx-auto">
+                  <span class="editmode-label align-middle">How many key highlights do you want to show?</span>
+                  {{ highlightsSelect|raw }}
+                </div>
+              </div>
+            {% endif %}
+
+            {% set highlights = highlightsSelect.getData()|default(1) %}
+
+            <h3 class="box-title mt-5">Key Highlights</h3>
+            <ul class="list-unstyled">
+              {% for i in 0..highlights - 1 %}
+                <li>{{ pimcore_input('product_details_highlight_' ~ i, { width: 540 }) }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3 class="box-title mt-5">General Info</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-product">
+                <caption>General Information List</caption>
+                <tbody>
+                  <tr>
+                    <th>Brand</th>
+                    <td>Boat</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
