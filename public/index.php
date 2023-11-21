@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore
  *
@@ -16,7 +17,7 @@ use Pimcore\Bootstrap;
 use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\Request;
 
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 
 Bootstrap::setProjectRoot();
 Bootstrap::bootstrap();
