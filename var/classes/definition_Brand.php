@@ -1,23 +1,27 @@
 <?php
 
 /**
- * Inheritance: yes
- * Variants: yes
+ * Inheritance: no
+ * Variants: no
+ * Title: Brand
  *
  * Fields Summary:
+ * - logo [image]
  * - localizedfields [localizedfields]
  * -- name [input]
- * -- description [textarea]
+ * -- address [textarea]
+ * -- contact [textarea]
+ * - Country [country]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'Category',
-   'name' => 'Category',
-   'title' => '',
+   'id' => 'Brand',
+   'name' => 'Brand',
+   'title' => 'Brand',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700545422,
+   'modificationDate' => 1700556721,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -29,9 +33,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => true,
-   'allowVariants' => true,
-   'showVariants' => true,
+   'allowInherit' => false,
+   'allowVariants' => false,
+   'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
@@ -61,6 +65,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+             'name' => 'logo',
+             'title' => 'Logo',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'uploadPath' => '',
+             'width' => '',
+             'height' => '',
+          )),
+          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'name' => 'localizedfields',
              'title' => 'Localized data',
@@ -113,8 +140,33 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'description',
-                 'title' => 'Description',
+                 'name' => 'address',
+                 'title' => 'Address',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxLength' => NULL,
+                 'showCharCount' => true,
+                 'excludeFromSearchIndex' => false,
+                 'height' => '',
+                 'width' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'name' => 'contact',
+                 'title' => 'Contact',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -152,6 +204,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
              'fieldDefinitionsCache' => NULL,
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
+             'name' => 'Country',
+             'title' => 'Country',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'dynamicOptions' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => NULL,
+             'optionsProviderClass' => NULL,
+             'optionsProviderData' => NULL,
+             'restrictTo' => '',
           )),
         ),
          'locked' => false,
