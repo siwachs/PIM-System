@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Brand',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700556721,
+   'modificationDate' => 1700629887,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -113,7 +113,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
                  'tooltip' => '',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'regexFlags' => 
                 array (
                 ),
-                 'unique' => false,
+                 'unique' => true,
                  'showCharCount' => true,
                  'width' => '',
                  'defaultValueGenerator' => '',

@@ -3,24 +3,27 @@
 /**
  * Inheritance: no
  * Variants: no
- * Title: Manufacturer
  *
  * Fields Summary:
  * - localizedfields [localizedfields]
  * -- name [input]
- * -- address [textarea]
- * -- contact [textarea]
- * - Country [country]
+ * -- description [textarea]
+ * - technolgy [input]
+ * - size [input]
+ * - speed [input]
+ * - cache [input]
+ * - generation [input]
+ * - Brand [manyToManyObjectRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'Manufacturer',
-   'name' => 'Manufacturer',
-   'title' => 'Manufacturer',
+   'id' => 'Processor',
+   'name' => 'Processor',
+   'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630059,
+   'modificationDate' => 1700630514,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -116,33 +119,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'address',
-                 'title' => 'Address',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'maxLength' => NULL,
-                 'showCharCount' => true,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'contact',
-                 'title' => 'Contact',
+                 'name' => 'description',
+                 'title' => 'Description',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -182,9 +160,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldDefinitionsCache' => NULL,
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
-             'name' => 'Country',
-             'title' => 'Country',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'technolgy',
+             'title' => 'Technolgy',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -195,20 +173,181 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
              'blockedVarsForExport' => 
             array (
             ),
              'defaultValue' => NULL,
              'columnLength' => 190,
-             'dynamicOptions' => false,
-             'defaultValueGenerator' => '',
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => true,
              'width' => '',
-             'optionsProviderType' => NULL,
-             'optionsProviderClass' => NULL,
-             'optionsProviderData' => NULL,
-             'restrictTo' => '',
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'size',
+             'title' => 'Size',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => true,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'speed',
+             'title' => 'Speed',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => true,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'cache',
+             'title' => 'Cache',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => true,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'generation',
+             'title' => 'Generation',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => true,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+             'name' => 'Brand',
+             'title' => 'Brand',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Brand',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'visibleFields' => 'id,name,logo',
+             'allowToCreateNewObject' => false,
+             'allowToClearRelation' => true,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,

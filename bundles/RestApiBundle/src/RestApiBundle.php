@@ -21,5 +21,4 @@ class RestApiBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminC
             '/bundles/restapi/js/pimcore/startup.js'
         ];
     }
-
 }

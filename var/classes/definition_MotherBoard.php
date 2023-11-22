@@ -1,23 +1,24 @@
 <?php
 
 /**
- * Inheritance: yes
- * Variants: yes
+ * Inheritance: no
+ * Variants: no
  *
  * Fields Summary:
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
+ * - Brand [manyToManyObjectRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'Category',
-   'name' => 'Category',
+   'id' => 'MotherBoard',
+   'name' => 'MotherBoard',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630008,
+   'modificationDate' => 1700630171,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -29,9 +30,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => true,
-   'allowVariants' => true,
-   'showVariants' => true,
+   'allowInherit' => false,
+   'allowVariants' => false,
+   'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
@@ -152,6 +153,46 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
              'fieldDefinitionsCache' => NULL,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+             'name' => 'Brand',
+             'title' => 'Brand',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Brand',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'visibleFields' => 'id,name,logo',
+             'allowToCreateNewObject' => false,
+             'allowToClearRelation' => true,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,

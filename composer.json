@@ -33,7 +33,6 @@
       "App\\": "src/",
       "Pimcore\\Model\\DataObject\\": "var/classes/DataObject",
       "RestApiBundle\\": "bundles/RestApiBundle/src/",
-      "FileHandlingBundle\\": "bundles/FileHandlingBundle/src",
       "EventsListenersBundle\\": "bundles/EventsListenersBundle/src"
     }
   },

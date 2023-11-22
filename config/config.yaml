@@ -6,7 +6,6 @@ pimcore:
     bundles:
         search_paths:
             - bundles/RestApiBundle
-            - bundles/FileHandlingBundle
             - bundles/EventsListenersBundle
 
 twig:

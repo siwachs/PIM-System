@@ -12,6 +12,5 @@ return [
     PimcoreDataImporterBundle::class => ['all' => true],
     PimcoreCustomReportsBundle::class => ['all' => true],
     RestApiBundle\RestApiBundle::class => ['all' => true],
-    FileHandlingBundle\FileHandlingBundle::class => ['all' => true],
     EventsListenersBundle\EventsListenersBundle::class => ['all' => true],
 ];
