@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Manufacturer',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630059,
+   'modificationDate' => 1700722456,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -267,6 +267,36 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+       'name' => 'name',
+       'title' => 'Name',
+       'tooltip' => '',
+       'mandatory' => true,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => true,
+       'visibleSearch' => true,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'columnLength' => 190,
+       'regex' => '',
+       'regexFlags' => 
+      array (
+      ),
+       'unique' => false,
+       'showCharCount' => true,
+       'width' => '',
+       'defaultValueGenerator' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

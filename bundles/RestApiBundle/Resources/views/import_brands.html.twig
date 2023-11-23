@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	Import Brands
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<h2 class="mt-4 mb-4">Upload Images and XLS File</h2>
+		<form action="" method="post" enctype="multipart/form-data">
+			<div class="mb-3">
+				<label for="imageUpload" class="form-label">Select Multiple Images:</label>
+				<input type="file" class="form-control" id="imageUpload" name="images[]" multiple accept="image/*">
+				<small class="form-text text-muted">Select multiple image files (jpg, png, etc.).</small>
+			</div>
+
+			<div class="mb-3">
+				<label for="xlsFile" class="form-label">Select XLS File:</label>
+				<input type="file" class="form-control" id="xlsFile" name="xlsFile" accept=".xls, .xlsx">
+				<small class="form-text text-muted">Select an XLS or XLSX file.</small>
+			</div>
+			<button name="importBrands" type="submit" class="btn btn-primary">Upload</button>
+		</form>
+	</div>
+{% endblock %}

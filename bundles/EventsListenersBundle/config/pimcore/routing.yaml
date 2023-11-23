@@ -1,5 +1,0 @@
-events_listeners:
-    resource: "@EventsListenersBundle/src/Controller/"
-    type:     annotation
-    prefix:   /
-

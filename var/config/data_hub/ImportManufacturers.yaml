@@ -1,170 +1,193 @@
 pimcore_data_hub:
     configurations:
-        ShippingImporter:
+        ImportManufacturers:
             general:
                 type: dataImporterDataObject
-                name: ShippingImporter
-                description: 'For Import shipping data'
-                group: ''
+                name: ImportManufacturers
+                description: ''
+                group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1699519710
-                createDate: 1699518466
+                modificationDate: 1700722681
+                createDate: 1700721612
             loaderConfig:
                 type: asset
                 settings:
-                    assetPath: '/Files to Import/For Importing.csv'
+                    assetPath: '/CSV To Import/Database.xlsx'
             interpreterConfig:
-                type: csv
+                type: xlsx
                 settings:
                     skipFirstRow: true
-                    delimiter: ;
-                    enclosure: '"'
-                    escape: \
+                    sheetName: Manufacturers
             resolverConfig:
                 elementType: dataObject
-                dataObjectClassId: '3'
+                dataObjectClassId: Manufacturer
                 loadingStrategy:
-                    type: notLoad
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '0'
+                        attributeName: name
+                        language: en
+                        includeUnpublished: true
                 createLocationStrategy:
                     type: staticPath
                     settings:
-                        path: /Shipping
+                        path: /Manufacturers
                 locationUpdateStrategy:
-                    type: noChange
+                    type: staticPath
+                    settings:
+                        path: /Manufacturers
                 publishingStrategy:
-                    type: noChangeUnpublishNew
+                    type: alwaysPublish
             processingConfig:
                 executionType: sequential
                 idDataIndex: ''
             mappingConfig:
                 -
-                    label: orderNumber
+                    label: 'Manufacturer [0]'
                     dataSourceIndex:
-                        - '5'
-                    transformationResultType: numeric
+                        - '0'
+                    transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: orderNumber
-                            language: ''
+                            fieldName: name
+                            language: en
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
+                    transformationPipeline: {  }
                 -
-                    label: packageName
+                    label: 'Address [1]'
+                    dataSourceIndex:
+                        - '1'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: address
+                            language: en
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Contact [2]'
+                    dataSourceIndex:
+                        - '2'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: contact
+                            language: en
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'German Name [3]'
+                    dataSourceIndex:
+                        - '3'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: de
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'German Address [4]'
+                    dataSourceIndex:
+                        - '4'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: address
+                            language: de
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'German Contact [5]'
+                    dataSourceIndex:
+                        - '5'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: contact
+                            language: de
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'French Name [6]'
                     dataSourceIndex:
                         - '6'
                     transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: orderPackageName
-                            language: ''
+                            fieldName: name
+                            language: fr
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: invoceNumber
+                    label: 'French Address [7]'
                     dataSourceIndex:
                         - '7'
-                    transformationResultType: numeric
+                    transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: invoiceNumber
-                            language: ''
+                            fieldName: address
+                            language: fr
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
+                    transformationPipeline: {  }
                 -
-                    label: cost
+                    label: 'French Contact [8]'
                     dataSourceIndex:
                         - '8'
-                    transformationResultType: numeric
+                    transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: cost
-                            language: ''
+                            fieldName: contact
+                            language: fr
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
+                    transformationPipeline: {  }
                 -
-                    label: tax
+                    label: 'Country [9]'
                     dataSourceIndex:
                         - '9'
-                    transformationResultType: numeric
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: tax
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
-                -
-                    label: vendor
-                    dataSourceIndex:
-                        - '11'
                     transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: vendor
+                            fieldName: Country
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: shipFrom
+                    label: o_key
                     dataSourceIndex:
-                        - '13'
+                        - '0'
                     transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: shipFromAddress
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
-                    label: shipTo
-                    dataSourceIndex:
-                        - '14'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: shipToAddress
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
-                    label: desc
-                    dataSourceIndex:
-                        - '15'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: description
+                            fieldName: key
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
             executionConfig:
-                scheduleType: job
+                scheduleType: recurring
                 cronDefinition: ''
                 scheduledAt: ''
             permissions:

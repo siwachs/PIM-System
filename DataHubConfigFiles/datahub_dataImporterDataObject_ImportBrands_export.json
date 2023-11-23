@@ -1,0 +1,287 @@
+{
+    "type": "dataImporterDataObject",
+    "path": "",
+    "name": "ImportBrands",
+    "group": "Data Importers",
+    "configuration": {
+        "general": {
+            "type": "dataImporterDataObject",
+            "name": "ImportBrands",
+            "description": "",
+            "group": "Data Importers",
+            "active": false,
+            "path": null
+        },
+        "loaderConfig": {
+            "type": "asset",
+            "settings": {
+                "assetPath": "\/CSV To Import\/Database.xlsx"
+            }
+        },
+        "interpreterConfig": {
+            "type": "xlsx",
+            "settings": {
+                "skipFirstRow": true,
+                "sheetName": "Brands"
+            }
+        },
+        "resolverConfig": {
+            "elementType": "dataObject",
+            "dataObjectClassId": "Brand",
+            "loadingStrategy": {
+                "type": "attribute",
+                "settings": {
+                    "dataSourceIndex": "1",
+                    "attributeName": "name",
+                    "language": "en",
+                    "includeUnpublished": true
+                }
+            },
+            "createLocationStrategy": {
+                "type": "staticPath",
+                "settings": {
+                    "path": "\/Brands"
+                }
+            },
+            "locationUpdateStrategy": {
+                "type": "staticPath",
+                "settings": {
+                    "path": "\/Brands"
+                }
+            },
+            "publishingStrategy": {
+                "type": "alwaysPublish"
+            }
+        },
+        "processingConfig": {
+            "executionType": "sequential",
+            "idDataIndex": ""
+        },
+        "mappingConfig": [
+            {
+                "label": "Logo [0]",
+                "dataSourceIndex": [
+                    "0"
+                ],
+                "settings": {
+                    "loadStrategy": "path"
+                },
+                "transformationResultType": "asset",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "logo",
+                        "language": "",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": [
+                    {
+                        "settings": {
+                            "loadStrategy": "path"
+                        },
+                        "type": "loadAsset"
+                    }
+                ]
+            },
+            {
+                "label": "Name [1]",
+                "dataSourceIndex": [
+                    "1"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "name",
+                        "language": "en",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "Address [2]",
+                "dataSourceIndex": [
+                    "2"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "address",
+                        "language": "en",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "Contact [3]",
+                "dataSourceIndex": [
+                    "3"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "contact",
+                        "language": "en",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "German Name [4]",
+                "dataSourceIndex": [
+                    "4"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "name",
+                        "language": "de",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "German Address [5]",
+                "dataSourceIndex": [
+                    "5"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "address",
+                        "language": "de",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "German Contact [6]",
+                "dataSourceIndex": [
+                    "6"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "contact",
+                        "language": "de",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "French Name [7]",
+                "dataSourceIndex": [
+                    "7"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "name",
+                        "language": "fr",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "French Address [8]",
+                "dataSourceIndex": [
+                    "8"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "address",
+                        "language": "fr",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "French Contact [9]",
+                "dataSourceIndex": [
+                    "9"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "contact",
+                        "language": "fr",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "Country [10]",
+                "dataSourceIndex": [
+                    "10"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "Country",
+                        "language": "",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "o_key",
+                "dataSourceIndex": [
+                    "1"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "key",
+                        "language": "",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            }
+        ],
+        "executionConfig": {
+            "scheduleType": "recurring",
+            "cronDefinition": "",
+            "scheduledAt": ""
+        },
+        "permissions": {
+            "user": [],
+            "role": []
+        },
+        "workspaces": []
+    }
+}

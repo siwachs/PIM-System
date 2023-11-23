@@ -275,16 +275,7 @@
         "workspaces": {
             "asset": [],
             "document": [],
-            "object": [
-                {
-                    "read": true,
-                    "cpath": "\/Shipping",
-                    "create": true,
-                    "update": true,
-                    "delete": true,
-                    "id": "extModel795-1"
-                }
-            ]
+            "object": []
         },
         "permissions": {
             "user": [],

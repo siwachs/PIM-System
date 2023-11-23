@@ -1,12 +1,11 @@
 imports:
     - { resource: "local/" }
-    - { resource: "workflows.yaml" }
+    # - { resource: "workflows.yaml" }
 
 pimcore:
     bundles:
         search_paths:
             - bundles/RestApiBundle
-            - bundles/EventsListenersBundle
 
 twig:
     paths: ["%kernel.project_dir%/bundles/RestApiBundle/Resources/views"]

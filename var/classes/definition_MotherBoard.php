@@ -8,7 +8,7 @@
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
- * - Brand [manyToManyObjectRelation]
+ * - brand [manyToManyObjectRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630171,
+   'modificationDate' => 1700731619,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -156,7 +156,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'Brand',
+             'name' => 'brand',
              'title' => 'Brand',
              'tooltip' => '',
              'mandatory' => false,
@@ -182,7 +182,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'displayMode' => 'grid',
              'pathFormatterClass' => '',
-             'maxItems' => NULL,
+             'maxItems' => 1,
              'visibleFields' => 'id,name,logo',
              'allowToCreateNewObject' => false,
              'allowToClearRelation' => true,
@@ -251,6 +251,46 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+       'name' => 'Brand',
+       'title' => 'Brand',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'classes' => 
+      array (
+        0 => 
+        array (
+          'classes' => 'Brand',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'maxItems' => 1,
+       'visibleFields' => 'id,name,logo',
+       'allowToCreateNewObject' => false,
+       'allowToClearRelation' => true,
+       'optimizedAdminLoading' => false,
+       'enableTextSelection' => false,
+       'visibleFieldDefinitions' => 
+      array (
+      ),
+       'width' => '',
+       'height' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

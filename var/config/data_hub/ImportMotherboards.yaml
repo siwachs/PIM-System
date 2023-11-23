@@ -1,0 +1,174 @@
+pimcore_data_hub:
+    configurations:
+        ImportMotherboards:
+            general:
+                type: dataImporterDataObject
+                name: ImportMotherboards
+                description: ''
+                group: 'Data Importers'
+                active: false
+                path: null
+                modificationDate: 1700734757
+                createDate: 1700726328
+            loaderConfig:
+                type: asset
+                settings:
+                    assetPath: '/CSV To Import/Database.xlsx'
+            interpreterConfig:
+                type: xlsx
+                settings:
+                    skipFirstRow: true
+                    sheetName: Motherboards
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: MotherBoard
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '0'
+                        attributeName: name
+                        language: en
+                        includeUnpublished: true
+                createLocationStrategy:
+                    type: staticPath
+                    settings:
+                        path: /Motherboards
+                locationUpdateStrategy:
+                    type: staticPath
+                    settings:
+                        path: /Motherboards
+                publishingStrategy:
+                    type: alwaysPublish
+            processingConfig:
+                executionType: sequential
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: 'Name [0]'
+                    dataSourceIndex:
+                        - '0'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: en
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Description [1]'
+                    dataSourceIndex:
+                        - '1'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: description
+                            language: en
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'German Name [2]'
+                    dataSourceIndex:
+                        - '2'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: de
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'German Description [3]'
+                    dataSourceIndex:
+                        - '3'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: de
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'French Name [4]'
+                    dataSourceIndex:
+                        - '4'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: fr
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'French Description [5]'
+                    dataSourceIndex:
+                        - '5'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: description
+                            language: fr
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Brand [6]'
+                    dataSourceIndex:
+                        - '6'
+                    transformationResultType: dataObjectArray
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: brand
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    settings:
+                        delimiter: ' '
+                        loadStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
+                    transformationPipeline:
+                        -
+                            settings:
+                                delimiter: ' '
+                            type: explode
+                        -
+                            settings:
+                                loadStrategy: path
+                                attributeDataObjectClassId: ''
+                                attributeName: ''
+                                attributeLanguage: ''
+                            type: loadDataObject
+                -
+                    label: o_key
+                    dataSourceIndex:
+                        - '0'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: key
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+            executionConfig:
+                scheduleType: recurring
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

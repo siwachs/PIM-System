@@ -66,6 +66,15 @@ services:
     #         - { name: templating.helper, alias: fooBar }
 
     # Example event listener for objects
-    # App\EventListener\TestListener:
+    # App\EventListener\ObjectListner:
     #     tags:
-    #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+    #         - {
+    #               name: kernel.event_listener,
+    #               event: pimcore.dataobject.preAdd,
+    #               method: onObjectPreAdd,
+    #           }
+    #         - {
+    #               name: kernel.event_listener,
+    #               event: pimcore.document.preUpdate,
+    #               method: onObjectPreUpdate,
+    #           }

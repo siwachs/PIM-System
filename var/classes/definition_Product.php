@@ -19,6 +19,7 @@
  * - category [manyToManyObjectRelation]
  * - subCategory [advancedManyToManyObjectRelation]
  * - price [numeric]
+ * - color [select]
  * - Images [imageGallery]
  * - video [video]
  * - quantitySold [numeric]
@@ -58,7 +59,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630990,
+   'modificationDate' => 1700717616,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -544,7 +545,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
-                 'maxItems' => NULL,
+                 'maxItems' => 1,
                  'visibleFields' => 'name',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
@@ -594,6 +595,52 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'decimalPrecision' => NULL,
                  'width' => '',
                  'defaultValueGenerator' => '',
+              )),
+              8 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'color',
+                 'title' => 'Color',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Red',
+                    'value' => 'Red',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Green',
+                    'value' => 'Green',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Blue',
+                    'value' => 'Blue',
+                  ),
+                ),
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
               )),
             ),
              'locked' => false,
@@ -1657,7 +1704,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
-                 'maxItems' => NULL,
+                 'maxItems' => 1,
                  'visibleFields' => 'id,name,Brand',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
@@ -1697,7 +1744,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
-                 'maxItems' => NULL,
+                 'maxItems' => 1,
                  'visibleFields' => 'id,name,Brand',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
@@ -1737,7 +1784,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
-                 'maxItems' => NULL,
+                 'maxItems' => 1,
                  'visibleFields' => 'id,name,Brand',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
@@ -1777,7 +1824,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
-                 'maxItems' => NULL,
+                 'maxItems' => 1,
                  'visibleFields' => 'id,name,brand',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
@@ -1817,7 +1864,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
-                 'maxItems' => NULL,
+                 'maxItems' => 1,
                  'visibleFields' => 'id,name,brand',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
@@ -1857,7 +1904,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
-                 'maxItems' => NULL,
+                 'maxItems' => 1,
                  'visibleFields' => 'id,name,brand',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,

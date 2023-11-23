@@ -18,4 +18,14 @@ class UiController extends FrontendController
     {
         return $this->render('file_imports.html.twig');
     }
+
+    /**
+     * @Route("/file_imports/import_brands", name="importBrands",methods={"GET"})
+     *
+     * @return JsonResponse
+     */
+    public function importBrands(): Response
+    {
+        return $this->render('import_brands.html.twig');
+    }
 }
