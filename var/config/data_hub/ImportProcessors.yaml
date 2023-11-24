@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1700738080
+                modificationDate: 1700811796
                 createDate: 1700737802
             loaderConfig:
                 type: asset
@@ -190,6 +190,12 @@ pimcore_data_hub:
                     label: 'Brand [11]'
                     dataSourceIndex:
                         - '11'
+                    settings:
+                        delimiter: ' '
+                        loadStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
                     transformationResultType: dataObjectArray
                     dataTarget:
                         type: direct
@@ -198,12 +204,6 @@ pimcore_data_hub:
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
-                    settings:
-                        delimiter: ' '
-                        loadStrategy: path
-                        attributeDataObjectClassId: ''
-                        attributeName: ''
-                        attributeLanguage: ''
                     transformationPipeline:
                         -
                             settings:
