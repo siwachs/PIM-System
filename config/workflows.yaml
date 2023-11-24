@@ -1,57 +1,100 @@
 pimcore:
     workflows:
-        workflow:
+        product_workflow:
             label: "Product Workflow"
             type: "state_machine"
             supports:
                 - 'Pimcore\Model\DataObject\Product'
             places:
                 new:
-                    label: "New product"
+                    label: "Start: Adding Basic Information"
                     color: "#377ea9"
                     permissions:
-                        - objectLayout: customLayout
-                rejected:
-                    label: "Rejected product"
-                    color: "#28a013"
-                update_content:
-                    label: "Update Content"
-                    title: "Updating content step"
+                        - objectLayout: BasicInformation
+                enrich_product:
+                    label: "Adding Data Enrichment"
+                    title: "Commerce Team"
                     color: "#d9ef36"
                     permissions:
-                        - objectLayout: customLayout
-                content_prepared:
-                    label: "Content Prepared"
-                    title: "Content ready to publish"
+                        - objectLayout: CommerceTeam
+                add_technicalities:
+                    label: "Adding Technical Details"
+                    title: "Technician Team"
                     color: "#28a013"
+                    permissions:
+                        - objectLayout: TechnicianLayout
+                review:
+                    label: "Review Process"
+                    color: "#ffa500"
                 accepted:
                     label: "Accepted product"
                     color: "#28a013"
+                rejected:
+                    label: "Rejected product"
+                    color: "#ff0000"
             transitions:
-                reject_product:
+                start_enrichment:
                     from: new
-                    to: rejected
+                    to: enrich_product
                     options:
-                        label: "Reject the product"
+                        label: "Start adding data enrichment"
                         notes:
                             commentEnabled: true
                             commentRequired: true
-                start_processing:
-                    from: new
-                    to: update_content
+                finish_enrichment:
+                    from: enrich_product
+                    to: add_technicalities
                     options:
-                        label: "Start processing the product"
-                content_ready:
-                    from: update_content
-                    to: content_prepared
+                        label: "Finish data enrichment"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                finish_technicalities:
+                    from: add_technicalities
+                    to: review
                     options:
-                        label: "Content is ready to publish"
-                publish:
-                    from: content_prepared
+                        label: "Finish adding technical details"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                approve_product:
+                    from: review
                     to: accepted
                     guard: "is_fully_authenticated() and is_granted('ROLE_PIMCORE_ADMIN')"
                     options:
-                        label: "Publish the product"
+                        label: "Approve and publish the product"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_basic_information:
+                    from: new
+                    to: rejected
+                    options:
+                        label: "Reject adding basic information"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_enrichment:
+                    from: enrich_product
+                    to: rejected
+                    options:
+                        label: "Reject data enrichment"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_technicalities:
+                    from: add_technicalities
+                    to: rejected
+                    options:
+                        label: "Reject technical details"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_review:
+                    from: review
+                    to: rejected
+                    options:
+                        label: "Reject in review process"
                         notes:
                             commentEnabled: true
                             commentRequired: true
