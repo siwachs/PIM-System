@@ -8,8 +8,8 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1700811734
-                createDate: 1700801655
+                modificationDate: 1701170437
+                createDate: 1701163375
             loaderConfig:
                 type: asset
                 settings:
@@ -111,7 +111,7 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'French Name [6]'
+                    label: 'Spanish Name [6]'
                     dataSourceIndex:
                         - '6'
                     transformationResultType: default
@@ -119,12 +119,12 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: name
-                            language: fr
+                            language: es
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'French Description [7]'
+                    label: 'Spanish Description [7]'
                     dataSourceIndex:
                         - '7'
                     transformationResultType: default
@@ -132,7 +132,20 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: description
-                            language: fr
+                            language: es
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: o_key
+                    dataSourceIndex:
+                        - '2'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: key
+                            language: en
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
@@ -154,7 +167,7 @@ pimcore_data_hub:
                     dataSourceIndex:
                         - '9'
                     settings:
-                        delimiter: ' '
+                        delimiter: ''
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -170,7 +183,50 @@ pimcore_data_hub:
                     transformationPipeline:
                         -
                             settings:
-                                delimiter: ' '
+                                delimiter: ''
+                            type: explode
+                        -
+                            settings:
+                                loadStrategy: path
+                                attributeDataObjectClassId: ''
+                                attributeName: ''
+                                attributeLanguage: ''
+                            type: loadDataObject
+                -
+                    label: 'Color [14]'
+                    dataSourceIndex:
+                        - '14'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: color
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Manufacturer [10]'
+                    dataSourceIndex:
+                        - '10'
+                    settings:
+                        delimiter: ''
+                        loadStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
+                    transformationResultType: dataObjectArray
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: manufacturer
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                delimiter: ''
                             type: explode
                         -
                             settings:
@@ -209,34 +265,6 @@ pimcore_data_hub:
                                 attributeName: ''
                                 attributeLanguage: ''
                             type: loadDataObject
-                -
-                    label: 'Price [13]'
-                    dataSourceIndex:
-                        - '13'
-                    transformationResultType: numeric
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: price
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
-                -
-                    label: 'Color [14]'
-                    dataSourceIndex:
-                        - '14'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: color
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
                 -
                     label: 'Quantity Sold [17]'
                     dataSourceIndex:
@@ -366,21 +394,6 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: discount
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
-                -
-                    label: 'Actual Price [26]'
-                    dataSourceIndex:
-                        - '26'
-                    transformationResultType: numeric
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: actualPrice
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
@@ -584,49 +597,6 @@ pimcore_data_hub:
                         -
                             type: boolean
                 -
-                    label: o_key
-                    dataSourceIndex:
-                        - '2'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: key
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
-                    label: 'Manufacturer [10]'
-                    dataSourceIndex:
-                        - '10'
-                    settings:
-                        delimiter: ''
-                        loadStrategy: path
-                        attributeDataObjectClassId: ''
-                        attributeName: ''
-                        attributeLanguage: ''
-                    transformationResultType: dataObjectArray
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: manufacturer
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            settings:
-                                delimiter: ''
-                            type: explode
-                        -
-                            settings:
-                                loadStrategy: path
-                                attributeDataObjectClassId: ''
-                                attributeName: ''
-                                attributeLanguage: ''
-                            type: loadDataObject
-                -
                     label: 'Operating System [42]'
                     dataSourceIndex:
                         - '42'
@@ -776,6 +746,51 @@ pimcore_data_hub:
                                 attributeName: ''
                                 attributeLanguage: ''
                             type: loadDataObject
+                -
+                    label: 'Motherboard [41]'
+                    dataSourceIndex:
+                        - '41'
+                    settings:
+                        delimiter: ''
+                        loadStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
+                    transformationResultType: dataObjectArray
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: motherboard
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                delimiter: ''
+                            type: explode
+                        -
+                            settings:
+                                loadStrategy: path
+                                attributeDataObjectClassId: ''
+                                attributeName: ''
+                                attributeLanguage: ''
+                            type: loadDataObject
+                -
+                    label: 'Connectivity Technology [47]'
+                    dataSourceIndex:
+                        - '47'
+                    transformationResultType: array
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: connectivityTechnology
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: asArray
             executionConfig:
                 scheduleType: recurring
                 cronDefinition: ''

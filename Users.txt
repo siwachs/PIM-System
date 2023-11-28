@@ -1,3 +1,7 @@
 Business User
 username: business
 password: businessuserAC@123
+
+Operator User
+username: operator
+password: operatoruserAC@123

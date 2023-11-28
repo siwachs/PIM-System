@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1700811779
+                modificationDate: 1701158584
                 createDate: 1700667873
             loaderConfig:
                 type: asset
@@ -141,7 +141,7 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'French Name [7]'
+                    label: 'Spanish Name [7]'
                     dataSourceIndex:
                         - '7'
                     transformationResultType: default
@@ -149,12 +149,12 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: name
-                            language: fr
+                            language: es
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'French Address [8]'
+                    label: 'Spanish Address [8]'
                     dataSourceIndex:
                         - '8'
                     transformationResultType: default
@@ -162,12 +162,12 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: address
-                            language: fr
+                            language: es
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'French Contact [9]'
+                    label: 'Spanish Contact [9]'
                     dataSourceIndex:
                         - '9'
                     transformationResultType: default
@@ -175,7 +175,7 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: contact
-                            language: fr
+                            language: es
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }

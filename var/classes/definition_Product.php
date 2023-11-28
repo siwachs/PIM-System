@@ -15,7 +15,7 @@
  * - manufacturer [manyToManyObjectRelation]
  * - category [manyToManyObjectRelation]
  * - subCategory [manyToManyObjectRelation]
- * - price [numeric]
+ * - price [calculatedValue]
  * - color [select]
  * - Images [imageGallery]
  * - video [video]
@@ -28,7 +28,7 @@
  * - deliveryCharges [numeric]
  * - tax [numeric]
  * - discount [numeric]
- * - actualPrice [numeric]
+ * - actualPrice [calculatedValue]
  * - Dimensions [input]
  * - size [input]
  * - weight [numeric]
@@ -59,7 +59,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700806382,
+   'modificationDate' => 1701169995,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -409,6 +409,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'classes' => 
                 array (
+                  0 => 
+                  array (
+                    'classes' => 'Category',
+                  ),
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
@@ -425,12 +429,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'height' => '',
               )),
               7 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                  'name' => 'price',
                  'title' => 'Price',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -443,16 +447,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => 1,
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => 1.0,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
+                 'elementType' => 'input',
+                 'calculatorType' => 'class',
+                 'calculatorExpression' => '',
+                 'calculatorClass' => '@calculate_price',
+                 'columnLength' => 190,
                  'width' => '',
-                 'defaultValueGenerator' => '',
               )),
               8 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -934,12 +934,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                      'name' => 'actualPrice',
                      'title' => 'Actual Price',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -952,16 +952,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => 1,
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => 1.0,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'elementType' => 'input',
+                     'calculatorType' => 'class',
+                     'calculatorExpression' => '',
+                     'calculatorClass' => '@calculate_price',
+                     'columnLength' => 190,
                      'width' => '',
-                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
@@ -1525,7 +1521,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => 1,
-                 'visibleFields' => 'id,name,Brand',
+                 'visibleFields' => 'name,brand',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,

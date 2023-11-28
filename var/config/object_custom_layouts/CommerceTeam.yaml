@@ -6,8 +6,8 @@ pimcore:
                     id: CommerceTeam
                     name: CommerceTeam
                     description: ''
-                    creationDate: 1700819899
-                    modificationDate: 1700819940
+                    creationDate: 1701170209
+                    modificationDate: 1701170258
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -23,10 +23,10 @@ pimcore:
                         datatype: layout
                         children:
                             -
-                                name: Assets
+                                name: 'Product Information'
                                 type: null
                                 region: null
-                                title: Assets
+                                title: 'Product Information'
                                 width: ''
                                 height: ''
                                 collapsible: false
@@ -35,76 +35,319 @@ pimcore:
                                 datatype: layout
                                 children:
                                     -
-                                        name: Images
-                                        title: Images
-                                        tooltip: ''
-                                        mandatory: false
-                                        noteditable: false
-                                        index: false
+                                        name: 'Base Data'
+                                        type: null
+                                        region: ''
+                                        title: 'Base Data'
+                                        width: 0
+                                        height: 0
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: SKU
+                                                title: SKU
+                                                tooltip: ''
+                                                mandatory: true
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: true
+                                                visibleSearch: true
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: true
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: localizedfields
+                                                title: 'Localized data'
+                                                tooltip: null
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: null
+                                                permissions: null
+                                                fieldtype: localizedfields
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: true
+                                                visibleSearch: true
+                                                children:
+                                                    -
+                                                        name: name
+                                                        title: Name
+                                                        tooltip: ''
+                                                        mandatory: true
+                                                        noteditable: true
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: input
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: true
+                                                        visibleSearch: true
+                                                        defaultValue: null
+                                                        columnLength: 190
+                                                        regex: ''
+                                                        regexFlags: {  }
+                                                        unique: false
+                                                        showCharCount: true
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: description
+                                                        title: Description
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: true
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: textarea
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        maxLength: null
+                                                        showCharCount: true
+                                                        excludeFromSearchIndex: false
+                                                        height: ''
+                                                        width: ''
+                                                        datatype: data
+                                                region: null
+                                                layout: null
+                                                maxTabs: null
+                                                border: false
+                                                provideSplitView: false
+                                                tabPosition: top
+                                                hideLabelsWhenTabsReached: null
+                                                permissionView: null
+                                                permissionEdit: null
+                                                labelWidth: 100
+                                                labelAlign: left
+                                                datatype: data
+                                            -
+                                                name: country
+                                                title: Country
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: country
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: true
+                                                visibleSearch: true
+                                                options: null
+                                                defaultValue: null
+                                                columnLength: 190
+                                                dynamicOptions: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                optionsProviderType: null
+                                                optionsProviderClass: null
+                                                optionsProviderData: null
+                                                restrictTo: ''
+                                                datatype: data
+                                            -
+                                                name: brand
+                                                title: Brand
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: true
+                                                visibleSearch: true
+                                                classes:
+                                                    -
+                                                        classes: Brand
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,logo,name'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: manufacturer
+                                                title: Manufacturer
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: true
+                                                visibleSearch: true
+                                                classes:
+                                                    -
+                                                        classes: Manufacturer
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,name'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: category
+                                                title: Category
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: true
+                                                visibleSearch: true
+                                                classes:
+                                                    -
+                                                        classes: Category
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,name'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: subCategory
+                                                title: 'Sub Category'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: Category
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: name
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: price
+                                                title: Price
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: calculatedValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                elementType: input
+                                                calculatorType: class
+                                                calculatorExpression: ''
+                                                calculatorClass: '@calculate_price'
+                                                columnLength: 190
+                                                width: ''
+                                                datatype: data
+                                            -
+                                                name: color
+                                                title: Color
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: select
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                options: {  }
+                                                defaultValue: ''
+                                                columnLength: 190
+                                                dynamicOptions: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                optionsProviderType: configure
+                                                optionsProviderClass: Pimcore\Bundle\CoreBundle\OptionsProvider\SelectOptionsOptionsProvider
+                                                optionsProviderData: ''
+                                                datatype: data
                                         locked: false
-                                        style: ''
-                                        permissions: null
-                                        fieldtype: imageGallery
-                                        relationType: false
-                                        invisible: false
-                                        visibleGridView: false
-                                        visibleSearch: false
-                                        uploadPath: ''
-                                        ratioX: null
-                                        ratioY: null
-                                        predefinedDataTemplates: ''
-                                        height: ''
-                                        width: ''
-                                        datatype: data
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: ''
+                                        labelWidth: 100
+                                        labelAlign: left
                                     -
-                                        name: video
-                                        title: Video
-                                        tooltip: ''
-                                        mandatory: false
-                                        noteditable: false
-                                        index: false
-                                        locked: false
-                                        style: ''
-                                        permissions: null
-                                        fieldtype: video
-                                        relationType: false
-                                        invisible: false
-                                        visibleGridView: false
-                                        visibleSearch: false
-                                        uploadPath: ''
-                                        allowedTypes: {  }
-                                        supportedTypes:
-                                            - asset
-                                            - youtube
-                                            - vimeo
-                                            - dailymotion
-                                        height: ''
-                                        width: ''
-                                        datatype: data
-                                locked: false
-                                fieldtype: panel
-                                layout: null
-                                border: false
-                                icon: ''
-                                labelWidth: 100
-                                labelAlign: left
-                            -
-                                name: 'Sales and Pricing'
-                                type: null
-                                region: null
-                                title: 'Sales and Pricing'
-                                width: 0
-                                height: 0
-                                collapsible: false
-                                collapsed: false
-                                bodyStyle: ''
-                                datatype: layout
-                                children:
-                                    -
-                                        name: Sales
+                                        name: Assets
                                         type: null
                                         region: null
-                                        title: Sales
+                                        title: Assets
                                         width: ''
                                         height: ''
                                         collapsible: false
@@ -113,8 +356,8 @@ pimcore:
                                         datatype: layout
                                         children:
                                             -
-                                                name: quantitySold
-                                                title: 'Quantity Sold'
+                                                name: Images
+                                                title: Images
                                                 tooltip: ''
                                                 mandatory: false
                                                 noteditable: false
@@ -122,25 +365,406 @@ pimcore:
                                                 locked: false
                                                 style: ''
                                                 permissions: null
-                                                fieldtype: numeric
+                                                fieldtype: imageGallery
                                                 relationType: false
                                                 invisible: false
                                                 visibleGridView: false
                                                 visibleSearch: false
-                                                defaultValue: 0
-                                                integer: true
-                                                unsigned: true
-                                                minValue: null
-                                                maxValue: null
+                                                uploadPath: ''
+                                                ratioX: null
+                                                ratioY: null
+                                                predefinedDataTemplates: ''
+                                                height: ''
+                                                width: ''
+                                                datatype: data
+                                            -
+                                                name: video
+                                                title: Video
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: video
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                uploadPath: ''
+                                                allowedTypes: {  }
+                                                supportedTypes:
+                                                    - asset
+                                                    - youtube
+                                                    - vimeo
+                                                    - dailymotion
+                                                height: ''
+                                                width: ''
+                                                datatype: data
+                                        locked: false
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: ''
+                                        labelWidth: 100
+                                        labelAlign: left
+                                    -
+                                        name: 'Sales and Pricing'
+                                        type: null
+                                        region: null
+                                        title: 'Sales and Pricing'
+                                        width: 0
+                                        height: 0
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: Sales
+                                                type: null
+                                                region: null
+                                                title: Sales
+                                                width: ''
+                                                height: ''
+                                                collapsible: false
+                                                collapsed: false
+                                                bodyStyle: ''
+                                                datatype: layout
+                                                children:
+                                                    -
+                                                        name: quantitySold
+                                                        title: 'Quantity Sold'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: true
+                                                        unsigned: true
+                                                        minValue: null
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: Revenue
+                                                        title: Revenue
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: true
+                                                        unsigned: true
+                                                        minValue: null
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: productAvailability
+                                                        title: 'Product Availability'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: booleanSelect
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        yesLabel: 'yes'
+                                                        noLabel: 'no'
+                                                        emptyLabel: empty
+                                                        options:
+                                                            -
+                                                                key: empty
+                                                                value: 0
+                                                            -
+                                                                key: 'yes'
+                                                                value: 1
+                                                            -
+                                                                key: 'no'
+                                                                value: -1
+                                                        width: ''
+                                                        datatype: data
+                                                    -
+                                                        name: rating
+                                                        title: Rating
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: false
+                                                        unsigned: false
+                                                        minValue: 0
+                                                        maxValue: 5
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                locked: false
+                                                fieldtype: panel
+                                                layout: null
+                                                border: false
+                                                icon: ''
+                                                labelWidth: 100
+                                                labelAlign: left
+                                            -
+                                                name: Pricing
+                                                type: null
+                                                region: null
+                                                title: Pricing
+                                                width: ''
+                                                height: ''
+                                                collapsible: false
+                                                collapsed: false
+                                                bodyStyle: ''
+                                                datatype: layout
+                                                children:
+                                                    -
+                                                        name: BasePrice
+                                                        title: 'Base Price'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 1
+                                                        integer: false
+                                                        unsigned: true
+                                                        minValue: 1
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: sellingPrice
+                                                        title: 'Selling Price'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 1
+                                                        integer: false
+                                                        unsigned: true
+                                                        minValue: 1
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: deliveryCharges
+                                                        title: 'Delivery Charges'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: false
+                                                        unsigned: true
+                                                        minValue: 0
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: tax
+                                                        title: Tax
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: false
+                                                        unsigned: true
+                                                        minValue: 0
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: discount
+                                                        title: Discount
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: false
+                                                        unsigned: true
+                                                        minValue: 0
+                                                        maxValue: 99
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: actualPrice
+                                                        title: 'Actual Price'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: true
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: calculatedValue
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        elementType: input
+                                                        calculatorType: class
+                                                        calculatorExpression: ''
+                                                        calculatorClass: '@calculate_price'
+                                                        columnLength: 190
+                                                        width: ''
+                                                        datatype: data
+                                                locked: false
+                                                fieldtype: panel
+                                                layout: null
+                                                border: false
+                                                icon: ''
+                                                labelWidth: 100
+                                                labelAlign: left
+                                        locked: false
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: ''
+                                        labelWidth: 100
+                                        labelAlign: left
+                                    -
+                                        name: Measurements
+                                        type: null
+                                        region: null
+                                        title: Measurements
+                                        width: 0
+                                        height: 0
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: Dimensions
+                                                title: Dimensions
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
                                                 unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
+                                                showCharCount: false
                                                 width: ''
                                                 defaultValueGenerator: ''
                                                 datatype: data
                                             -
-                                                name: Revenue
-                                                title: Revenue
+                                                name: size
+                                                title: Size
                                                 tooltip: ''
                                                 mandatory: false
                                                 noteditable: false
@@ -148,55 +772,23 @@ pimcore:
                                                 locked: false
                                                 style: ''
                                                 permissions: null
-                                                fieldtype: numeric
+                                                fieldtype: input
                                                 relationType: false
                                                 invisible: false
                                                 visibleGridView: false
                                                 visibleSearch: false
-                                                defaultValue: 0
-                                                integer: true
-                                                unsigned: true
-                                                minValue: null
-                                                maxValue: null
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
                                                 unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
+                                                showCharCount: false
                                                 width: ''
                                                 defaultValueGenerator: ''
                                                 datatype: data
                                             -
-                                                name: productAvailability
-                                                title: 'Product Availability'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: booleanSelect
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                yesLabel: 'yes'
-                                                noLabel: 'no'
-                                                emptyLabel: empty
-                                                options:
-                                                    -
-                                                        key: empty
-                                                        value: 0
-                                                    -
-                                                        key: 'yes'
-                                                        value: 1
-                                                    -
-                                                        key: 'no'
-                                                        value: -1
-                                                width: ''
-                                                datatype: data
-                                            -
-                                                name: rating
-                                                title: Rating
+                                                name: weight
+                                                title: Weight
                                                 tooltip: ''
                                                 mandatory: false
                                                 noteditable: false
@@ -209,11 +801,11 @@ pimcore:
                                                 invisible: false
                                                 visibleGridView: false
                                                 visibleSearch: false
-                                                defaultValue: 0
+                                                defaultValue: null
                                                 integer: false
-                                                unsigned: false
-                                                minValue: 0
-                                                maxValue: 5
+                                                unsigned: true
+                                                minValue: 1
+                                                maxValue: null
                                                 unique: false
                                                 decimalSize: null
                                                 decimalPrecision: null
@@ -227,281 +819,10 @@ pimcore:
                                         icon: ''
                                         labelWidth: 100
                                         labelAlign: left
-                                    -
-                                        name: Pricing
-                                        type: null
-                                        region: null
-                                        title: Pricing
-                                        width: ''
-                                        height: ''
-                                        collapsible: false
-                                        collapsed: false
-                                        bodyStyle: ''
-                                        datatype: layout
-                                        children:
-                                            -
-                                                name: BasePrice
-                                                title: 'Base Price'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: numeric
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                defaultValue: 1
-                                                integer: false
-                                                unsigned: true
-                                                minValue: 1
-                                                maxValue: null
-                                                unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
-                                                width: ''
-                                                defaultValueGenerator: ''
-                                                datatype: data
-                                            -
-                                                name: sellingPrice
-                                                title: 'Selling Price'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: numeric
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                defaultValue: 1
-                                                integer: false
-                                                unsigned: true
-                                                minValue: 1
-                                                maxValue: null
-                                                unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
-                                                width: ''
-                                                defaultValueGenerator: ''
-                                                datatype: data
-                                            -
-                                                name: deliveryCharges
-                                                title: 'Delivery Charges'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: numeric
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                defaultValue: 0
-                                                integer: false
-                                                unsigned: true
-                                                minValue: 0
-                                                maxValue: null
-                                                unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
-                                                width: ''
-                                                defaultValueGenerator: ''
-                                                datatype: data
-                                            -
-                                                name: tax
-                                                title: Tax
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: numeric
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                defaultValue: 0
-                                                integer: false
-                                                unsigned: true
-                                                minValue: 0
-                                                maxValue: null
-                                                unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
-                                                width: ''
-                                                defaultValueGenerator: ''
-                                                datatype: data
-                                            -
-                                                name: discount
-                                                title: Discount
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: numeric
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                defaultValue: 0
-                                                integer: false
-                                                unsigned: true
-                                                minValue: 0
-                                                maxValue: 99
-                                                unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
-                                                width: ''
-                                                defaultValueGenerator: ''
-                                                datatype: data
-                                            -
-                                                name: actualPrice
-                                                title: 'Actual Price'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: numeric
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                defaultValue: 1
-                                                integer: false
-                                                unsigned: true
-                                                minValue: 1
-                                                maxValue: null
-                                                unique: false
-                                                decimalSize: null
-                                                decimalPrecision: null
-                                                width: ''
-                                                defaultValueGenerator: ''
-                                                datatype: data
-                                        locked: false
-                                        fieldtype: panel
-                                        layout: null
-                                        border: false
-                                        icon: ''
-                                        labelWidth: 100
-                                        labelAlign: left
                                 locked: false
-                                fieldtype: panel
-                                layout: null
+                                fieldtype: tabpanel
                                 border: false
-                                icon: ''
-                                labelWidth: 100
-                                labelAlign: left
-                            -
-                                name: Measurements
-                                type: null
-                                region: null
-                                title: Measurements
-                                width: 0
-                                height: 0
-                                collapsible: false
-                                collapsed: false
-                                bodyStyle: ''
-                                datatype: layout
-                                children:
-                                    -
-                                        name: Dimensions
-                                        title: Dimensions
-                                        tooltip: ''
-                                        mandatory: false
-                                        noteditable: false
-                                        index: false
-                                        locked: false
-                                        style: ''
-                                        permissions: null
-                                        fieldtype: input
-                                        relationType: false
-                                        invisible: false
-                                        visibleGridView: false
-                                        visibleSearch: false
-                                        defaultValue: null
-                                        columnLength: 190
-                                        regex: ''
-                                        regexFlags: {  }
-                                        unique: false
-                                        showCharCount: false
-                                        width: ''
-                                        defaultValueGenerator: ''
-                                        datatype: data
-                                    -
-                                        name: size
-                                        title: Size
-                                        tooltip: ''
-                                        mandatory: false
-                                        noteditable: false
-                                        index: false
-                                        locked: false
-                                        style: ''
-                                        permissions: null
-                                        fieldtype: input
-                                        relationType: false
-                                        invisible: false
-                                        visibleGridView: false
-                                        visibleSearch: false
-                                        defaultValue: null
-                                        columnLength: 190
-                                        regex: ''
-                                        regexFlags: {  }
-                                        unique: false
-                                        showCharCount: false
-                                        width: ''
-                                        defaultValueGenerator: ''
-                                        datatype: data
-                                    -
-                                        name: weight
-                                        title: Weight
-                                        tooltip: ''
-                                        mandatory: false
-                                        noteditable: false
-                                        index: false
-                                        locked: false
-                                        style: ''
-                                        permissions: null
-                                        fieldtype: numeric
-                                        relationType: false
-                                        invisible: false
-                                        visibleGridView: false
-                                        visibleSearch: false
-                                        defaultValue: null
-                                        integer: false
-                                        unsigned: true
-                                        minValue: 1
-                                        maxValue: null
-                                        unique: false
-                                        decimalSize: null
-                                        decimalPrecision: null
-                                        width: ''
-                                        defaultValueGenerator: ''
-                                        datatype: data
-                                locked: false
-                                fieldtype: panel
-                                layout: null
-                                border: false
-                                icon: ''
-                                labelWidth: 100
-                                labelAlign: left
+                                tabPosition: top
                         locked: false
                         fieldtype: panel
                         layout: null

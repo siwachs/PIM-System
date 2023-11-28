@@ -22,16 +22,16 @@ pimcore:
                     title: "Technician Team"
                     color: "#28a013"
                     permissions:
-                        - objectLayout: TechnicianLayout
+                        - objectLayout: TechnicianTeam
                 review:
                     label: "Review Process"
                     color: "#ffa500"
                 accepted:
                     label: "Accepted product"
                     color: "#28a013"
-                rejected:
-                    label: "Rejected product"
-                    color: "#ff0000"
+                exited:
+                    label: "Exited workflow"
+                    color: "#808080"
             transitions:
                 start_enrichment:
                     from: new
@@ -66,35 +66,19 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
-                reject_basic_information:
-                    from: new
-                    to: rejected
+                exit_workflow:
+                    from:
+                        - new
+                        - enrich_product
+                        - add_technicalities
+                        - review
+                    to: exited
+                    guard: "is_fully_authenticated() and is_granted('ROLE_PIMCORE_ADMIN')"
                     options:
-                        label: "Reject adding basic information"
-                        notes:
-                            commentEnabled: true
-                            commentRequired: true
-                reject_enrichment:
-                    from: enrich_product
-                    to: rejected
+                        label: "Exit workflow"
+                restart_workflow:
+                    from: exited
+                    to: new
+                    guard: "is_fully_authenticated() and is_granted('ROLE_PIMCORE_ADMIN')"
                     options:
-                        label: "Reject data enrichment"
-                        notes:
-                            commentEnabled: true
-                            commentRequired: true
-                reject_technicalities:
-                    from: add_technicalities
-                    to: rejected
-                    options:
-                        label: "Reject technical details"
-                        notes:
-                            commentEnabled: true
-                            commentRequired: true
-                reject_review:
-                    from: review
-                    to: rejected
-                    options:
-                        label: "Reject in review process"
-                        notes:
-                            commentEnabled: true
-                            commentRequired: true
+                        label: "Restart workflow"

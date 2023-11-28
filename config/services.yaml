@@ -38,7 +38,7 @@ services:
         autoconfigure: true
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
-        public: false
+        public: true
     #
     # CONTROLLERS
     #
@@ -48,6 +48,9 @@ services:
         resource: "../src/Controller"
         public: true
         tags: ["controller.service_arguments"]
+
+    calculate_price:
+        class: App\Controller\ActualPriceCalculator
 
     # Twig Ext
     App\Twig\Extension\UniqidExtension:
