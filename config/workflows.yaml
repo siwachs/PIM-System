@@ -26,9 +26,14 @@ pimcore:
                 review:
                     label: "Review Process"
                     color: "#ffa500"
+                    permissions:
+                        - objectLayout: ReviewerLayout
                 accepted:
                     label: "Accepted product"
                     color: "#28a013"
+                rejected:
+                    label: "Rejected product"
+                    color: "#d9534f"
                 exited:
                     label: "Exited workflow"
                     color: "#808080"
@@ -57,12 +62,43 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
-                approve_product:
+                accept_product:
                     from: review
                     to: accepted
-                    guard: "is_fully_authenticated() and is_granted('ROLE_PIMCORE_ADMIN')"
                     options:
-                        label: "Approve and publish the product"
+                        label: "Accept product"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_enrichment:
+                    from: enrich_product
+                    to: new
+                    options:
+                        label: "Reject enrichment and go back to start"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_technicalities:
+                    from: add_technicalities
+                    to: enrich_product
+                    options:
+                        label: "Reject technicalities and go back to data enrichment"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_review:
+                    from: review
+                    to: add_technicalities
+                    options:
+                        label: "Reject review and go back to adding technical details"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_accepted:
+                    from: accepted
+                    to: review
+                    options:
+                        label: "Reject accepted product and go back to review"
                         notes:
                             commentEnabled: true
                             commentRequired: true

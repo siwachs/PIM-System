@@ -11,36 +11,28 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends FrontendController
 {
-    const NO_PRODUCT_FOUND_ERROR = 'No product found.';
-
     /**
-     * @Route("/get-product/{id}", name="getProduct",methods={"GET"})
-     * @param Request $request
-     * @param int $id
+     * @param array $products
+     * @param string $lang
      *
-     * @return Response
+     * @return array
      */
-    public function getProductByIdAction(int $id): Response
+    private function listToAssoc($products, $lang)
     {
-        try {
-            $productObject = DataObject\Product::getById($id);
-            if (!$productObject) {
-                return $this->render('error.html.twig', [
-                    'error' => self::NO_PRODUCT_FOUND_ERROR,
-                ]);
-            }
-
-            return $this->render('product/product.html.twig', [
-                'id' => $id,
-                'name' => $productObject->getName(),
-                'description' => $productObject->getDescription(),
-                'stockAvailability' => $productObject->getStockAvailability(),
-                'size' => $productObject->getSize(),
-                'categories' => $productObject->getCategories()
-            ]);
-        } catch (\Exception $e) {
-            die($e->getMessage());
+        $productData = [];
+        foreach ($products as $product) {
+            $productData[] = [
+                'id' => $product->getId(),
+                'sku' => $product->getSKU(),
+                'name' => $product->getName($lang),
+                'description' => $product->getDescription($lang),
+                'country' => $product->getCountry(),
+                'countryOfOrigin' => $product->getCountryOfOrigin(),
+                'createdAt' => date('h:i A, d F Y', $product->getCreationDate())
+            ];
         }
+
+        return $productData;
     }
 
     /**
@@ -49,156 +41,55 @@ class ProductController extends FrontendController
      *
      * @return Response
      */
-    public function getProductsAction(): Response
+    public function getProductsAction(Request $request): JsonResponse
     {
-        try {
-            $products = new DataObject\Product\Listing();
+        $offset = $request->query->get('offset', 0);
+        $limit = $request->query->get('limit', 25);
 
-            return $this->render('/product/products.html.twig', ['products' => $products]);
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
-    }
+        $orderBy = $request->query->get('orderBy', 'creationDate');
+        $order = $request->query->get('order', 'ASC');
 
-    /**
-     * @Route("/create-product", name="createProduct",methods={"POST"})
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function createProductAction(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        $name = $data['name'] ?? null;
-        $description = $data['description'] ?? null;
-        $parentId = $data['parentId'] ?? null; //2
-        $versionNote = $data['versionNote'] ?? null;
-        $stockAvailability = $data['stockAvailability'] ?? null;
-        $size = $data['size'] ?? null;
-        $categories = $data['categories'] ?? null;
+        $findBy = $request->query->get('findBy', null);
+        $find = $request->query->get('find', null);
 
-        if (!$name || !$description || !$parentId || !$versionNote || !$stockAvailability || !$size || !$categories) {
-            return $this->json([
-                'error' => 'Some of required fields are missing.'
-            ], 400);
-        }
-
+        $lang = $request->query->get('lang', 'en');
 
         try {
-            $newProduct = new DataObject\Product();
-            $newProduct->setKey(\Pimcore\Model\Element\Service::getValidKey($name, 'object'));
-            $newProduct->setParentId($parentId); //2
-            $newProduct->setName($name);
-            $newProduct->setDescription($description);
-            $newProduct->setStockAvailability($stockAvailability);
-            $newProduct->setSize($size);
+            $products = new DataObject\Product\Listing;
+            $products->setLocale($lang);
 
-            $categoriesArray = [];
-            foreach ($categories as $category) {
-                $categoryObject = DataObject\Category::getById($category);
-                if ($categoryObject) {
-                    $categoriesArray[] = $categoryObject;
+            if (is_numeric($offset)) {
+                $products->setOffset((int)$offset);
+            }
+
+            if (is_numeric($limit)) {
+                $products->setLimit((int)$limit);
+            }
+
+            if (isset($orderBy) && isset($order)) {
+                $products->setOrderKey($orderBy);
+                $products->setOrder($order);
+            }
+
+            if ($findBy !== null && in_array($findBy, ['sku', 'name']) && $find !== null) {
+                if ($findBy === 'sku') {
+                    $products->setCondition("sku LIKE ?", ["%" . $find . "%"]);
+                } elseif ($findBy === 'name') {
+                    $products->setCondition("name LIKE ?", ["%" . $find . "%"]);
                 }
             }
-            $newProduct->setCategories($categoriesArray);
 
-            $newProduct->save(["versionNote" => $versionNote]);
-            return $this->json([
-                'success' => true
-            ], 201);
+            return new JsonResponse([
+                'products' => $this->listToAssoc($products, $lang),
+                'success' => true,
+                'error' => null
+            ]);
         } catch (\Exception $e) {
-            return $this->json([
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    /**
-     * @Route("/update-product", name="updateProduct",methods={"PUT"})
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function updateProductAction(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        $name = $data['name'] ?? null;
-        $description = $data['description'] ?? null;
-        $productId = $data['productId'] ?? null; //2
-        $stockAvailability = $data['stockAvailability'] ?? null;
-        $size = $data['size'] ?? null;
-        $categories = $data['categories'] ?? null;
-
-        try {
-            $productObject = DataObject\Product::getById($productId);
-            if (!$productObject) {
-                return $this->json([
-                    'error' => self::NO_PRODUCT_FOUND_ERROR
-                ], 404);
-            }
-
-            if ($name) {
-                $productObject->setName($name);
-            }
-
-            if ($description) {
-                $productObject->setDescription($description);
-            }
-
-            if ($stockAvailability) {
-                $productObject->setStockAvailability($stockAvailability);
-            }
-
-            if ($size) {
-                $productObject->setSize($size);
-            }
-
-            if ($categories) {
-                $categoriesArray = [];
-                foreach ($categories as $category) {
-                    $categoryObject = DataObject\Category::getById($category);
-                    if ($categoryObject) {
-                        $categoriesArray[] = $categoryObject;
-                    }
-                }
-
-                $productObject->setCategories($categoriesArray);
-            }
-
-            $productObject->save();
-            return $this->json([
-                'success' => true
-            ], 204); //Put request success but not content to send.
-        } catch (\Exception $e) {
-            return $this->json([
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-
-    /**
-     * @Route("/delete-product/{id}", name = "deleteProduct",methods={"DELETE"})
-     * @return JsonResponse
-     */
-    public function  deleteProductAction(int $id): JsonResponse
-    {
-        try {
-            $productObject = DataObject\Product::getById($id);
-            if (!$productObject) {
-                return $this->json([
-                    'error' => self::NO_PRODUCT_FOUND_ERROR
-                ], 404);
-            }
-
-            $productObject->delete();
-            return $this->json([
-                'success' => true
-            ], 204); //Delete request success but not content to send.
-        } catch (\Exception $e) {
-            return $this->json([
-                'error' => $e->getMessage()
-            ], 500);
+            return new JsonResponse([
+                'products' => [],
+                'success' => false,
+                'error' => 'There is a error in product listing.'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

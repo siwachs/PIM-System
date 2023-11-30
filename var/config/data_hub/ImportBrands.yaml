@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701158584
+                modificationDate: 1701359439
                 createDate: 1700667873
             loaderConfig:
                 type: asset
@@ -76,19 +76,6 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'Address [2]'
-                    dataSourceIndex:
-                        - '2'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: address
-                            language: en
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
                     label: 'Contact [3]'
                     dataSourceIndex:
                         - '3'
@@ -115,19 +102,6 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'German Address [5]'
-                    dataSourceIndex:
-                        - '5'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: address
-                            language: de
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
                     label: 'German Contact [6]'
                     dataSourceIndex:
                         - '6'
@@ -149,19 +123,6 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: name
-                            language: es
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
-                    label: 'Spanish Address [8]'
-                    dataSourceIndex:
-                        - '8'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: address
                             language: es
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true

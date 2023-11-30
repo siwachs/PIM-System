@@ -22,7 +22,7 @@ class ActualPriceCalculator implements CalculatorClassInterface
 
             return (float)($sellingPrice + $delivery + $tax);
         } else {
-            // \Logger::error("unknown field");
+            //Logger
         }
     }
 

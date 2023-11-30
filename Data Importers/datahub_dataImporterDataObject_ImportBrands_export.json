@@ -1,12 +1,12 @@
 {
     "type": "dataImporterDataObject",
     "path": "",
-    "name": "ImportStorages",
+    "name": "ImportBrands",
     "group": "Data Importers",
     "configuration": {
         "general": {
             "type": "dataImporterDataObject",
-            "name": "ImportStorages",
+            "name": "ImportBrands",
             "description": "",
             "group": "Data Importers",
             "active": false,
@@ -22,16 +22,16 @@
             "type": "xlsx",
             "settings": {
                 "skipFirstRow": true,
-                "sheetName": "Storages"
+                "sheetName": "Brands"
             }
         },
         "resolverConfig": {
             "elementType": "dataObject",
-            "dataObjectClassId": "Storage",
+            "dataObjectClassId": "Brand",
             "loadingStrategy": {
                 "type": "attribute",
                 "settings": {
-                    "dataSourceIndex": "0",
+                    "dataSourceIndex": "1",
                     "attributeName": "name",
                     "language": "en",
                     "includeUnpublished": true
@@ -40,13 +40,13 @@
             "createLocationStrategy": {
                 "type": "staticPath",
                 "settings": {
-                    "path": "\/Storages"
+                    "path": "\/Brands"
                 }
             },
             "locationUpdateStrategy": {
                 "type": "staticPath",
                 "settings": {
-                    "path": "\/Storages"
+                    "path": "\/Brands"
                 }
             },
             "publishingStrategy": {
@@ -59,24 +59,34 @@
         },
         "mappingConfig": [
             {
-                "label": "Name [0]",
+                "label": "Logo [0]",
                 "dataSourceIndex": [
                     "0"
                 ],
-                "transformationResultType": "default",
+                "settings": {
+                    "loadStrategy": "path"
+                },
+                "transformationResultType": "asset",
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "name",
-                        "language": "en",
+                        "fieldName": "logo",
+                        "language": "",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
                 },
-                "transformationPipeline": []
+                "transformationPipeline": [
+                    {
+                        "settings": {
+                            "loadStrategy": "path"
+                        },
+                        "type": "loadAsset"
+                    }
+                ]
             },
             {
-                "label": "Description [1]",
+                "label": "Name [1]",
                 "dataSourceIndex": [
                     "1"
                 ],
@@ -84,7 +94,7 @@
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "description",
+                        "fieldName": "name",
                         "language": "en",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
@@ -93,24 +103,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "German Name [2]",
-                "dataSourceIndex": [
-                    "2"
-                ],
-                "transformationResultType": "default",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "name",
-                        "language": "de",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "transformationPipeline": []
-            },
-            {
-                "label": "German Description [3]",
+                "label": "Contact [3]",
                 "dataSourceIndex": [
                     "3"
                 ],
@@ -118,8 +111,8 @@
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "description",
-                        "language": "de",
+                        "fieldName": "contact",
+                        "language": "en",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -127,7 +120,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Name [4]",
+                "label": "German Name [4]",
                 "dataSourceIndex": [
                     "4"
                 ],
@@ -136,7 +129,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "name",
-                        "language": "fr",
+                        "language": "de",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -144,24 +137,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Description [5]",
-                "dataSourceIndex": [
-                    "5"
-                ],
-                "transformationResultType": "default",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "description",
-                        "language": "fr",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "transformationPipeline": []
-            },
-            {
-                "label": "Technolgy [6]",
+                "label": "German Contact [6]",
                 "dataSourceIndex": [
                     "6"
                 ],
@@ -169,8 +145,8 @@
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "technolgy",
-                        "language": "",
+                        "fieldName": "contact",
+                        "language": "de",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -178,7 +154,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "Size [7]",
+                "label": "Spanish Name [7]",
                 "dataSourceIndex": [
                     "7"
                 ],
@@ -186,8 +162,8 @@
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "size",
-                        "language": "",
+                        "fieldName": "name",
+                        "language": "es",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -195,15 +171,32 @@
                 "transformationPipeline": []
             },
             {
-                "label": "Storage Type [8]",
+                "label": "Spanish Contact [9]",
                 "dataSourceIndex": [
-                    "8"
+                    "9"
                 ],
                 "transformationResultType": "default",
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "storageType",
+                        "fieldName": "contact",
+                        "language": "es",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
+                "transformationPipeline": []
+            },
+            {
+                "label": "Country [10]",
+                "dataSourceIndex": [
+                    "10"
+                ],
+                "transformationResultType": "default",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "Country",
                         "language": "",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
@@ -212,56 +205,16 @@
                 "transformationPipeline": []
             },
             {
-                "label": "Brand [9]",
-                "dataSourceIndex": [
-                    "9"
-                ],
-                "transformationResultType": "dataObjectArray",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "brand",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "settings": {
-                    "delimiter": " ",
-                    "loadStrategy": "path",
-                    "attributeDataObjectClassId": "",
-                    "attributeName": "",
-                    "attributeLanguage": ""
-                },
-                "transformationPipeline": [
-                    {
-                        "settings": {
-                            "delimiter": " "
-                        },
-                        "type": "explode"
-                    },
-                    {
-                        "settings": {
-                            "loadStrategy": "path",
-                            "attributeDataObjectClassId": "",
-                            "attributeName": "",
-                            "attributeLanguage": ""
-                        },
-                        "type": "loadDataObject"
-                    }
-                ]
-            },
-            {
                 "label": "o_key",
                 "dataSourceIndex": [
-                    "0"
+                    "1"
                 ],
                 "transformationResultType": "default",
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
                         "fieldName": "key",
-                        "language": "en",
+                        "language": "",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }

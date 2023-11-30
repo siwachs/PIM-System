@@ -1,12 +1,12 @@
 {
     "type": "dataImporterDataObject",
     "path": "",
-    "name": "ImportOperatingSystems",
+    "name": "ImportMotherboards",
     "group": "Data Importers",
     "configuration": {
         "general": {
             "type": "dataImporterDataObject",
-            "name": "ImportOperatingSystems",
+            "name": "ImportMotherboards",
             "description": "",
             "group": "Data Importers",
             "active": false,
@@ -22,12 +22,12 @@
             "type": "xlsx",
             "settings": {
                 "skipFirstRow": true,
-                "sheetName": "Operating Systems"
+                "sheetName": "Motherboards"
             }
         },
         "resolverConfig": {
             "elementType": "dataObject",
-            "dataObjectClassId": "OperatingSystem",
+            "dataObjectClassId": "MotherBoard",
             "loadingStrategy": {
                 "type": "attribute",
                 "settings": {
@@ -40,13 +40,13 @@
             "createLocationStrategy": {
                 "type": "staticPath",
                 "settings": {
-                    "path": "\/Operating Systems"
+                    "path": "\/Motherboards"
                 }
             },
             "locationUpdateStrategy": {
                 "type": "staticPath",
                 "settings": {
-                    "path": "\/Operating Systems"
+                    "path": "\/Motherboards"
                 }
             },
             "publishingStrategy": {
@@ -118,7 +118,7 @@
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "description",
+                        "fieldName": "name",
                         "language": "de",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
@@ -127,7 +127,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Name [4]",
+                "label": "Spanish Name [4]",
                 "dataSourceIndex": [
                     "4"
                 ],
@@ -136,7 +136,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "name",
-                        "language": "fr",
+                        "language": "es",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -144,7 +144,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Description [5]",
+                "label": "Spanish Description [5]",
                 "dataSourceIndex": [
                     "5"
                 ],
@@ -153,7 +153,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "description",
-                        "language": "fr",
+                        "language": "es",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -161,82 +161,31 @@
                 "transformationPipeline": []
             },
             {
-                "label": "Version [6]",
+                "label": "Brand [6]",
                 "dataSourceIndex": [
                     "6"
                 ],
-                "transformationResultType": "default",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "version",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "transformationPipeline": []
-            },
-            {
-                "label": "Release [7]",
-                "dataSourceIndex": [
-                    "7"
-                ],
-                "transformationResultType": "default",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "release",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "transformationPipeline": []
-            },
-            {
-                "label": "Bit [8]",
-                "dataSourceIndex": [
-                    "8"
-                ],
-                "transformationResultType": "default",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "bit",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "transformationPipeline": []
-            },
-            {
-                "label": "Brand [9]",
-                "dataSourceIndex": [
-                    "9"
-                ],
-                "transformationResultType": "dataObjectArray",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "Brand",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
                 "settings": {
-                    "delimiter": "",
+                    "delimiter": " ",
                     "loadStrategy": "path",
                     "attributeDataObjectClassId": "",
                     "attributeName": "",
                     "attributeLanguage": ""
                 },
+                "transformationResultType": "dataObjectArray",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "brand",
+                        "language": "",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
+                },
                 "transformationPipeline": [
                     {
                         "settings": {
-                            "delimiter": ""
+                            "delimiter": " "
                         },
                         "type": "explode"
                     },

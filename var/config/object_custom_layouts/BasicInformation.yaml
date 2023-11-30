@@ -6,8 +6,8 @@ pimcore:
                     id: BasicInformation
                     name: BasicInformation
                     description: ''
-                    creationDate: 1701170162
-                    modificationDate: 1701170194
+                    creationDate: 1701360695
+                    modificationDate: 1701361084
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:

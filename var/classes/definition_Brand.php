@@ -9,7 +9,6 @@
  * - logo [image]
  * - localizedfields [localizedfields]
  * -- name [input]
- * -- address [textarea]
  * -- contact [textarea]
  * - Country [country]
  */
@@ -21,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Brand',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700669209,
+   'modificationDate' => 1701359427,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -139,31 +138,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'address',
-                 'title' => 'Address',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'maxLength' => NULL,
-                 'showCharCount' => true,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
-              )),
-              2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'contact',
                  'title' => 'Contact',

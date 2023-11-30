@@ -127,7 +127,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Name [4]",
+                "label": "Spanish Name [4]",
                 "dataSourceIndex": [
                     "4"
                 ],
@@ -136,7 +136,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "name",
-                        "language": "fr",
+                        "language": "es",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -144,7 +144,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Description [5]",
+                "label": "Spanish Description [5]",
                 "dataSourceIndex": [
                     "5"
                 ],
@@ -153,7 +153,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "description",
-                        "language": "fr",
+                        "language": "es",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }

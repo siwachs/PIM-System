@@ -1,12 +1,12 @@
 {
     "type": "dataImporterDataObject",
     "path": "",
-    "name": "ImportProcessors",
+    "name": "ImportStorages",
     "group": "Data Importers",
     "configuration": {
         "general": {
             "type": "dataImporterDataObject",
-            "name": "ImportProcessors",
+            "name": "ImportStorages",
             "description": "",
             "group": "Data Importers",
             "active": false,
@@ -22,12 +22,12 @@
             "type": "xlsx",
             "settings": {
                 "skipFirstRow": true,
-                "sheetName": "Processors"
+                "sheetName": "Storages"
             }
         },
         "resolverConfig": {
             "elementType": "dataObject",
-            "dataObjectClassId": "Processor",
+            "dataObjectClassId": "Storage",
             "loadingStrategy": {
                 "type": "attribute",
                 "settings": {
@@ -40,13 +40,13 @@
             "createLocationStrategy": {
                 "type": "staticPath",
                 "settings": {
-                    "path": "\/Processors"
+                    "path": "\/Storages"
                 }
             },
             "locationUpdateStrategy": {
                 "type": "staticPath",
                 "settings": {
-                    "path": "\/Processors"
+                    "path": "\/Storages"
                 }
             },
             "publishingStrategy": {
@@ -127,7 +127,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Name [4]",
+                "label": "Spanish Name [4]",
                 "dataSourceIndex": [
                     "4"
                 ],
@@ -136,7 +136,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "name",
-                        "language": "fr",
+                        "language": "es",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -144,7 +144,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "French Description [5]",
+                "label": "Spanish Description [5]",
                 "dataSourceIndex": [
                     "5"
                 ],
@@ -153,7 +153,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "description",
-                        "language": "fr",
+                        "language": "es",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
@@ -195,7 +195,7 @@
                 "transformationPipeline": []
             },
             {
-                "label": "Speed [8]",
+                "label": "Storage Type [8]",
                 "dataSourceIndex": [
                     "8"
                 ],
@@ -203,7 +203,7 @@
                 "dataTarget": {
                     "type": "direct",
                     "settings": {
-                        "fieldName": "speed",
+                        "fieldName": "storageType",
                         "language": "",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
@@ -212,60 +212,26 @@
                 "transformationPipeline": []
             },
             {
-                "label": "Cache [9]",
+                "label": "Brand [9]",
                 "dataSourceIndex": [
                     "9"
                 ],
-                "transformationResultType": "default",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "cache",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "transformationPipeline": []
-            },
-            {
-                "label": "Generation [10]",
-                "dataSourceIndex": [
-                    "10"
-                ],
-                "transformationResultType": "default",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "generation",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
-                "transformationPipeline": []
-            },
-            {
-                "label": "Brand [11]",
-                "dataSourceIndex": [
-                    "11"
-                ],
-                "transformationResultType": "dataObjectArray",
-                "dataTarget": {
-                    "type": "direct",
-                    "settings": {
-                        "fieldName": "Brand",
-                        "language": "",
-                        "writeIfTargetIsNotEmpty": true,
-                        "writeIfSourceIsEmpty": true
-                    }
-                },
                 "settings": {
                     "delimiter": " ",
                     "loadStrategy": "path",
                     "attributeDataObjectClassId": "",
                     "attributeName": "",
                     "attributeLanguage": ""
+                },
+                "transformationResultType": "dataObjectArray",
+                "dataTarget": {
+                    "type": "direct",
+                    "settings": {
+                        "fieldName": "brand",
+                        "language": "",
+                        "writeIfTargetIsNotEmpty": true,
+                        "writeIfSourceIsEmpty": true
+                    }
                 },
                 "transformationPipeline": [
                     {
@@ -295,7 +261,7 @@
                     "type": "direct",
                     "settings": {
                         "fieldName": "key",
-                        "language": "",
+                        "language": "en",
                         "writeIfTargetIsNotEmpty": true,
                         "writeIfSourceIsEmpty": true
                     }
