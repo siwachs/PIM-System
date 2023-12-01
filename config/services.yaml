@@ -67,6 +67,9 @@ services:
     #     public: true
     #     tags:
     #         - { name: templating.helper, alias: fooBar }
+    App\EventSubscriber\DataImportSubscriber:
+        tags:
+            - { name: "kernel.event_subscriber" }
 
     # Example event listener for objects
     App\EventListener\ObjectListener:
