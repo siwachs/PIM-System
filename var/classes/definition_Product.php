@@ -17,6 +17,7 @@
  * - subCategory [manyToManyObjectRelation]
  * - price [calculatedValue]
  * - color [select]
+ * - masterImage [image]
  * - images [imageGallery]
  * - video [video]
  * - quantitySold [numeric]
@@ -59,7 +60,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1701408225,
+   'modificationDate' => 1701428750,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -137,7 +138,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '',
+                 'regex' => '^SKU\\d+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -416,7 +417,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
-                 'maxItems' => 1,
+                 'maxItems' => NULL,
                  'visibleFields' => 'name',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
@@ -527,6 +528,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                 'name' => 'masterImage',
+                 'title' => 'Master Image',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '',
+                 'width' => '',
+                 'height' => '',
+              )),
+              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                  'name' => 'images',
                  'title' => 'Images',
@@ -552,7 +576,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'height' => '',
                  'width' => '',
               )),
-              1 => 
+              2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
                  'name' => 'video',
                  'title' => 'Video',
@@ -1894,48 +1918,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-       'name' => 'battriesIncluded',
-       'title' => 'Batteries Included',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'yesLabel' => 'yes',
-       'noLabel' => 'no',
-       'emptyLabel' => 'empty',
-       'options' => 
-      array (
-        0 => 
-        array (
-          'key' => 'empty',
-          'value' => 0,
-        ),
-        1 => 
-        array (
-          'key' => 'yes',
-          'value' => 1,
-        ),
-        2 => 
-        array (
-          'key' => 'no',
-          'value' => -1,
-        ),
-      ),
-       'width' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

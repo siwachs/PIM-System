@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701170437
+                modificationDate: 1701428208
                 createDate: 1701163375
             loaderConfig:
                 type: asset
@@ -268,7 +268,7 @@ pimcore_data_hub:
                 -
                     label: 'Quantity Sold [17]'
                     dataSourceIndex:
-                        - '17'
+                        - '18'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -283,12 +283,12 @@ pimcore_data_hub:
                 -
                     label: 'Revenue [18]'
                     dataSourceIndex:
-                        - '18'
+                        - '19'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: Revenue
+                            fieldName: revenue
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
@@ -298,7 +298,7 @@ pimcore_data_hub:
                 -
                     label: 'Product Availability [19]'
                     dataSourceIndex:
-                        - '19'
+                        - '20'
                     transformationResultType: boolean
                     dataTarget:
                         type: direct
@@ -313,7 +313,7 @@ pimcore_data_hub:
                 -
                     label: 'Rating [20]'
                     dataSourceIndex:
-                        - '20'
+                        - '21'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -328,12 +328,12 @@ pimcore_data_hub:
                 -
                     label: 'Base Price [21]'
                     dataSourceIndex:
-                        - '21'
+                        - '22'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: BasePrice
+                            fieldName: basePrice
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
@@ -343,7 +343,7 @@ pimcore_data_hub:
                 -
                     label: 'Selling Price [22]'
                     dataSourceIndex:
-                        - '22'
+                        - '23'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -358,7 +358,7 @@ pimcore_data_hub:
                 -
                     label: 'Delivery Charges [23]'
                     dataSourceIndex:
-                        - '23'
+                        - '24'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -373,7 +373,7 @@ pimcore_data_hub:
                 -
                     label: 'Tax [24]'
                     dataSourceIndex:
-                        - '24'
+                        - '25'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -388,7 +388,7 @@ pimcore_data_hub:
                 -
                     label: 'Discount [25]'
                     dataSourceIndex:
-                        - '25'
+                        - '26'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -403,12 +403,12 @@ pimcore_data_hub:
                 -
                     label: 'Dimensions [27]'
                     dataSourceIndex:
-                        - '27'
+                        - '28'
                     transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: Dimensions
+                            fieldName: dimensions
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
@@ -416,7 +416,7 @@ pimcore_data_hub:
                 -
                     label: 'Size [28]'
                     dataSourceIndex:
-                        - '28'
+                        - '29'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -429,7 +429,7 @@ pimcore_data_hub:
                 -
                     label: 'Weight [29]'
                     dataSourceIndex:
-                        - '29'
+                        - '30'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -444,7 +444,7 @@ pimcore_data_hub:
                 -
                     label: 'Model Number [30]'
                     dataSourceIndex:
-                        - '30'
+                        - '31'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -457,7 +457,7 @@ pimcore_data_hub:
                 -
                     label: 'Model Year [31]'
                     dataSourceIndex:
-                        - '31'
+                        - '32'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -472,7 +472,7 @@ pimcore_data_hub:
                 -
                     label: 'Model Name [32]'
                     dataSourceIndex:
-                        - '32'
+                        - '33'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -485,7 +485,7 @@ pimcore_data_hub:
                 -
                     label: 'Hardware Interface [33]'
                     dataSourceIndex:
-                        - '33'
+                        - '34'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -498,7 +498,7 @@ pimcore_data_hub:
                 -
                     label: 'Power Source [34]'
                     dataSourceIndex:
-                        - '34'
+                        - '35'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -511,7 +511,7 @@ pimcore_data_hub:
                 -
                     label: 'Number of items [35]'
                     dataSourceIndex:
-                        - '35'
+                        - '36'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -526,7 +526,7 @@ pimcore_data_hub:
                 -
                     label: 'Voltage [36]'
                     dataSourceIndex:
-                        - '36'
+                        - '37'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -541,7 +541,7 @@ pimcore_data_hub:
                 -
                     label: 'Wattage [37]'
                     dataSourceIndex:
-                        - '37'
+                        - '38'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
@@ -556,7 +556,7 @@ pimcore_data_hub:
                 -
                     label: 'Country of Origin [38]'
                     dataSourceIndex:
-                        - '38'
+                        - '39'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -569,12 +569,12 @@ pimcore_data_hub:
                 -
                     label: 'Batteries Required [39]'
                     dataSourceIndex:
-                        - '39'
+                        - '40'
                     transformationResultType: boolean
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: battriesRequired
+                            fieldName: batteriesRequired
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
@@ -584,12 +584,12 @@ pimcore_data_hub:
                 -
                     label: 'Batteries Included [40]'
                     dataSourceIndex:
-                        - '40'
+                        - '41'
                     transformationResultType: boolean
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: battriesIncluded
+                            fieldName: batteriesIncluded
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
@@ -599,7 +599,7 @@ pimcore_data_hub:
                 -
                     label: 'Operating System [42]'
                     dataSourceIndex:
-                        - '42'
+                        - '43'
                     settings:
                         delimiter: ''
                         loadStrategy: path
@@ -629,7 +629,7 @@ pimcore_data_hub:
                 -
                     label: 'Processor [43]'
                     dataSourceIndex:
-                        - '43'
+                        - '44'
                     settings:
                         delimiter: ''
                         loadStrategy: path
@@ -659,7 +659,7 @@ pimcore_data_hub:
                 -
                     label: 'RAM [44]'
                     dataSourceIndex:
-                        - '44'
+                        - '45'
                     settings:
                         delimiter: ''
                         loadStrategy: path
@@ -689,7 +689,7 @@ pimcore_data_hub:
                 -
                     label: 'ROM [45]'
                     dataSourceIndex:
-                        - '45'
+                        - '46'
                     settings:
                         delimiter: ''
                         loadStrategy: path
@@ -719,7 +719,7 @@ pimcore_data_hub:
                 -
                     label: 'VRAM [46]'
                     dataSourceIndex:
-                        - '46'
+                        - '47'
                     settings:
                         delimiter: ''
                         loadStrategy: path
@@ -749,7 +749,7 @@ pimcore_data_hub:
                 -
                     label: 'Motherboard [41]'
                     dataSourceIndex:
-                        - '41'
+                        - '42'
                     settings:
                         delimiter: ''
                         loadStrategy: path
@@ -779,7 +779,7 @@ pimcore_data_hub:
                 -
                     label: 'Connectivity Technology [47]'
                     dataSourceIndex:
-                        - '47'
+                        - '48'
                     transformationResultType: array
                     dataTarget:
                         type: direct
@@ -791,6 +791,55 @@ pimcore_data_hub:
                     transformationPipeline:
                         -
                             type: asArray
+                -
+                    label: 'Sub Category[12]'
+                    dataSourceIndex:
+                        - '12'
+                    settings:
+                        delimiter: ''
+                        loadStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
+                    transformationResultType: dataObjectArray
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: subCategory
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                delimiter: ''
+                            type: explode
+                        -
+                            settings:
+                                loadStrategy: path
+                                attributeDataObjectClassId: ''
+                                attributeName: ''
+                                attributeLanguage: ''
+                            type: loadDataObject
+                -
+                    label: 'Master Image [15]'
+                    dataSourceIndex:
+                        - '15'
+                    transformationResultType: asset
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: masterImage
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    settings:
+                        loadStrategy: path
+                    transformationPipeline:
+                        -
+                            settings:
+                                loadStrategy: path
+                            type: loadAsset
             executionConfig:
                 scheduleType: recurring
                 cronDefinition: ''

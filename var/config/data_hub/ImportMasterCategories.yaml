@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701158626
+                modificationDate: 1701424136
                 createDate: 1700738573
             loaderConfig:
                 type: asset
@@ -30,13 +30,15 @@ pimcore_data_hub:
                         language: en
                         includeUnpublished: true
                 createLocationStrategy:
-                    type: staticPath
+                    type: findOrCreateFolder
                     settings:
-                        path: /Categories
+                        dataSourceIndex: '0'
+                        fallbackPath: /Categories
                 locationUpdateStrategy:
-                    type: staticPath
+                    type: findOrCreateFolder
                     settings:
-                        path: /Categories
+                        dataSourceIndex: '0'
+                        fallbackPath: /Categories
                 publishingStrategy:
                     type: alwaysPublish
             processingConfig:
@@ -44,35 +46,35 @@ pimcore_data_hub:
                 idDataIndex: ''
             mappingConfig:
                 -
-                    label: 'Name [0]'
-                    dataSourceIndex:
-                        - '0'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: name
-                            language: en
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
-                    label: 'Description [1]'
+                    label: 'Name [1]'
                     dataSourceIndex:
                         - '1'
                     transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
+                            fieldName: name
+                            language: en
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Description [2]'
+                    dataSourceIndex:
+                        - '2'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
                             fieldName: description
                             language: en
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'German Name [2]'
+                    label: 'German Name [3]'
                     dataSourceIndex:
-                        - '2'
+                        - '3'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -83,9 +85,9 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'German Description [3]'
+                    label: 'German Description [4]'
                     dataSourceIndex:
-                        - '3'
+                        - '4'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -96,9 +98,9 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'Spanish Name [4]'
+                    label: 'Spanish Name [5]'
                     dataSourceIndex:
-                        - '4'
+                        - '5'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -109,9 +111,9 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: 'Spanish Description [5]'
+                    label: 'Spanish Description [6]'
                     dataSourceIndex:
-                        - '5'
+                        - '6'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -124,7 +126,7 @@ pimcore_data_hub:
                 -
                     label: o_key
                     dataSourceIndex:
-                        - '0'
+                        - '1'
                     transformationResultType: default
                     dataTarget:
                         type: direct
