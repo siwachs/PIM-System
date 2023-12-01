@@ -21,13 +21,24 @@ class ProductController extends FrontendController
     {
         $productData = [];
         foreach ($products as $product) {
+            $subCategories = array_map(function ($category) {
+                return $category->getKey();
+            }, $product->getSubCategory());
+
+            $subCategoriesString = implode(', ', $subCategories);
+
             $productData[] = [
                 'id' => $product->getId(),
                 'sku' => $product->getSKU(),
                 'name' => $product->getName($lang),
                 'description' => $product->getDescription($lang),
                 'country' => $product->getCountry(),
+                'brand' => $product->getBrand()[0]->getKey(),
+                'manufacturer' => $product->getManufacturer()[0]->getKey(),
+                'category' => $product->getCategory()[0]->getKey(),
+                'subCategories' => $subCategoriesString,
                 'countryOfOrigin' => $product->getCountryOfOrigin(),
+                'fullPath' => $product->getFullPath(),
                 'createdAt' => date('h:i A, d F Y', $product->getCreationDate())
             ];
         }
