@@ -5,3 +5,19 @@ password: businessuserAC@123
 Operator User
 username: operator
 password: operatoruserAC@123
+
+Commerce User
+username: commerce
+password: commerceuserAC@123
+
+Technician User
+username: technician
+password: technicianuserAC@123
+
+Reviewr User
+username: reviewr
+password: reviewruserAC@123
+
+Retailer User
+username: retailer
+password: retaileruserAC@123

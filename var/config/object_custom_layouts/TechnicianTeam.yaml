@@ -7,7 +7,7 @@ pimcore:
                     name: TechnicianTeam
                     description: ''
                     creationDate: 1701360764
-                    modificationDate: 1701361148
+                    modificationDate: 1701408225
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -580,66 +580,6 @@ pimcore:
                                                 optionsProviderClass: null
                                                 optionsProviderData: null
                                                 restrictTo: ''
-                                                datatype: data
-                                            -
-                                                name: battriesRequired
-                                                title: 'Batteries Required'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: booleanSelect
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                yesLabel: 'yes'
-                                                noLabel: 'no'
-                                                emptyLabel: empty
-                                                options:
-                                                    -
-                                                        key: empty
-                                                        value: 0
-                                                    -
-                                                        key: 'yes'
-                                                        value: 1
-                                                    -
-                                                        key: 'no'
-                                                        value: -1
-                                                width: ''
-                                                datatype: data
-                                            -
-                                                name: battriesIncluded
-                                                title: 'Batteries Included'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: booleanSelect
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                yesLabel: 'yes'
-                                                noLabel: 'no'
-                                                emptyLabel: empty
-                                                options:
-                                                    -
-                                                        key: empty
-                                                        value: 0
-                                                    -
-                                                        key: 'yes'
-                                                        value: 1
-                                                    -
-                                                        key: 'no'
-                                                        value: -1
-                                                width: ''
                                                 datatype: data
                                         locked: false
                                         fieldtype: panel

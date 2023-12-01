@@ -41,6 +41,7 @@ pimcore:
                 start_enrichment:
                     from: new
                     to: enrich_product
+                    guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_OPERATOR'))"
                     options:
                         label: "Start adding data enrichment"
                         notes:
@@ -49,6 +50,7 @@ pimcore:
                 finish_enrichment:
                     from: enrich_product
                     to: add_technicalities
+                    guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_COMMERCE'))"
                     options:
                         label: "Finish data enrichment"
                         notes:
@@ -57,6 +59,7 @@ pimcore:
                 finish_technicalities:
                     from: add_technicalities
                     to: review
+                    guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_TECHNICIAN'))"
                     options:
                         label: "Finish adding technical details"
                         notes:
@@ -65,6 +68,7 @@ pimcore:
                 accept_product:
                     from: review
                     to: accepted
+                    guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_REVIEW'))"
                     options:
                         label: "Accept product"
                         notes:

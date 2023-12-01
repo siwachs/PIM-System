@@ -2,11 +2,11 @@ pimcore:
     objects:
         custom_layouts:
             definitions:
-                CommerceTeam:
-                    id: CommerceTeam
-                    name: CommerceTeam
+                retailer:
+                    id: retailer
+                    name: retailer
                     description: ''
-                    creationDate: 1701360715
+                    creationDate: 1701407059
                     modificationDate: 1701408225
                     userOwner: 2
                     classId: Product
@@ -356,11 +356,33 @@ pimcore:
                                         datatype: layout
                                         children:
                                             -
+                                                name: Images
+                                                title: Images
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: imageGallery
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                uploadPath: ''
+                                                ratioX: null
+                                                ratioY: null
+                                                predefinedDataTemplates: ''
+                                                height: ''
+                                                width: ''
+                                                datatype: data
+                                            -
                                                 name: video
                                                 title: Video
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -665,11 +687,35 @@ pimcore:
                                         datatype: layout
                                         children:
                                             -
+                                                name: Dimensions
+                                                title: Dimensions
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
                                                 name: size
                                                 title: Size
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -693,7 +739,7 @@ pimcore:
                                                 title: Weight
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -713,6 +759,535 @@ pimcore:
                                                 decimalPrecision: null
                                                 width: ''
                                                 defaultValueGenerator: ''
+                                                datatype: data
+                                        locked: false
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: ''
+                                        labelWidth: 100
+                                        labelAlign: left
+                                    -
+                                        name: 'Technical Details'
+                                        type: null
+                                        region: null
+                                        title: 'Technical Details'
+                                        width: ''
+                                        height: ''
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: modelNumber
+                                                title: 'Model Number'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: modelYear
+                                                title: 'Model Year'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: numeric
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: 1
+                                                integer: true
+                                                unsigned: true
+                                                minValue: 1
+                                                maxValue: null
+                                                unique: false
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: modelName
+                                                title: 'Model Name'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: hardwareInterface
+                                                title: 'Hardware Interface'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: powerSource
+                                                title: 'Power Source'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: numberOfItems
+                                                title: 'Number of items'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: numeric
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: 1
+                                                integer: true
+                                                unsigned: true
+                                                minValue: 1
+                                                maxValue: null
+                                                unique: false
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: voltage
+                                                title: Voltage
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: numeric
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: 1
+                                                integer: true
+                                                unsigned: true
+                                                minValue: 1
+                                                maxValue: null
+                                                unique: false
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: wattage
+                                                title: Wattage
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: numeric
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: 1
+                                                integer: true
+                                                unsigned: true
+                                                minValue: 1
+                                                maxValue: null
+                                                unique: false
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: countryOfOrigin
+                                                title: 'Country of Origin'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: country
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                options: null
+                                                defaultValue: null
+                                                columnLength: 190
+                                                dynamicOptions: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                optionsProviderType: null
+                                                optionsProviderClass: null
+                                                optionsProviderData: null
+                                                restrictTo: ''
+                                                datatype: data
+                                            -
+                                                name: battriesRequired
+                                                title: 'Batteries Required'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: booleanSelect
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                yesLabel: 'yes'
+                                                noLabel: 'no'
+                                                emptyLabel: empty
+                                                options:
+                                                    -
+                                                        key: empty
+                                                        value: 0
+                                                    -
+                                                        key: 'yes'
+                                                        value: 1
+                                                    -
+                                                        key: 'no'
+                                                        value: -1
+                                                width: ''
+                                                datatype: data
+                                            -
+                                                name: battriesIncluded
+                                                title: 'Batteries Included'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: booleanSelect
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                yesLabel: 'yes'
+                                                noLabel: 'no'
+                                                emptyLabel: empty
+                                                options:
+                                                    -
+                                                        key: empty
+                                                        value: 0
+                                                    -
+                                                        key: 'yes'
+                                                        value: 1
+                                                    -
+                                                        key: 'no'
+                                                        value: -1
+                                                width: ''
+                                                datatype: data
+                                        locked: false
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: ''
+                                        labelWidth: 100
+                                        labelAlign: left
+                                    -
+                                        name: 'Advance Technical Details'
+                                        type: null
+                                        region: null
+                                        title: 'Advance Technical Details'
+                                        width: ''
+                                        height: ''
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: motherboard
+                                                title: Motherboard
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: MotherBoard
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'name,brand'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: operatingSystem
+                                                title: 'Operating System'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: OperatingSystem
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,name,Brand'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: processor
+                                                title: Processor
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: Processor
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,name,Brand'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: ram
+                                                title: RAM
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: Storage
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,name,brand'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: rom
+                                                title: ROM
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: Storage
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,name,brand'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: vram
+                                                title: VRAM
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: manyToManyObjectRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: Storage
+                                                displayMode: grid
+                                                pathFormatterClass: ''
+                                                maxItems: 1
+                                                visibleFields: 'id,name,brand'
+                                                allowToCreateNewObject: false
+                                                allowToClearRelation: true
+                                                optimizedAdminLoading: false
+                                                enableTextSelection: false
+                                                visibleFieldDefinitions: {  }
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: connectivityTechnology
+                                                title: 'Connectivity Technology'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: multiselect
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                options: {  }
+                                                maxItems: null
+                                                renderType: list
+                                                dynamicOptions: false
+                                                height: ''
+                                                width: ''
+                                                optionsProviderType: configure
+                                                optionsProviderClass: Pimcore\Bundle\CoreBundle\OptionsProvider\SelectOptionsOptionsProvider
+                                                optionsProviderData: ''
                                                 datatype: data
                                         locked: false
                                         fieldtype: panel

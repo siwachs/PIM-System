@@ -7,7 +7,7 @@ pimcore:
                     name: ReviewerLayout
                     description: ''
                     creationDate: 1701361048
-                    modificationDate: 1701361069
+                    modificationDate: 1701408225
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -365,28 +365,6 @@ pimcore:
                                         datatype: layout
                                         children:
                                             -
-                                                name: Images
-                                                title: Images
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: imageGallery
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                uploadPath: ''
-                                                ratioX: null
-                                                ratioY: null
-                                                predefinedDataTemplates: ''
-                                                height: ''
-                                                width: ''
-                                                datatype: data
-                                            -
                                                 name: video
                                                 title: Video
                                                 tooltip: ''
@@ -445,32 +423,6 @@ pimcore:
                                                     -
                                                         name: quantitySold
                                                         title: 'Quantity Sold'
-                                                        tooltip: ''
-                                                        mandatory: false
-                                                        noteditable: true
-                                                        index: false
-                                                        locked: false
-                                                        style: ''
-                                                        permissions: null
-                                                        fieldtype: numeric
-                                                        relationType: false
-                                                        invisible: false
-                                                        visibleGridView: false
-                                                        visibleSearch: false
-                                                        defaultValue: 0
-                                                        integer: true
-                                                        unsigned: true
-                                                        minValue: null
-                                                        maxValue: null
-                                                        unique: false
-                                                        decimalSize: null
-                                                        decimalPrecision: null
-                                                        width: ''
-                                                        defaultValueGenerator: ''
-                                                        datatype: data
-                                                    -
-                                                        name: Revenue
-                                                        title: Revenue
                                                         tooltip: ''
                                                         mandatory: false
                                                         noteditable: true
@@ -569,32 +521,6 @@ pimcore:
                                                 bodyStyle: ''
                                                 datatype: layout
                                                 children:
-                                                    -
-                                                        name: BasePrice
-                                                        title: 'Base Price'
-                                                        tooltip: ''
-                                                        mandatory: false
-                                                        noteditable: true
-                                                        index: false
-                                                        locked: false
-                                                        style: ''
-                                                        permissions: null
-                                                        fieldtype: numeric
-                                                        relationType: false
-                                                        invisible: false
-                                                        visibleGridView: false
-                                                        visibleSearch: false
-                                                        defaultValue: 1
-                                                        integer: false
-                                                        unsigned: true
-                                                        minValue: 1
-                                                        maxValue: null
-                                                        unique: false
-                                                        decimalSize: null
-                                                        decimalPrecision: null
-                                                        width: ''
-                                                        defaultValueGenerator: ''
-                                                        datatype: data
                                                     -
                                                         name: sellingPrice
                                                         title: 'Selling Price'
@@ -747,30 +673,6 @@ pimcore:
                                         bodyStyle: ''
                                         datatype: layout
                                         children:
-                                            -
-                                                name: Dimensions
-                                                title: Dimensions
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: input
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                defaultValue: null
-                                                columnLength: 190
-                                                regex: ''
-                                                regexFlags: {  }
-                                                unique: false
-                                                showCharCount: false
-                                                width: ''
-                                                defaultValueGenerator: ''
-                                                datatype: data
                                             -
                                                 name: size
                                                 title: Size
@@ -1065,66 +967,6 @@ pimcore:
                                                 optionsProviderClass: null
                                                 optionsProviderData: null
                                                 restrictTo: ''
-                                                datatype: data
-                                            -
-                                                name: battriesRequired
-                                                title: 'Batteries Required'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: booleanSelect
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                yesLabel: 'yes'
-                                                noLabel: 'no'
-                                                emptyLabel: empty
-                                                options:
-                                                    -
-                                                        key: empty
-                                                        value: 0
-                                                    -
-                                                        key: 'yes'
-                                                        value: 1
-                                                    -
-                                                        key: 'no'
-                                                        value: -1
-                                                width: ''
-                                                datatype: data
-                                            -
-                                                name: battriesIncluded
-                                                title: 'Batteries Included'
-                                                tooltip: ''
-                                                mandatory: false
-                                                noteditable: false
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: booleanSelect
-                                                relationType: false
-                                                invisible: false
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                yesLabel: 'yes'
-                                                noLabel: 'no'
-                                                emptyLabel: empty
-                                                options:
-                                                    -
-                                                        key: empty
-                                                        value: 0
-                                                    -
-                                                        key: 'yes'
-                                                        value: 1
-                                                    -
-                                                        key: 'no'
-                                                        value: -1
-                                                width: ''
                                                 datatype: data
                                         locked: false
                                         fieldtype: panel

@@ -1,0 +1,45 @@
+pimcore_custom_reports:
+    definitions:
+        ProductCount:
+            name: ProductCount
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "object_Category.key AS 'Category', COUNT(object_Product.id) AS 'Product Count'"
+                    from: "object_Category LEFT JOIN object_Product ON object_Category.id = REPLACE(object_Product.category,',','')"
+                    where: ''
+                    groupby: "GROUP BY object_Category.key ORDER BY 'Product Count' DESC"
+                    type: sql
+            columnConfiguration:
+                -
+                    name: Category
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel611-1
+                -
+                    name: 'Product Count'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel611-2
+            niceName: ''
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: true
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1701413113
+            creationDate: 1701410589
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

@@ -1,0 +1,69 @@
+pimcore_custom_reports:
+    definitions:
+        WorkflowReport:
+            name: WorkflowReport
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "element_workflow_state.cid AS 'Product Object Id', objects.key AS 'Product Name', objects.path AS 'Product Path', element_workflow_state.place AS 'Currently In State', element_workflow_state.workflow"
+                    from: 'element_workflow_state JOIN objects ON element_workflow_state.cid = objects.id'
+                    where: ''
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'Product Object Id'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel825-1
+                -
+                    name: 'Product Name'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel825-2
+                -
+                    name: 'Product Path'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel825-3
+                -
+                    name: 'Currently In State'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel825-4
+                -
+                    name: workflow
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel825-5
+            niceName: ''
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: true
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1701409598
+            creationDate: 1701407383
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

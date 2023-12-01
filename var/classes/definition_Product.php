@@ -17,19 +17,19 @@
  * - subCategory [manyToManyObjectRelation]
  * - price [calculatedValue]
  * - color [select]
- * - Images [imageGallery]
+ * - images [imageGallery]
  * - video [video]
  * - quantitySold [numeric]
- * - Revenue [numeric]
+ * - revenue [numeric]
  * - productAvailability [booleanSelect]
  * - rating [numeric]
- * - BasePrice [numeric]
+ * - basePrice [numeric]
  * - sellingPrice [numeric]
  * - deliveryCharges [numeric]
  * - tax [numeric]
  * - discount [numeric]
  * - actualPrice [calculatedValue]
- * - Dimensions [input]
+ * - dimensions [input]
  * - size [input]
  * - weight [numeric]
  * - modelNumber [input]
@@ -41,8 +41,8 @@
  * - voltage [numeric]
  * - wattage [numeric]
  * - countryOfOrigin [country]
- * - battriesRequired [booleanSelect]
- * - battriesIncluded [booleanSelect]
+ * - batteriesRequired [booleanSelect]
+ * - batteriesIncluded [booleanSelect]
  * - motherboard [manyToManyObjectRelation]
  * - operatingSystem [manyToManyObjectRelation]
  * - processor [manyToManyObjectRelation]
@@ -59,7 +59,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1701359692,
+   'modificationDate' => 1701408225,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -120,7 +120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'SKU',
                  'title' => 'SKU',
-                 'tooltip' => '',
+                 'tooltip' => 'Unique Identifier',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -171,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'name',
                      'title' => 'Name',
-                     'tooltip' => '',
+                     'tooltip' => 'Name of the product.',
                      'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
@@ -201,7 +201,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'name' => 'description',
                      'title' => 'Description',
-                     'tooltip' => '',
+                     'tooltip' => 'Description of the product.',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -243,7 +243,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                  'name' => 'country',
                  'title' => 'Country',
-                 'tooltip' => '',
+                 'tooltip' => 'Country from where product belongs.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -432,7 +432,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                  'name' => 'price',
                  'title' => 'Price',
-                 'tooltip' => '',
+                 'tooltip' => 'Calculated Price.',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -528,7 +528,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
-                 'name' => 'Images',
+                 'name' => 'images',
                  'title' => 'Images',
                  'tooltip' => '',
                  'mandatory' => false,
@@ -657,7 +657,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'name' => 'Revenue',
+                     'name' => 'revenue',
                      'title' => 'Revenue',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -785,7 +785,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'name' => 'BasePrice',
+                     'name' => 'basePrice',
                      'title' => 'Base Price',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -999,7 +999,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'Dimensions',
+                 'name' => 'dimensions',
                  'title' => 'Dimensions',
                  'tooltip' => '',
                  'mandatory' => false,
@@ -1384,7 +1384,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               9 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                 'name' => 'battriesRequired',
+                 'name' => 'batteriesRequired',
                  'title' => 'Batteries Required',
                  'tooltip' => '',
                  'mandatory' => false,
@@ -1426,7 +1426,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               10 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                 'name' => 'battriesIncluded',
+                 'name' => 'batteriesIncluded',
                  'title' => 'Batteries Included',
                  'tooltip' => '',
                  'mandatory' => false,
@@ -1894,6 +1894,48 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+       'name' => 'battriesIncluded',
+       'title' => 'Batteries Included',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'yesLabel' => 'yes',
+       'noLabel' => 'no',
+       'emptyLabel' => 'empty',
+       'options' => 
+      array (
+        0 => 
+        array (
+          'key' => 'empty',
+          'value' => 0,
+        ),
+        1 => 
+        array (
+          'key' => 'yes',
+          'value' => 1,
+        ),
+        2 => 
+        array (
+          'key' => 'no',
+          'value' => -1,
+        ),
+      ),
+       'width' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (
