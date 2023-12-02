@@ -8,12 +8,12 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701428208
+                modificationDate: 1701503133
                 createDate: 1701163375
             loaderConfig:
                 type: asset
                 settings:
-                    assetPath: '/CSV To Import/Database.xlsx'
+                    assetPath: '/Excel Sheets/Database.xlsx'
             interpreterConfig:
                 type: xlsx
                 settings:
@@ -825,6 +825,8 @@ pimcore_data_hub:
                     label: 'Master Image [15]'
                     dataSourceIndex:
                         - '15'
+                    settings:
+                        loadStrategy: path
                     transformationResultType: asset
                     dataTarget:
                         type: direct
@@ -833,8 +835,6 @@ pimcore_data_hub:
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
-                    settings:
-                        loadStrategy: path
                     transformationPipeline:
                         -
                             settings:

@@ -47,6 +47,6 @@ class DataImportSubscriber implements EventSubscriberInterface
         $title = 'Using Class ' . $dataObject->getClassName();
         $message = 'Data Importing finished.';
 
-        $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message);
+        $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message, $dataObject);
     }
 }

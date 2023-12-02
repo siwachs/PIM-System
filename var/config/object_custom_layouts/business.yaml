@@ -2,12 +2,12 @@ pimcore:
     objects:
         custom_layouts:
             definitions:
-                ReviewerLayout:
-                    id: ReviewerLayout
-                    name: ReviewerLayout
+                business:
+                    id: business
+                    name: business
                     description: ''
-                    creationDate: 1701361048
-                    modificationDate: 1701501547
+                    creationDate: 1701501583
+                    modificationDate: 1701501668
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -49,9 +49,9 @@ pimcore:
                                             -
                                                 name: SKU
                                                 title: SKU
-                                                tooltip: ''
+                                                tooltip: 'Unique Identifier'
                                                 mandatory: true
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -63,7 +63,7 @@ pimcore:
                                                 visibleSearch: true
                                                 defaultValue: null
                                                 columnLength: 190
-                                                regex: ''
+                                                regex: ^SKU\d+$
                                                 regexFlags: {  }
                                                 unique: true
                                                 showCharCount: false
@@ -89,9 +89,9 @@ pimcore:
                                                     -
                                                         name: name
                                                         title: Name
-                                                        tooltip: ''
+                                                        tooltip: 'Name of the product.'
                                                         mandatory: true
-                                                        noteditable: false
+                                                        noteditable: true
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -113,9 +113,9 @@ pimcore:
                                                     -
                                                         name: description
                                                         title: Description
-                                                        tooltip: ''
+                                                        tooltip: 'Description of the product.'
                                                         mandatory: false
-                                                        noteditable: false
+                                                        noteditable: true
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -146,9 +146,9 @@ pimcore:
                                             -
                                                 name: country
                                                 title: Country
-                                                tooltip: ''
+                                                tooltip: 'Country from where product belongs.'
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -174,7 +174,7 @@ pimcore:
                                                 title: Brand
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -204,7 +204,7 @@ pimcore:
                                                 title: Manufacturer
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -234,7 +234,7 @@ pimcore:
                                                 title: Category
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -264,7 +264,7 @@ pimcore:
                                                 title: 'Sub Category'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -279,7 +279,7 @@ pimcore:
                                                         classes: Category
                                                 displayMode: grid
                                                 pathFormatterClass: ''
-                                                maxItems: 1
+                                                maxItems: null
                                                 visibleFields: name
                                                 allowToCreateNewObject: false
                                                 allowToClearRelation: true
@@ -292,7 +292,7 @@ pimcore:
                                             -
                                                 name: price
                                                 title: Price
-                                                tooltip: ''
+                                                tooltip: 'Calculated Price.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -316,7 +316,7 @@ pimcore:
                                                 title: Color
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -326,16 +326,7 @@ pimcore:
                                                 invisible: false
                                                 visibleGridView: false
                                                 visibleSearch: false
-                                                options:
-                                                    -
-                                                        key: Red
-                                                        value: Red
-                                                    -
-                                                        key: Green
-                                                        value: Green
-                                                    -
-                                                        key: Blue
-                                                        value: Blue
+                                                options: {  }
                                                 defaultValue: ''
                                                 columnLength: 190
                                                 dynamicOptions: false
@@ -369,7 +360,7 @@ pimcore:
                                                 title: 'Master Image'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -388,7 +379,7 @@ pimcore:
                                                 title: Images
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -410,7 +401,7 @@ pimcore:
                                                 title: Video
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -464,6 +455,32 @@ pimcore:
                                                     -
                                                         name: quantitySold
                                                         title: 'Quantity Sold'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: true
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: true
+                                                        unsigned: true
+                                                        minValue: null
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: revenue
+                                                        title: Revenue
                                                         tooltip: ''
                                                         mandatory: false
                                                         noteditable: true
@@ -562,6 +579,32 @@ pimcore:
                                                 bodyStyle: ''
                                                 datatype: layout
                                                 children:
+                                                    -
+                                                        name: basePrice
+                                                        title: 'Base Price'
+                                                        tooltip: ''
+                                                        mandatory: false
+                                                        noteditable: true
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 1
+                                                        integer: false
+                                                        unsigned: true
+                                                        minValue: 1
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
                                                     -
                                                         name: sellingPrice
                                                         title: 'Selling Price'
@@ -715,11 +758,35 @@ pimcore:
                                         datatype: layout
                                         children:
                                             -
+                                                name: dimensions
+                                                title: Dimensions
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
                                                 name: size
                                                 title: Size
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -743,7 +810,7 @@ pimcore:
                                                 title: Weight
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -788,7 +855,7 @@ pimcore:
                                                 title: 'Model Number'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -812,7 +879,7 @@ pimcore:
                                                 title: 'Model Year'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -838,7 +905,7 @@ pimcore:
                                                 title: 'Model Name'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -862,7 +929,7 @@ pimcore:
                                                 title: 'Hardware Interface'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -886,7 +953,7 @@ pimcore:
                                                 title: 'Power Source'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -910,7 +977,7 @@ pimcore:
                                                 title: 'Number of items'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -936,7 +1003,7 @@ pimcore:
                                                 title: Voltage
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -962,7 +1029,7 @@ pimcore:
                                                 title: Wattage
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -988,7 +1055,7 @@ pimcore:
                                                 title: 'Country of Origin'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1008,6 +1075,66 @@ pimcore:
                                                 optionsProviderClass: null
                                                 optionsProviderData: null
                                                 restrictTo: ''
+                                                datatype: data
+                                            -
+                                                name: batteriesRequired
+                                                title: 'Batteries Required'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: booleanSelect
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                yesLabel: 'yes'
+                                                noLabel: 'no'
+                                                emptyLabel: empty
+                                                options:
+                                                    -
+                                                        key: empty
+                                                        value: 0
+                                                    -
+                                                        key: 'yes'
+                                                        value: 1
+                                                    -
+                                                        key: 'no'
+                                                        value: -1
+                                                width: ''
+                                                datatype: data
+                                            -
+                                                name: batteriesIncluded
+                                                title: 'Batteries Included'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: booleanSelect
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                yesLabel: 'yes'
+                                                noLabel: 'no'
+                                                emptyLabel: empty
+                                                options:
+                                                    -
+                                                        key: empty
+                                                        value: 0
+                                                    -
+                                                        key: 'yes'
+                                                        value: 1
+                                                    -
+                                                        key: 'no'
+                                                        value: -1
+                                                width: ''
                                                 datatype: data
                                         locked: false
                                         fieldtype: panel
@@ -1033,7 +1160,7 @@ pimcore:
                                                 title: Motherboard
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1063,7 +1190,7 @@ pimcore:
                                                 title: 'Operating System'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1093,7 +1220,7 @@ pimcore:
                                                 title: Processor
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1123,7 +1250,7 @@ pimcore:
                                                 title: RAM
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1153,7 +1280,7 @@ pimcore:
                                                 title: ROM
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1183,7 +1310,7 @@ pimcore:
                                                 title: VRAM
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1213,7 +1340,7 @@ pimcore:
                                                 title: 'Connectivity Technology'
                                                 tooltip: ''
                                                 mandatory: false
-                                                noteditable: false
+                                                noteditable: true
                                                 index: false
                                                 locked: false
                                                 style: ''
@@ -1223,46 +1350,7 @@ pimcore:
                                                 invisible: false
                                                 visibleGridView: false
                                                 visibleSearch: false
-                                                options:
-                                                    -
-                                                        key: 5G
-                                                        value: 5G
-                                                    -
-                                                        key: 4G
-                                                        value: 4G
-                                                    -
-                                                        key: '4G VOLTE'
-                                                        value: '4G VOLTE'
-                                                    -
-                                                        key: 3G
-                                                        value: 3G
-                                                    -
-                                                        key: 2G
-                                                        value: 2G
-                                                    -
-                                                        key: GSM
-                                                        value: GSM
-                                                    -
-                                                        key: WCDMA
-                                                        value: WCDMA
-                                                    -
-                                                        key: WIFI
-                                                        value: WIFI
-                                                    -
-                                                        key: Bluetooth
-                                                        value: Bluetooth
-                                                    -
-                                                        key: Radio
-                                                        value: Radio
-                                                    -
-                                                        key: NFC
-                                                        value: NFC
-                                                    -
-                                                        key: Ethernet
-                                                        value: Ethernet
-                                                    -
-                                                        key: Zigbee
-                                                        value: Zigbee
+                                                options: {  }
                                                 maxItems: null
                                                 renderType: list
                                                 dynamicOptions: false

@@ -7,7 +7,7 @@ pimcore:
                     name: CommerceTeam
                     description: ''
                     creationDate: 1701360715
-                    modificationDate: 1701408225
+                    modificationDate: 1701501512
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -355,6 +355,47 @@ pimcore:
                                         bodyStyle: ''
                                         datatype: layout
                                         children:
+                                            -
+                                                name: masterImage
+                                                title: 'Master Image'
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: image
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                uploadPath: ''
+                                                width: ''
+                                                height: ''
+                                                datatype: data
+                                            -
+                                                name: images
+                                                title: Images
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: imageGallery
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                uploadPath: ''
+                                                ratioX: null
+                                                ratioY: null
+                                                predefinedDataTemplates: ''
+                                                height: ''
+                                                width: ''
+                                                datatype: data
                                             -
                                                 name: video
                                                 title: Video

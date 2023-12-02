@@ -8,12 +8,12 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701158719
+                modificationDate: 1701503066
                 createDate: 1700726328
             loaderConfig:
                 type: asset
                 settings:
-                    assetPath: '/CSV To Import/Database.xlsx'
+                    assetPath: '/Excel Sheets/Database.xlsx'
             interpreterConfig:
                 type: xlsx
                 settings:

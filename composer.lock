@@ -4306,16 +4306,16 @@
         },
         {
             "name": "pimcore/admin-ui-classic-bundle",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimcore/admin-ui-classic-bundle.git",
-                "reference": "e5d25b7eac8ebd95bd96fdf402aad5f7f8e14a2a"
+                "reference": "86e96fc37a735ce99e23aa5703525fb967b6ec04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimcore/admin-ui-classic-bundle/zipball/e5d25b7eac8ebd95bd96fdf402aad5f7f8e14a2a",
-                "reference": "e5d25b7eac8ebd95bd96fdf402aad5f7f8e14a2a",
+                "url": "https://api.github.com/repos/pimcore/admin-ui-classic-bundle/zipball/86e96fc37a735ce99e23aa5703525fb967b6ec04",
+                "reference": "86e96fc37a735ce99e23aa5703525fb967b6ec04",
                 "shasum": ""
             },
             "require": {
@@ -4351,9 +4351,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pimcore/admin-ui-classic-bundle/issues",
-                "source": "https://github.com/pimcore/admin-ui-classic-bundle/tree/v1.2.1"
+                "source": "https://github.com/pimcore/admin-ui-classic-bundle/tree/v1.2.2"
             },
-            "time": "2023-11-09T17:14:50+00:00"
+            "time": "2023-11-20T13:02:04+00:00"
         },
         {
             "name": "pimcore/bundle-generator",
@@ -4432,16 +4432,16 @@
         },
         {
             "name": "pimcore/data-hub",
-            "version": "v1.6.4",
+            "version": "v1.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimcore/data-hub.git",
-                "reference": "83c816e2d1f2487ad6cb11aa9e13da4ec0128598"
+                "reference": "2530a31aa3b0a867e44c60915dca2e2d9b58bffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimcore/data-hub/zipball/83c816e2d1f2487ad6cb11aa9e13da4ec0128598",
-                "reference": "83c816e2d1f2487ad6cb11aa9e13da4ec0128598",
+                "url": "https://api.github.com/repos/pimcore/data-hub/zipball/2530a31aa3b0a867e44c60915dca2e2d9b58bffa",
+                "reference": "2530a31aa3b0a867e44c60915dca2e2d9b58bffa",
                 "shasum": ""
             },
             "require": {
@@ -4484,22 +4484,22 @@
             "description": "Pimcore Datahub",
             "support": {
                 "issues": "https://github.com/pimcore/data-hub/issues",
-                "source": "https://github.com/pimcore/data-hub/tree/v1.6.4"
+                "source": "https://github.com/pimcore/data-hub/tree/v1.6.5"
             },
-            "time": "2023-09-14T13:02:57+00:00"
+            "time": "2023-11-13T12:20:59+00:00"
         },
         {
             "name": "pimcore/data-importer",
-            "version": "v1.8.5",
+            "version": "v1.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimcore/data-importer.git",
-                "reference": "186a84f147c7b64b065fe0288e7a2816ea6773d2"
+                "reference": "5666dc2511386ecc6f3a3dc4961923fe36abd603"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimcore/data-importer/zipball/186a84f147c7b64b065fe0288e7a2816ea6773d2",
-                "reference": "186a84f147c7b64b065fe0288e7a2816ea6773d2",
+                "url": "https://api.github.com/repos/pimcore/data-importer/zipball/5666dc2511386ecc6f3a3dc4961923fe36abd603",
+                "reference": "5666dc2511386ecc6f3a3dc4961923fe36abd603",
                 "shasum": ""
             },
             "require": {
@@ -4545,9 +4545,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pimcore/data-importer/issues",
-                "source": "https://github.com/pimcore/data-importer/tree/v1.8.5"
+                "source": "https://github.com/pimcore/data-importer/tree/v1.8.6"
             },
-            "time": "2023-11-09T12:46:01+00:00"
+            "time": "2023-11-23T14:30:10+00:00"
         },
         {
             "name": "pimcore/pimcore",
