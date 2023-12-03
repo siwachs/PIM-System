@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701503066
+                modificationDate: 1701618828
                 createDate: 1700726328
             loaderConfig:
                 type: asset
@@ -127,6 +127,7 @@ pimcore_data_hub:
                         - '6'
                     settings:
                         delimiter: ' '
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -144,6 +145,10 @@ pimcore_data_hub:
                             settings:
                                 delimiter: ' '
                             type: explode
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path

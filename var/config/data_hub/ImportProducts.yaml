@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701583475
+                modificationDate: 1701616775
                 createDate: 1701163375
             loaderConfig:
                 type: asset
@@ -866,6 +866,19 @@ pimcore_data_hub:
                             type: loadAsset
                         -
                             type: gallery
+                -
+                    label: 'video [17]'
+                    dataSourceIndex:
+                        - '17'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: videoMeta
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
             executionConfig:
                 scheduleType: recurring
                 cronDefinition: ''

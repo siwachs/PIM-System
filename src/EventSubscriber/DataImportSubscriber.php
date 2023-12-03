@@ -2,11 +2,11 @@
 
 namespace App\EventSubscriber;
 
-use Pimcore;
 use Pimcore\Bundle\DataImporterBundle\Event\DataObject\PreSaveEvent;
 use Pimcore\Bundle\DataImporterBundle\Event\DataObject\PostSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject\Data\Video;
 use Pimcore\Model\DataObject\Product;
 
 
@@ -35,7 +35,23 @@ class DataImportSubscriber implements EventSubscriberInterface
 
     public function onPreSave(PreSaveEvent $event)
     {
-        // For extra use.
+        $dataObject = $event->getDataObject();
+        if ($dataObject instanceof Product) {
+            $videoMeta = explode(',', $dataObject->getVideoMeta());
+            $videoMeta = array_map('trim', $videoMeta);
+
+            $assetVideo = Asset::getByPath(trim($videoMeta[0]) ?? "");
+            $assetImage = Asset::getByPath(trim($videoMeta[1]) ?? "");
+
+            $videoData = new Video();
+            $videoData->setData($assetVideo);
+            $videoData->setType("asset");
+            $videoData->setPoster($assetImage);
+            $videoData->setTitle($videoMeta[2] ?? "");
+            $videoData->setDescription($videoMeta[3] ?? "");
+
+            $dataObject->setVideo($videoData);
+        }
     }
 
     public function onPostSave(PostSaveEvent $event)

@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701503052
+                modificationDate: 1701617340
                 createDate: 1700738140
             loaderConfig:
                 type: asset
@@ -165,11 +165,12 @@ pimcore_data_hub:
                     dataSourceIndex:
                         - '9'
                     settings:
-                        delimiter: ' '
+                        delimiter: ''
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
                         attributeLanguage: ''
+                        mode: both
                     transformationResultType: dataObjectArray
                     dataTarget:
                         type: direct
@@ -181,8 +182,12 @@ pimcore_data_hub:
                     transformationPipeline:
                         -
                             settings:
-                                delimiter: ' '
+                                delimiter: ''
                             type: explode
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path
