@@ -2,9 +2,12 @@
 
 namespace App\EventSubscriber;
 
+use Pimcore;
 use Pimcore\Bundle\DataImporterBundle\Event\DataObject\PreSaveEvent;
 use Pimcore\Bundle\DataImporterBundle\Event\DataObject\PostSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject\Product;
 
 
 use Pimcore\Model\Notification\Service\NotificationService;

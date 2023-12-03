@@ -7,7 +7,7 @@ pimcore:
                     name: ReviewerLayout
                     description: ''
                     creationDate: 1701361048
-                    modificationDate: 1701501547
+                    modificationDate: 1701583630
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:

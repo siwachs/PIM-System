@@ -7,7 +7,7 @@ pimcore:
                     name: CommerceTeam
                     description: ''
                     creationDate: 1701360715
-                    modificationDate: 1701501512
+                    modificationDate: 1701583630
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:

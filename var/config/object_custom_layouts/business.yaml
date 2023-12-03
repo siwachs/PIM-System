@@ -7,7 +7,7 @@ pimcore:
                     name: business
                     description: ''
                     creationDate: 1701501583
-                    modificationDate: 1701501668
+                    modificationDate: 1701583630
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:

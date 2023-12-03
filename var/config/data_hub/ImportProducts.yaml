@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701503133
+                modificationDate: 1701583475
                 createDate: 1701163375
             loaderConfig:
                 type: asset
@@ -840,6 +840,32 @@ pimcore_data_hub:
                             settings:
                                 loadStrategy: path
                             type: loadAsset
+                -
+                    label: 'Images [16]'
+                    dataSourceIndex:
+                        - '16'
+                    settings:
+                        delimiter: ','
+                        loadStrategy: path
+                    transformationResultType: gallery
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: images
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                delimiter: ','
+                            type: explode
+                        -
+                            settings:
+                                loadStrategy: path
+                            type: loadAsset
+                        -
+                            type: gallery
             executionConfig:
                 scheduleType: recurring
                 cronDefinition: ''

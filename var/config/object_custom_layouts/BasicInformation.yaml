@@ -7,7 +7,7 @@ pimcore:
                     name: BasicInformation
                     description: ''
                     creationDate: 1701360695
-                    modificationDate: 1701408225
+                    modificationDate: 1701583630
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
