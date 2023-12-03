@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701502446
+                modificationDate: 1701619939
                 createDate: 1700667873
             loaderConfig:
                 type: asset
@@ -49,6 +49,7 @@ pimcore_data_hub:
                         - '0'
                     settings:
                         loadStrategy: path
+                        mode: both
                     transformationResultType: asset
                     dataTarget:
                         type: direct
@@ -58,6 +59,10 @@ pimcore_data_hub:
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline:
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path

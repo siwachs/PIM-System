@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701616775
+                modificationDate: 1701620709
                 createDate: 1701163375
             loaderConfig:
                 type: asset
@@ -168,6 +168,7 @@ pimcore_data_hub:
                         - '9'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -185,6 +186,10 @@ pimcore_data_hub:
                             settings:
                                 delimiter: ''
                             type: explode
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path
@@ -241,6 +246,7 @@ pimcore_data_hub:
                         - '11'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -258,6 +264,10 @@ pimcore_data_hub:
                             settings:
                                 delimiter: ''
                             type: explode
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path
@@ -602,6 +612,7 @@ pimcore_data_hub:
                         - '43'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -621,6 +632,10 @@ pimcore_data_hub:
                             type: explode
                         -
                             settings:
+                                mode: both
+                            type: trim
+                        -
+                            settings:
                                 loadStrategy: path
                                 attributeDataObjectClassId: ''
                                 attributeName: ''
@@ -632,6 +647,7 @@ pimcore_data_hub:
                         - '44'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -651,6 +667,10 @@ pimcore_data_hub:
                             type: explode
                         -
                             settings:
+                                mode: both
+                            type: trim
+                        -
+                            settings:
                                 loadStrategy: path
                                 attributeDataObjectClassId: ''
                                 attributeName: ''
@@ -662,6 +682,7 @@ pimcore_data_hub:
                         - '45'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -681,6 +702,10 @@ pimcore_data_hub:
                             type: explode
                         -
                             settings:
+                                mode: both
+                            type: trim
+                        -
+                            settings:
                                 loadStrategy: path
                                 attributeDataObjectClassId: ''
                                 attributeName: ''
@@ -692,6 +717,7 @@ pimcore_data_hub:
                         - '46'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -711,6 +737,10 @@ pimcore_data_hub:
                             type: explode
                         -
                             settings:
+                                mode: both
+                            type: trim
+                        -
+                            settings:
                                 loadStrategy: path
                                 attributeDataObjectClassId: ''
                                 attributeName: ''
@@ -722,6 +752,7 @@ pimcore_data_hub:
                         - '47'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -741,6 +772,10 @@ pimcore_data_hub:
                             type: explode
                         -
                             settings:
+                                mode: both
+                            type: trim
+                        -
+                            settings:
                                 loadStrategy: path
                                 attributeDataObjectClassId: ''
                                 attributeName: ''
@@ -752,6 +787,7 @@ pimcore_data_hub:
                         - '42'
                     settings:
                         delimiter: ''
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -769,6 +805,10 @@ pimcore_data_hub:
                             settings:
                                 delimiter: ''
                             type: explode
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path
@@ -796,7 +836,8 @@ pimcore_data_hub:
                     dataSourceIndex:
                         - '12'
                     settings:
-                        delimiter: ''
+                        delimiter: ','
+                        mode: both
                         loadStrategy: path
                         attributeDataObjectClassId: ''
                         attributeName: ''
@@ -812,8 +853,12 @@ pimcore_data_hub:
                     transformationPipeline:
                         -
                             settings:
-                                delimiter: ''
+                                delimiter: ','
                             type: explode
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path
@@ -826,6 +871,7 @@ pimcore_data_hub:
                     dataSourceIndex:
                         - '15'
                     settings:
+                        mode: both
                         loadStrategy: path
                     transformationResultType: asset
                     dataTarget:
@@ -838,6 +884,10 @@ pimcore_data_hub:
                     transformationPipeline:
                         -
                             settings:
+                                mode: both
+                            type: trim
+                        -
+                            settings:
                                 loadStrategy: path
                             type: loadAsset
                 -
@@ -846,6 +896,7 @@ pimcore_data_hub:
                         - '16'
                     settings:
                         delimiter: ','
+                        mode: both
                         loadStrategy: path
                     transformationResultType: gallery
                     dataTarget:
@@ -860,6 +911,10 @@ pimcore_data_hub:
                             settings:
                                 delimiter: ','
                             type: explode
+                        -
+                            settings:
+                                mode: both
+                            type: trim
                         -
                             settings:
                                 loadStrategy: path
