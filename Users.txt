@@ -21,3 +21,7 @@ password: reviewruserAC@123
 Retailer User
 username: retailer
 password: retaileruserAC@123
+
+Wholesaler User
+username: wholesaler
+password: wholesaleruserAC@123
