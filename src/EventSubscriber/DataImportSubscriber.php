@@ -41,13 +41,34 @@ class DataImportSubscriber implements EventSubscriberInterface
             $videoMeta = explode(',', $dataObject->getVideoMeta());
             $videoMeta = array_map('trim', $videoMeta);
 
-            $assetVideo = Asset::getByPath(trim($videoMeta[0]) ?? "");
-            $assetImage = Asset::getByPath(trim($videoMeta[1]) ?? "");
+            $assetVideoPath = trim($videoMeta[0] ?? '');
+            $assetImagePath = trim($videoMeta[1] ?? '');
+
+            $assetVideo = null;
+            if (!empty($assetVideoPath)) {
+                $assetVideo = Asset::getByPath($assetVideoPath);
+            }
+
+            $assetImage = null;
+            if (!empty($assetImagePath)) {
+                $assetImage = Asset::getByPath($assetImagePath);
+            }
 
             $videoData = new Video();
-            $videoData->setData($assetVideo);
-            $videoData->setType("asset");
-            $videoData->setPoster($assetImage);
+
+            if ($assetVideo !== null) {
+                $videoData->setData($assetVideo);
+                $videoData->setType("asset");
+            } else {
+                // Handle missing video asset
+            }
+
+            if ($assetImage !== null) {
+                $videoData->setPoster($assetImage);
+            } else {
+                // Handle missing image asset
+            }
+
             $videoData->setTitle($videoMeta[2] ?? "");
             $videoData->setDescription($videoMeta[3] ?? "");
 
