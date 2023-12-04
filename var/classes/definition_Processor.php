@@ -23,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630514,
+   'modificationDate' => 1701667706,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -91,7 +91,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => '',
+                 'tooltip' => 'Name of Processor.',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -121,7 +121,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => '',
+                 'tooltip' => 'Description of Processor.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -163,7 +163,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'technolgy',
              'title' => 'Technolgy',
-             'tooltip' => '',
+             'tooltip' => 'Technology used in Processor.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -193,7 +193,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'size',
              'title' => 'Size',
-             'tooltip' => '',
+             'tooltip' => 'Size of Processor.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -223,7 +223,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'speed',
              'title' => 'Speed',
-             'tooltip' => '',
+             'tooltip' => 'Speed of Processor.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -253,7 +253,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'cache',
              'title' => 'Cache',
-             'tooltip' => '',
+             'tooltip' => 'Cache of Processor.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -283,7 +283,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'generation',
              'title' => 'Generation',
-             'tooltip' => '',
+             'tooltip' => 'Generation of Processor.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -313,7 +313,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
              'name' => 'Brand',
              'title' => 'Brand',
-             'tooltip' => '',
+             'tooltip' => 'Brand of Processor.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,

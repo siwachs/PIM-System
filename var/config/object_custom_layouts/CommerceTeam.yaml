@@ -7,7 +7,7 @@ pimcore:
                     name: CommerceTeam
                     description: ''
                     creationDate: 1701360715
-                    modificationDate: 1701583630
+                    modificationDate: 1701669913
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -457,7 +457,7 @@ pimcore:
                                                         title: 'Quantity Sold'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -483,7 +483,7 @@ pimcore:
                                                         title: 'Product Availability'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -513,7 +513,7 @@ pimcore:
                                                         title: Rating
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -558,7 +558,7 @@ pimcore:
                                                         title: 'Selling Price'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -584,7 +584,7 @@ pimcore:
                                                         title: 'Delivery Charges'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -610,7 +610,7 @@ pimcore:
                                                         title: Tax
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -636,7 +636,7 @@ pimcore:
                                                         title: Discount
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''

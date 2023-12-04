@@ -3,6 +3,7 @@
 /**
  * Inheritance: no
  * Variants: no
+ * Title: MotherBoard
  *
  * Fields Summary:
  * - localizedfields [localizedfields]
@@ -15,10 +16,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'MotherBoard',
    'name' => 'MotherBoard',
-   'title' => '',
+   'title' => 'MotherBoard',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700731619,
+   'modificationDate' => 1701667422,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -86,7 +87,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => '',
+                 'tooltip' => 'Name of Motherboard .',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -116,7 +117,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => '',
+                 'tooltip' => 'Description  of Motherboard .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -158,7 +159,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
              'name' => 'brand',
              'title' => 'Brand',
-             'tooltip' => '',
+             'tooltip' => 'Brand of the motherboard .',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -251,46 +252,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-       'name' => 'Brand',
-       'title' => 'Brand',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => true,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'classes' => 
-      array (
-        0 => 
-        array (
-          'classes' => 'Brand',
-        ),
-      ),
-       'displayMode' => 'grid',
-       'pathFormatterClass' => '',
-       'maxItems' => 1,
-       'visibleFields' => 'id,name,logo',
-       'allowToCreateNewObject' => false,
-       'allowToClearRelation' => true,
-       'optimizedAdminLoading' => false,
-       'enableTextSelection' => false,
-       'visibleFieldDefinitions' => 
-      array (
-      ),
-       'width' => '',
-       'height' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630649,
+   'modificationDate' => 1701667794,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -89,7 +89,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => '',
+                 'tooltip' => 'Name of Storage.',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -119,7 +119,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => '',
+                 'tooltip' => 'Description  of Storage.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -161,7 +161,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'technolgy',
              'title' => 'technolgy',
-             'tooltip' => '',
+             'tooltip' => 'Technology used in Storage.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -191,7 +191,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'size',
              'title' => 'size',
-             'tooltip' => '',
+             'tooltip' => 'Size of Storage.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -221,7 +221,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'storageType',
              'title' => 'Storage Type',
-             'tooltip' => '',
+             'tooltip' => 'Type of Storage.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -277,7 +277,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
              'name' => 'brand',
              'title' => 'Brand',
-             'tooltip' => '',
+             'tooltip' => 'Brand of Storage',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,

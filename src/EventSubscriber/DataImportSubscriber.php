@@ -10,6 +10,7 @@ use Pimcore\Model\DataObject\Data\Video;
 use Pimcore\Model\DataObject\Product;
 
 
+
 use Pimcore\Model\Notification\Service\NotificationService;
 
 class DataImportSubscriber implements EventSubscriberInterface
@@ -64,7 +65,7 @@ class DataImportSubscriber implements EventSubscriberInterface
     private function sendNotification($dataObject)
     {
         $title = 'Using Class ' . $dataObject->getClassName();
-        $message = 'Data Importing finished.';
+        $message = 'Data Imported.';
 
         $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message, $dataObject);
     }

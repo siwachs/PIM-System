@@ -7,7 +7,7 @@ pimcore:
                     name: retailer
                     description: ''
                     creationDate: 1701407059
-                    modificationDate: 1701583630
+                    modificationDate: 1701665127
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:

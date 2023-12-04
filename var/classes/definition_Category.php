@@ -3,6 +3,7 @@
 /**
  * Inheritance: yes
  * Variants: yes
+ * Title: Name of Category
  *
  * Fields Summary:
  * - localizedfields [localizedfields]
@@ -14,10 +15,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Category',
    'name' => 'Category',
-   'title' => '',
+   'title' => 'Name of Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700630008,
+   'modificationDate' => 1701667221,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -115,7 +116,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => '',
+                 'tooltip' => 'Description of Category.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,

@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700734294,
+   'modificationDate' => 1701667554,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -89,7 +89,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => '',
+                 'tooltip' => 'Name of Operating System.',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -119,7 +119,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => '',
+                 'tooltip' => 'Description of Operating System.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -161,7 +161,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'version',
              'title' => 'Version',
-             'tooltip' => '',
+             'tooltip' => 'Version of Operating System. ',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -191,7 +191,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'release',
              'title' => 'Release',
-             'tooltip' => '',
+             'tooltip' => 'Release of Operating System. ',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -221,7 +221,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'bit',
              'title' => 'Bit',
-             'tooltip' => '',
+             'tooltip' => 'Bit size required in Operating System.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -262,7 +262,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
              'name' => 'Brand',
              'title' => 'Brand',
-             'tooltip' => '',
+             'tooltip' => 'Brand of Operating System.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,

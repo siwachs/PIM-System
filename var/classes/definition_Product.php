@@ -61,7 +61,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1701615126,
+   'modificationDate' => 1701672843,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -274,7 +274,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'brand',
                  'title' => 'Brand',
-                 'tooltip' => '',
+                 'tooltip' => 'One to many relation.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -314,7 +314,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'manufacturer',
                  'title' => 'Manufacturer',
-                 'tooltip' => '',
+                 'tooltip' => 'One to many relation.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -354,7 +354,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'category',
                  'title' => 'Category',
-                 'tooltip' => '',
+                 'tooltip' => 'One to many relation.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -394,7 +394,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'subCategory',
                  'title' => 'Sub Category',
-                 'tooltip' => '',
+                 'tooltip' => 'Many to many relation.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -460,7 +460,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'color',
                  'title' => 'Color',
-                 'tooltip' => '',
+                 'tooltip' => 'Color of product.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -532,7 +532,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'masterImage',
                  'title' => 'Master Image',
-                 'tooltip' => '',
+                 'tooltip' => 'Main Image of the product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -581,7 +581,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
                  'name' => 'video',
                  'title' => 'Video',
-                 'tooltip' => '',
+                 'tooltip' => 'Advertisement video for the product.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -614,7 +614,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'videoMeta',
                  'title' => 'Video Meta',
-                 'tooltip' => '',
+                 'tooltip' => 'video path',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -679,9 +679,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'quantitySold',
                      'title' => 'Quantity Sold',
-                     'tooltip' => '',
+                     'tooltip' => 'No of product  sold .',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -709,9 +709,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'revenue',
                      'title' => 'Revenue',
-                     'tooltip' => '',
+                     'tooltip' => 'Total revenue of the Product sold .',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -739,9 +739,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'name' => 'productAvailability',
                      'title' => 'Product Availability',
-                     'tooltip' => '',
+                     'tooltip' => 'To check weather the product is available or not .',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -781,9 +781,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'rating',
                      'title' => 'Rating',
-                     'tooltip' => '',
+                     'tooltip' => 'Rating field  used  for  the review purpose .',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -837,9 +837,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'basePrice',
                      'title' => 'Base Price',
-                     'tooltip' => '',
+                     'tooltip' => 'Base price of the product .',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -867,9 +867,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'sellingPrice',
                      'title' => 'Selling Price',
-                     'tooltip' => '',
+                     'tooltip' => 'Selling price of the product .',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -897,9 +897,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'deliveryCharges',
                      'title' => 'Delivery Charges',
-                     'tooltip' => '',
+                     'tooltip' => 'Delievery charge for delievering the product to the customer. ',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -927,9 +927,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'tax',
                      'title' => 'Tax',
-                     'tooltip' => '',
+                     'tooltip' => 'Tax that is added to product while selling  the product .',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -957,9 +957,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'discount',
                      'title' => 'Discount',
-                     'tooltip' => '',
+                     'tooltip' => 'DIscount given   for the  product  .
+',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -987,7 +988,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                      'name' => 'actualPrice',
                      'title' => 'Actual Price',
-                     'tooltip' => '',
+                     'tooltip' => 'Actual price of the Product . ',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
@@ -1051,7 +1052,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'dimensions',
                  'title' => 'Dimensions',
-                 'tooltip' => '',
+                 'tooltip' => 'Dimension of the product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1081,7 +1082,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'size',
                  'title' => 'Size',
-                 'tooltip' => '',
+                 'tooltip' => 'Size of the  product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1111,7 +1112,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'weight',
                  'title' => 'Weight',
-                 'tooltip' => '',
+                 'tooltip' => 'weight of the product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1167,7 +1168,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'modelNumber',
                  'title' => 'Model Number',
-                 'tooltip' => '',
+                 'tooltip' => 'Model  Number of the product ,.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1197,7 +1198,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'modelYear',
                  'title' => 'Model Year',
-                 'tooltip' => '',
+                 'tooltip' => 'Model year of the product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1227,7 +1228,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'modelName',
                  'title' => 'Model Name',
-                 'tooltip' => '',
+                 'tooltip' => 'Model name of  the  product.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1257,7 +1258,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'hardwareInterface',
                  'title' => 'Hardware Interface',
-                 'tooltip' => '',
+                 'tooltip' => 'It describe the Hardware interface  of the product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1287,7 +1288,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'powerSource',
                  'title' => 'Power Source',
-                 'tooltip' => '',
+                 'tooltip' => 'Power source required by  the electronic  product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1317,7 +1318,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'numberOfItems',
                  'title' => 'Number of items',
-                 'tooltip' => '',
+                 'tooltip' => 'Total Number of items  .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1347,7 +1348,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'voltage',
                  'title' => 'Voltage',
-                 'tooltip' => '',
+                 'tooltip' => 'Amount of voltage required by  the product ',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1377,7 +1378,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'wattage',
                  'title' => 'Wattage',
-                 'tooltip' => '',
+                 'tooltip' => 'Wattage required by the product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1407,7 +1408,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                  'name' => 'countryOfOrigin',
                  'title' => 'Country of Origin',
-                 'tooltip' => '',
+                 'tooltip' => 'Country Of Origin of the product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1436,7 +1437,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                  'name' => 'batteriesRequired',
                  'title' => 'Batteries Required',
-                 'tooltip' => '',
+                 'tooltip' => 'Check whether  the  battery is required or  not .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1478,7 +1479,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                  'name' => 'batteriesIncluded',
                  'title' => 'Batteries Included',
-                 'tooltip' => '',
+                 'tooltip' => 'Battery is included or not in your product .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1546,7 +1547,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'motherboard',
                  'title' => 'Motherboard',
-                 'tooltip' => '',
+                 'tooltip' => 'Relation with the mother board .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1586,7 +1587,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'operatingSystem',
                  'title' => 'Operating System',
-                 'tooltip' => '',
+                 'tooltip' => 'Relation with the Operating system .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1626,7 +1627,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'processor',
                  'title' => 'Processor',
-                 'tooltip' => '',
+                 'tooltip' => 'Relation with the Processor .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1666,7 +1667,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'ram',
                  'title' => 'RAM',
-                 'tooltip' => '',
+                 'tooltip' => 'Relation with the Storage with RAM .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1706,7 +1707,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'rom',
                  'title' => 'ROM',
-                 'tooltip' => '',
+                 'tooltip' => 'Relation with the Storage with ROM .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1746,7 +1747,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'vram',
                  'title' => 'VRAM',
-                 'tooltip' => '',
+                 'tooltip' => 'Relation with the Storage with  VRAM .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1786,7 +1787,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                  'name' => 'connectivityTechnology',
                  'title' => 'Connectivity Technology',
-                 'tooltip' => '',
+                 'tooltip' => 'Options for the  available connectivity  like  3g , 4g ,5g etc.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,

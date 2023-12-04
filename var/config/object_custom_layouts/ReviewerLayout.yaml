@@ -7,7 +7,7 @@ pimcore:
                     name: ReviewerLayout
                     description: ''
                     creationDate: 1701361048
-                    modificationDate: 1701583630
+                    modificationDate: 1701671640
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -326,16 +326,7 @@ pimcore:
                                                 invisible: false
                                                 visibleGridView: false
                                                 visibleSearch: false
-                                                options:
-                                                    -
-                                                        key: Red
-                                                        value: Red
-                                                    -
-                                                        key: Green
-                                                        value: Green
-                                                    -
-                                                        key: Blue
-                                                        value: Blue
+                                                options: {  }
                                                 defaultValue: ''
                                                 columnLength: 190
                                                 dynamicOptions: false
@@ -466,7 +457,7 @@ pimcore:
                                                         title: 'Quantity Sold'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -492,7 +483,7 @@ pimcore:
                                                         title: 'Product Availability'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -522,7 +513,7 @@ pimcore:
                                                         title: Rating
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -567,7 +558,7 @@ pimcore:
                                                         title: 'Selling Price'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -593,7 +584,7 @@ pimcore:
                                                         title: 'Delivery Charges'
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -619,7 +610,7 @@ pimcore:
                                                         title: Tax
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''
@@ -645,7 +636,7 @@ pimcore:
                                                         title: Discount
                                                         tooltip: ''
                                                         mandatory: false
-                                                        noteditable: true
+                                                        noteditable: false
                                                         index: false
                                                         locked: false
                                                         style: ''

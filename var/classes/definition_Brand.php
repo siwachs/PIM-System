@@ -4,6 +4,7 @@
  * Inheritance: no
  * Variants: no
  * Title: Brand
+ * Name of the Brand .
  *
  * Fields Summary:
  * - logo [image]
@@ -18,9 +19,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'id' => 'Brand',
    'name' => 'Brand',
    'title' => 'Brand',
-   'description' => '',
+   'description' => 'Name of the Brand .',
    'creationDate' => NULL,
-   'modificationDate' => 1701359427,
+   'modificationDate' => 1701667163,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -67,7 +68,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
              'name' => 'logo',
              'title' => 'Logo',
-             'tooltip' => '',
+             'tooltip' => 'Logo of the brand.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -141,7 +142,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'contact',
                  'title' => 'Contact',
-                 'tooltip' => '',
+                 'tooltip' => 'contact details for the brand .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -183,7 +184,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
              'name' => 'Country',
              'title' => 'Country',
-             'tooltip' => '',
+             'tooltip' => 'country of the brand .',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,

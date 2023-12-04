@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Manufacturer',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700722456,
+   'modificationDate' => 1701667337,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -88,7 +88,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => '',
+                 'tooltip' => 'Name of the manufacturer .',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -118,7 +118,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'address',
                  'title' => 'Address',
-                 'tooltip' => '',
+                 'tooltip' => 'Address of the Manufacturer .',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -143,7 +143,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'contact',
                  'title' => 'Contact',
-                 'tooltip' => '',
+                 'tooltip' => 'contact details of the manufacturer.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -185,7 +185,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
              'name' => 'Country',
              'title' => 'Country',
-             'tooltip' => '',
+             'tooltip' => 'Country to  which the Manufacturer belong.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -267,36 +267,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-       'name' => 'name',
-       'title' => 'Name',
-       'tooltip' => '',
-       'mandatory' => true,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => true,
-       'visibleSearch' => true,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'defaultValue' => NULL,
-       'columnLength' => 190,
-       'regex' => '',
-       'regexFlags' => 
-      array (
-      ),
-       'unique' => false,
-       'showCharCount' => true,
-       'width' => '',
-       'defaultValueGenerator' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (
