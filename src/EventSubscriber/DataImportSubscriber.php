@@ -38,41 +38,32 @@ class DataImportSubscriber implements EventSubscriberInterface
     {
         $dataObject = $event->getDataObject();
         if ($dataObject instanceof Product) {
-            $videoMeta = explode(',', $dataObject->getVideoMeta());
-            $videoMeta = array_map('trim', $videoMeta);
+            try {
+                $videoMeta = explode(',', $dataObject->getVideoMeta());
+                $videoMeta = array_map('trim', $videoMeta);
 
-            $assetVideoPath = trim($videoMeta[0] ?? '');
-            $assetImagePath = trim($videoMeta[1] ?? '');
+                $assetVideoPath = trim($videoMeta[0] ?? '');
+                $assetImagePath = trim($videoMeta[1] ?? '');
 
-            $assetVideo = null;
-            if (!empty($assetVideoPath)) {
                 $assetVideo = Asset::getByPath($assetVideoPath);
-            }
-
-            $assetImage = null;
-            if (!empty($assetImagePath)) {
                 $assetImage = Asset::getByPath($assetImagePath);
-            }
-
-            $videoData = new Video();
-
-            if ($assetVideo !== null) {
-                $videoData->setData($assetVideo);
+                $videoData = new Video();
+                if ($assetVideo !== null) {
+                    $videoData->setData($assetVideo);
+                }
                 $videoData->setType("asset");
-            } else {
-                // Handle missing video asset
+                if ($assetImage !== null) {
+                    $videoData->setPoster($assetImage);
+                }
+                $videoData->setTitle($videoMeta[2] ?? "");
+                $videoData->setDescription($videoMeta[3] ?? "");
+
+                if ($assetVideo !== null) {
+                    $dataObject->setVideo($videoData);
+                }
+            } catch (\Exception $e) {
+                //Handle Error
             }
-
-            if ($assetImage !== null) {
-                $videoData->setPoster($assetImage);
-            } else {
-                // Handle missing image asset
-            }
-
-            $videoData->setTitle($videoMeta[2] ?? "");
-            $videoData->setDescription($videoMeta[3] ?? "");
-
-            $dataObject->setVideo($videoData);
         }
     }
 
