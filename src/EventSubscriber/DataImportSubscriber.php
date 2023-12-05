@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use Pimcore\Db;
 use Pimcore\Bundle\DataImporterBundle\Event\DataObject\PreSaveEvent;
 use Pimcore\Bundle\DataImporterBundle\Event\DataObject\PostSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,12 +19,14 @@ class DataImportSubscriber implements EventSubscriberInterface
     private $notificationService;
     private $sender;
     private $receiver;
+    private $db;
 
     public function __construct(NotificationService $notificationService)
     {
         $this->notificationService = $notificationService;
         $this->sender = 2;
         $this->receiver = 13;
+        $this->db = Db::getConnection();
     }
 
     public static function getSubscribedEvents()
@@ -69,16 +72,22 @@ class DataImportSubscriber implements EventSubscriberInterface
 
     public function onPostSave(PostSaveEvent $event)
     {
-        $dataObject = $event->getDataObject();
-
-        $this->sendNotification($dataObject);
+        try {
+            $sql = "SELECT COUNT(*) FROM bundle_data_hub_data_importer_queue";
+            $rowCount = $this->db->fetchOne($sql);
+            if ($rowCount === 1) {
+                $this->sendNotification();
+            }
+        } catch (\Exception $e) {
+            // Handle Error.
+        }
     }
 
-    private function sendNotification($dataObject)
+    private function sendNotification()
     {
-        $title = 'Using Class ' . $dataObject->getClassName();
-        $message = 'Data Imported.';
+        $title = 'Notification';
+        $message = 'All object are imported.';
 
-        $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message, $dataObject);
+        $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message);
     }
 }

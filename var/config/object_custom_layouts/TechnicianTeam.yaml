@@ -7,7 +7,7 @@ pimcore:
                     name: TechnicianTeam
                     description: ''
                     creationDate: 1701360764
-                    modificationDate: 1701583630
+                    modificationDate: 1701762197
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:

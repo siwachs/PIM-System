@@ -7,7 +7,7 @@ pimcore:
                     name: wholesaler
                     description: ''
                     creationDate: 1701686023
-                    modificationDate: 1701686120
+                    modificationDate: 1701762160
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -418,27 +418,6 @@ pimcore:
                                                     - youtube
                                                     - vimeo
                                                     - dailymotion
-                                                height: ''
-                                                width: ''
-                                                datatype: data
-                                            -
-                                                name: videoMeta
-                                                title: 'Video Meta'
-                                                tooltip: 'video path'
-                                                mandatory: false
-                                                noteditable: true
-                                                index: false
-                                                locked: false
-                                                style: ''
-                                                permissions: null
-                                                fieldtype: textarea
-                                                relationType: false
-                                                invisible: true
-                                                visibleGridView: false
-                                                visibleSearch: false
-                                                maxLength: null
-                                                showCharCount: false
-                                                excludeFromSearchIndex: false
                                                 height: ''
                                                 width: ''
                                                 datatype: data
