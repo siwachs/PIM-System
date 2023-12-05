@@ -12,6 +12,19 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductController extends FrontendController
 {
     /**
+     * @param array|null $array
+     * @return string|null
+     */
+    private function getFirstKeyOrNull(?array $array): ?string
+    {
+        if (!empty($array)) {
+            return $array[0]->getKey();
+        }
+
+        return null;
+    }
+
+    /**
      * @param array $products
      * @param string $lang
      *
@@ -29,15 +42,54 @@ class ProductController extends FrontendController
 
             $productData[] = [
                 'id' => $product->getId(),
-                'sku' => $product->getSKU(),
-                'name' => $product->getName($lang),
-                'description' => $product->getDescription($lang),
-                'country' => $product->getCountry(),
-                'brand' => $product->getBrand()[0]->getKey(),
-                'manufacturer' => $product->getManufacturer()[0]->getKey(),
-                'category' => $product->getCategory()[0]->getKey(),
-                'subCategories' => $subCategoriesString,
-                'countryOfOrigin' => $product->getCountryOfOrigin(),
+                'baseData' => [
+                    'sku' => $product->getSKU(),
+                    'name' => $product->getName($lang),
+                    'description' => $product->getDescription($lang),
+                    'country' => $product->getCountry(),
+                    'brand' => $this->getFirstKeyOrNull($product->getBrand()),
+                    'manufacturer' => $this->getFirstKeyOrNull($product->getManufacturer()),
+                    'category' => $this->getFirstKeyOrNull($product->getCategory()),
+                    'subCategories' => $subCategoriesString,
+                    'price' => $product->getPrice(),
+                    'color' => $product->getColor(),
+                ],
+                'assets' => [
+                    'masterImage' => $product->getMasterImage()->getPath() ?? null,
+                    'video' => $product->getVideo()->getData()->getPath() ?? null,
+                ],
+                'salesAndPricing' => [
+                    'quantitySold' => $product->getQuantitySold(),
+                    'revenue' => $product->getRevenue(),
+                    'productAvailability' => $product->getProductAvailability(),
+                    'rating' => $product->getRating(),
+                    'basePrice' => $product->getBasePrice(),
+                    'sellingPrice' => $product->getBasePrice(),
+                    'deliveryCharges' => $product->getDeliveryCharges(),
+                    'tax' => $product->getTax(),
+                    'dicount' => $product->getDiscount() . " %",
+                    'calculatedPrice' => $product->getActualPrice()
+                ],
+                'measurements' => [
+                    'dimensions' => $product->getDimensions(),
+                    'size' => $product->getSize(),
+                    'weight' => $product->getWeight() . ' g'
+                ],
+                'technicalDetails' => [
+                    'modelNumber' => $product->getModelNumber(),
+                    'modelYear' => $product->getModelYear(),
+                    'modelName' => $product->getModelName(),
+                    'hardwareinterface' => $product->getHardwareInterface(),
+                    'countryOfOrigin' => $product->getCountryOfOrigin(),
+                ],
+                'advanceTechnicalDetails' => [
+                    'motherboard' => $this->getFirstKeyOrNull($product->getMotherboard()),
+                    'OS' => $this->getFirstKeyOrNull($product->getOperatingSystem()),
+                    'processor' => $this->getFirstKeyOrNull($product->getProcessor()),
+                    'ram' => $this->getFirstKeyOrNull($product->getRam()),
+                    'rom' => $this->getFirstKeyOrNull($product->getRom()),
+                    'vram' => $this->getFirstKeyOrNull($product->getVram())
+                ],
                 'fullPath' => $product->getFullPath(),
                 'createdAt' => date('h:i A, d F Y', $product->getCreationDate())
             ];
