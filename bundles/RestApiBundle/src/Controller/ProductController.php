@@ -55,8 +55,8 @@ class ProductController extends FrontendController
                     'color' => $product->getColor(),
                 ],
                 'assets' => [
-                    'masterImage' => $product->getMasterImage()->getPath() ?? null,
-                    'video' => $product->getVideo()->getData()->getPath() ?? null,
+                    'masterImage' => $product->getMasterImage() !== null ? $product->getMasterImage()->getPath() : null,
+                    'video' => $product->getVideo() !== null ? $product->getVideo()->getData()->getPath() : null,
                 ],
                 'salesAndPricing' => [
                     'quantitySold' => $product->getQuantitySold(),
