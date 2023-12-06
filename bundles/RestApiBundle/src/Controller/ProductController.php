@@ -2,6 +2,14 @@
 
 namespace RestApiBundle\Controller;
 
+//JWT
+use Lcobucci\JWT\Encoding\CannotDecodeContent;
+use Lcobucci\JWT\Encoding\JoseEncoder;
+use Lcobucci\JWT\Token\InvalidTokenStructure;
+use Lcobucci\JWT\Token\Parser;
+use Lcobucci\JWT\Token\UnsupportedHeaderFound;
+use Lcobucci\JWT\UnencryptedToken;
+
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -98,6 +106,34 @@ class ProductController extends FrontendController
         return $productData;
     }
 
+    private function validateAuthorizationHeader(?string $authorizationHeader): ?JsonResponse
+    {
+        if ($authorizationHeader && preg_match('/Bearer\s(\S+)/', $authorizationHeader, $matches)) {
+            $jwt = $matches[1];
+            $parser = new Parser(new JoseEncoder());
+            $token = $parser->parse($jwt);
+
+            assert($token instanceof UnencryptedToken);
+
+            $username = $token->claims()->get('username');
+            if (!in_array($username, ['admin', 'retailer', 'wholesaler'])) {
+                return new JsonResponse([
+                    'products' => [],
+                    'success' => false,
+                    'error' => 'No valid token found.'
+                ], Response::HTTP_UNAUTHORIZED);
+            }
+        } else {
+            return new JsonResponse([
+                'products' => [],
+                'success' => false,
+                'error' => 'No token found.'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        return null;
+    }
+
     /**
      * @Route("/get-products", name="getProducts",methods={"GET"})
      * @param Request $request
@@ -118,6 +154,12 @@ class ProductController extends FrontendController
         $lang = $request->query->get('lang', 'en');
 
         try {
+            $authorizationHeader = $request->headers->get('Authorization');
+            $response = $this->validateAuthorizationHeader($authorizationHeader);
+            if ($response !== null) {
+                return $response;
+            }
+
             $products = new DataObject\Product\Listing;
             $products->setLocale($lang);
 
@@ -146,12 +188,12 @@ class ProductController extends FrontendController
                 'products' => $this->listToAssoc($products, $lang),
                 'success' => true,
                 'error' => null
-            ]);
-        } catch (\Exception $e) {
+            ], Response::HTTP_OK);
+        } catch (CannotDecodeContent | InvalidTokenStructure | UnsupportedHeaderFound | \Exception $e) {
             return new JsonResponse([
                 'products' => [],
                 'success' => false,
-                'error' => 'There is a error in product listing.'
+                'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
