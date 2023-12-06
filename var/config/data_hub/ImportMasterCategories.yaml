@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701503080
+                modificationDate: 1701857451
                 createDate: 1700738573
             loaderConfig:
                 type: asset
@@ -25,7 +25,7 @@ pimcore_data_hub:
                 loadingStrategy:
                     type: attribute
                     settings:
-                        dataSourceIndex: '0'
+                        dataSourceIndex: '1'
                         attributeName: name
                         language: en
                         includeUnpublished: true
@@ -132,6 +132,19 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: key
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Type [7]'
+                    dataSourceIndex:
+                        - '7'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: type
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true

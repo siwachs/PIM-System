@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: 'Data Importers'
                 active: false
                 path: null
-                modificationDate: 1701770293
+                modificationDate: 1701857643
                 createDate: 1701163375
             loaderConfig:
                 type: asset
@@ -930,6 +930,19 @@ pimcore_data_hub:
                         type: direct
                         settings:
                             fieldName: videoMeta
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: type
+                    dataSourceIndex:
+                        - '49'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: type
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
