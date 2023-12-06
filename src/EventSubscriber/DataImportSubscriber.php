@@ -88,6 +88,44 @@ class DataImportSubscriber implements EventSubscriberInterface
         $title = 'Notification';
         $message = 'All object are imported.';
 
+        $this->logError();
+
         $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message);
+    }
+
+    private function logError()
+    {
+        try {
+            $sql = "SELECT
+            application_logs.priority AS 'Priority',
+            application_logs.message AS 'Message',
+            application_logs.timestamp AS 'Occurred On'
+        FROM
+            application_logs
+        WHERE
+            application_logs.priority = 'error'
+            AND application_logs.source LIKE '%DataImporterBundle%'
+        ORDER BY
+            application_logs.timestamp DESC";
+            $logs = $this->db->fetchAllAssociative($sql);
+
+            $csvContent = "Priority,Message,Occurred On\n";
+            foreach ($logs as $row) {
+                $priority = $row['Priority'];
+                $message = '"' . $row['Message'] . '"';
+                $unixTimestamp = \DateTime::createFromFormat('Y-m-d H:i:s', $row['Occurred On']);
+                $occurredOn = $unixTimestamp->format('d/m/Y h:i A');
+
+                $csvContent .= "$priority,$message,$occurredOn\n";
+            }
+
+            $asset = new Asset();
+            $asset->setFilename('importer_logs.csv');
+            $asset->setData($csvContent);
+            $asset->setParent(\Pimcore\Model\Asset::getByPath("/Logs"));
+            $asset->save();
+        } catch (\Exception $e) {
+            // Handle Error.
+        }
     }
 }

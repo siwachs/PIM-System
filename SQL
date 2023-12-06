@@ -2,3 +2,15 @@ SELECT element_workflow_state.cid AS 'Product Object Id', objects.key AS 'Produc
 
 
 SELECT object_Category.key AS 'Category', COUNT(object_Product.id) AS 'Product Count' from object_Category LEFT JOIN object_Product ON object_Category.id = REPLACE(object_Product.category,',','') GROUP BY object_Category.key ORDER BY 'Product Count' DESC;
+
+SELECT
+            application_logs.priority AS 'Priority',
+            application_logs.message AS 'Message',
+            application_logs.timestamp AS 'Occurred On'
+        FROM
+            application_logs
+        WHERE
+            application_logs.priority = 'error'
+            AND application_logs.source LIKE '%DataImporterBundle%'
+        ORDER BY
+            application_logs.timestamp DESC
