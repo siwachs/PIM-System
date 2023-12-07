@@ -122,11 +122,19 @@ class DataImportSubscriber implements EventSubscriberInterface
                 $csvContent .= "$priority,$message,$occurredOn\n";
             }
 
-            $asset = new Asset();
-            $asset->setFilename('importer_logs.csv');
-            $asset->setData($csvContent);
-            $asset->setParent(\Pimcore\Model\Asset::getByPath("/Logs"));
-            $asset->save();
+            $assetFilename = 'importer_logs.csv';
+            $existingAsset = \Pimcore\Model\Asset::getByPath("/Logs/" . $assetFilename);
+
+            if (!$existingAsset instanceof \Pimcore\Model\Asset) {
+                $asset = new \Pimcore\Model\Asset();
+                $asset->setFilename($assetFilename);
+                $asset->setData($csvContent);
+                $asset->setParent(\Pimcore\Model\Asset::getByPath("/Logs"));
+                $asset->save();
+            } else {
+                $existingAsset->setData($csvContent);
+                $existingAsset->save();
+            }
         } catch (\Exception $e) {
             // Handle Error.
         }
