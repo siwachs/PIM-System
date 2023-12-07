@@ -33,7 +33,7 @@ class AuthHandler
                     Builder $builder,
                     DateTimeImmutable $issuedAt
                 ): Builder => $builder
-                    ->issuedBy('http://localpimcore.com/admin')
+                    ->issuedBy('admin')
                     ->permittedFor('http://localpimcore.com')
                     ->expiresAt($issuedAt->modify('+60 minutes'))
                     ->withClaim('username', $user->getUsername())
