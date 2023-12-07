@@ -56,20 +56,12 @@ services:
     App\Twig\Extension\UniqidExtension:
         tags: ["twig.extension"]
 
-    #
-    # COMMANDS
-    #
-
-    # Example custom templating helper
-    # App\Templating\Helper\Example:
-    #     # templating helpers need to be public as they
-    #     # are fetched from the container on demand
-    #     public: true
-    #     tags:
-    #         - { name: templating.helper, alias: fooBar }
     App\EventSubscriber\DataImportSubscriber:
         tags:
             - { name: "kernel.event_subscriber" }
+        arguments:
+            $sender: 2
+            $receiver: 13
 
     # Example event listener for objects
     App\EventListener\ObjectListener:

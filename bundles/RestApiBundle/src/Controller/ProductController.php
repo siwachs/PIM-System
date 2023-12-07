@@ -103,7 +103,7 @@ class ProductController extends FrontendController
      * @Route("/get-products", name="getProducts",methods={"GET"})
      * @param Request $request
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function getProductsAction(Request $request, TokenValidationMiddleware $tokenValidation): JsonResponse
     {

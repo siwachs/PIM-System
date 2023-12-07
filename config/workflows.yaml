@@ -47,6 +47,11 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
+                        notificationSettings:
+                            - notifyUsers: ["admin"]
+                              notifyRoles: ["commerce", "review"]
+                              channelType:
+                                  - pimcore_notification
                 finish_enrichment:
                     from: enrich_product
                     to: add_technicalities
@@ -56,6 +61,11 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
+                        notificationSettings:
+                            - notifyUsers: ["admin"]
+                              notifyRoles: ["technician", "review"]
+                              channelType:
+                                  - pimcore_notification
                 finish_technicalities:
                     from: add_technicalities
                     to: review
@@ -65,6 +75,11 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
+                        notificationSettings:
+                            - notifyUsers: ["admin"]
+                              notifyRoles: ["review"]
+                              channelType:
+                                  - pimcore_notification
                 accept_product:
                     from: review
                     to: accepted
@@ -74,6 +89,10 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
+                        notificationSettings:
+                            - notifyUsers: ["admin"]
+                              channelType:
+                                  - pimcore_notification
                 reject_enrichment:
                     from: enrich_product
                     to: new

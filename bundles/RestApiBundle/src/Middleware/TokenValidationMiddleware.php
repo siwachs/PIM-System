@@ -15,6 +15,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TokenValidationMiddleware
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse|null
+     */
     public function handleValidation(Request $request): ?JsonResponse
     {
         try {
@@ -31,6 +35,10 @@ class TokenValidationMiddleware
         }
     }
 
+    /**
+     * @param string|null $authorizationHeader
+     * @return JsonResponse|null
+     */
     private function validateToken(?string $authorizationHeader): ?JsonResponse
     {
         if (!$authorizationHeader || !preg_match('/Bearer\s(\S+)/', $authorizationHeader, $matches)) {
@@ -52,6 +60,10 @@ class TokenValidationMiddleware
         return null;
     }
 
+    /**
+     * @param string $errorMessage
+     * @return JsonResponse
+     */
     private function generateUnauthorizedResponse(string $errorMessage): JsonResponse
     {
         return new JsonResponse([
@@ -61,6 +73,10 @@ class TokenValidationMiddleware
         ], Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * @param string $errorMessage
+     * @return JsonResponse
+     */
     private function generateInternalErrorResponse(string $errorMessage): JsonResponse
     {
         return new JsonResponse([

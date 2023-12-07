@@ -21,11 +21,14 @@ class DataImportSubscriber implements EventSubscriberInterface
     private $receiver;
     private $db;
 
-    public function __construct(NotificationService $notificationService)
-    {
+    public function __construct(
+        NotificationService $notificationService,
+        int $sender,
+        int $receiver
+    ) {
         $this->notificationService = $notificationService;
-        $this->sender = 2;
-        $this->receiver = 13;
+        $this->sender = $sender;
+        $this->receiver = $receiver;
         $this->db = Db::getConnection();
     }
 

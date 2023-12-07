@@ -19,34 +19,45 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthHandler
 {
-    private function generateToken($user)
+    /**
+     *@param mixed $user
+     * @return string|null
+     */
+    private function generateToken($user): ?string
     {
-        if ($user instanceof User) {
-            $key = InMemory::plainText(
-                'thisisaverylongandsecurekeyforJWTsigning'
-            );
+        try {
+            if ($user instanceof User) {
+                $key = InMemory::plainText(
+                    'thisisaverylongandsecurekeyforJWTsigning'
+                );
 
-            $token = (new JwtFacade())->issue(
-                new Sha256(),
-                $key,
-                static fn (
-                    Builder $builder,
-                    DateTimeImmutable $issuedAt
-                ): Builder => $builder
-                    ->issuedBy('admin')
-                    ->permittedFor('http://localpimcore.com')
-                    ->expiresAt($issuedAt->modify('+60 minutes'))
-                    ->withClaim('username', $user->getUsername())
-            );
+                $token = (new JwtFacade())->issue(
+                    new Sha256(),
+                    $key,
+                    static fn (
+                        Builder $builder,
+                        DateTimeImmutable $issuedAt
+                    ): Builder => $builder
+                        ->issuedBy('admin')
+                        ->permittedFor('http://localpimcore.com')
+                        ->expiresAt($issuedAt->modify('+60 minutes'))
+                        ->withClaim('username', $user->getUsername())
+                );
 
-            return $token->toString();
+                return $token->toString();
+            }
+
+            return null;
+        } catch (\Exception $e) {
+            return null;
         }
-
-        return null;
     }
 
     /**
      * @Route("/get-token", name="getToken", methods={"POST"})
+     * @param Request $request
+     *
+     * @return JsonResponse
      */
     public function getTokenAction(Request $request): JsonResponse
     {
