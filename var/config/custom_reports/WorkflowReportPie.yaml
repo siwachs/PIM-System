@@ -1,32 +1,32 @@
 pimcore_custom_reports:
     definitions:
-        ProductCount:
-            name: ProductCount
+        WorkflowReportPie:
+            name: WorkflowReportPie
             sql: ''
             dataSourceConfig:
                 -
-                    sql: "object_Category.key AS 'Category', COUNT(object_Product.id) AS 'Product Count'"
-                    from: "object_Category LEFT JOIN object_Product ON object_Category.id = REPLACE(object_Product.category,',','')"
+                    sql: "element_workflow_state.place as 'Currently In State',count(*) as number"
+                    from: 'element_workflow_state JOIN objects ON element_workflow_state.cid = objects.id'
                     where: ''
-                    groupby: "GROUP BY object_Category.key ORDER BY 'Product Count' DESC"
+                    groupby: 'GROUP BY element_workflow_state.place'
                     type: sql
             columnConfiguration:
                 -
-                    name: Category
+                    name: 'Currently In State'
                     display: true
                     export: true
                     order: true
                     width: ''
                     label: ''
-                    id: extModel763-1
+                    id: extModel314-1
                 -
-                    name: 'Product Count'
+                    name: number
                     display: true
                     export: true
                     order: true
                     width: ''
                     label: ''
-                    id: extModel763-2
+                    id: extModel314-2
             niceName: ''
             group: ''
             groupIconClass: ''
@@ -34,12 +34,12 @@ pimcore_custom_reports:
             menuShortcut: true
             reportClass: ''
             chartType: pie
-            pieColumn: 'Product Count'
-            pieLabelColumn: Category
+            pieColumn: number
+            pieLabelColumn: 'Currently In State'
             xAxis: null
             yAxis: {  }
-            modificationDate: 1702013332
-            creationDate: 1701410589
+            modificationDate: 1702013682
+            creationDate: 1702013571
             shareGlobally: true
             sharedUserNames: {  }
             sharedRoleNames: {  }
