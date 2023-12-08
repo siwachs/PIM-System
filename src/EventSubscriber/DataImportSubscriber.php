@@ -40,45 +40,54 @@ class DataImportSubscriber implements EventSubscriberInterface
         ];
     }
 
+    private function insertVideo($dataObject)
+    {
+        try {
+            $videoMeta = explode(',', $dataObject->getVideoMeta());
+            $videoMeta = array_map('trim', $videoMeta);
+
+            $assetVideoPath = trim($videoMeta[0] ?? '');
+            $assetImagePath = trim($videoMeta[1] ?? '');
+
+            $assetVideo = Asset::getByPath($assetVideoPath);
+            $assetImage = Asset::getByPath($assetImagePath);
+            $videoData = new Video();
+            if ($assetVideo !== null) {
+                $videoData->setData($assetVideo);
+            }
+            $videoData->setType("asset");
+            if ($assetImage !== null) {
+                $videoData->setPoster($assetImage);
+            }
+            $videoData->setTitle($videoMeta[2] ?? "");
+            $videoData->setDescription($videoMeta[3] ?? "");
+
+            if ($assetVideo !== null) {
+                $dataObject->setVideo($videoData);
+            }
+        } catch (\Exception $e) {
+            //Handle Error
+        }
+    }
+
+    private function getImporterQueueSize()
+    {
+        $sql = "SELECT COUNT(*) FROM bundle_data_hub_data_importer_queue";
+        return $this->db->fetchOne($sql);
+    }
+
     public function onPreSave(PreSaveEvent $event)
     {
         $dataObject = $event->getDataObject();
         if ($dataObject instanceof Product) {
-            try {
-                $videoMeta = explode(',', $dataObject->getVideoMeta());
-                $videoMeta = array_map('trim', $videoMeta);
-
-                $assetVideoPath = trim($videoMeta[0] ?? '');
-                $assetImagePath = trim($videoMeta[1] ?? '');
-
-                $assetVideo = Asset::getByPath($assetVideoPath);
-                $assetImage = Asset::getByPath($assetImagePath);
-                $videoData = new Video();
-                if ($assetVideo !== null) {
-                    $videoData->setData($assetVideo);
-                }
-                $videoData->setType("asset");
-                if ($assetImage !== null) {
-                    $videoData->setPoster($assetImage);
-                }
-                $videoData->setTitle($videoMeta[2] ?? "");
-                $videoData->setDescription($videoMeta[3] ?? "");
-
-                if ($assetVideo !== null) {
-                    $dataObject->setVideo($videoData);
-                }
-            } catch (\Exception $e) {
-                //Handle Error
-            }
+            $this->insertVideo($dataObject);
         }
     }
 
     public function onPostSave(PostSaveEvent $event)
     {
         try {
-            $sql = "SELECT COUNT(*) FROM bundle_data_hub_data_importer_queue";
-            $rowCount = $this->db->fetchOne($sql);
-            if ($rowCount === 1) {
+            if ($this->getImporterQueueSize() === 1) {
                 $this->sendNotification();
             }
         } catch (\Exception $e) {
@@ -92,7 +101,6 @@ class DataImportSubscriber implements EventSubscriberInterface
         $message = 'All object are imported.';
 
         $this->logError();
-
         $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message);
     }
 

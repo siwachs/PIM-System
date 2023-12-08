@@ -19,6 +19,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthHandler
 {
+    private $tokenSecretKey;
+
+    public function __construct(string $tokenSecretKey)
+    {
+        $this->tokenSecretKey = $tokenSecretKey;
+    }
+
     /**
      *@param mixed $user
      * @return string|null
@@ -27,9 +34,7 @@ class AuthHandler
     {
         try {
             if ($user instanceof User) {
-                $key = InMemory::plainText(
-                    'thisisaverylongandsecurekeyforJWTsigning'
-                );
+                $key = InMemory::plainText($this->tokenSecretKey);
 
                 $token = (new JwtFacade())->issue(
                     new Sha256(),

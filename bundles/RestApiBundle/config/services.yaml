@@ -15,6 +15,11 @@ services:
         resource: "../src/Controller"
         public: true
         tags: ["controller.service_arguments"]
+    RestApiBundle\Controller\AuthHandler:
+        public: true
+        arguments:
+            $tokenSecretKey: thisisaverylongandsecurekeyforJWTsigning
+
     RestApiBundle\Middleware\TokenValidationMiddleware:
         autowire: true
 # add more services, or override services that need manual wiring
