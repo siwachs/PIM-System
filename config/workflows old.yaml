@@ -36,6 +36,7 @@ pimcore:
                     color: "#d9534f"
                 exited:
                     label: "Exited workflow"
+                    color: "#808080"
             transitions:
                 start_enrichment:
                     from: new
@@ -93,29 +94,34 @@ pimcore:
                               channelType:
                                   - pimcore_notification
                 reject_enrichment:
-                    from: review
-                    to: enrich_product
-                    guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_REVIEW'))"
+                    from: enrich_product
+                    to: new
                     options:
                         label: "Reject enrichment and go back to start"
                         notes:
                             commentEnabled: true
                             commentRequired: true
                 reject_technicalities:
-                    from: review
-                    to: add_technicalities
-                    guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_REVIEW'))"
+                    from: add_technicalities
+                    to: enrich_product
                     options:
                         label: "Reject technicalities and go back to data enrichment"
                         notes:
                             commentEnabled: true
                             commentRequired: true
-                reject_product:
+                reject_review:
                     from: review
-                    to: rejected
-                    guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_REVIEW'))"
+                    to: add_technicalities
                     options:
-                        label: "Reject the entire product"
+                        label: "Reject review and go back to adding technical details"
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                reject_accepted:
+                    from: accepted
+                    to: review
+                    options:
+                        label: "Reject accepted product and go back to review"
                         notes:
                             commentEnabled: true
                             commentRequired: true
