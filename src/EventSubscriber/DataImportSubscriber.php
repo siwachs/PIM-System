@@ -88,6 +88,7 @@ class DataImportSubscriber implements EventSubscriberInterface
     {
         try {
             if ($this->getImporterQueueSize() === 1) {
+                $this->logError();
                 $this->sendNotification();
             }
         } catch (\Exception $e) {
@@ -100,7 +101,6 @@ class DataImportSubscriber implements EventSubscriberInterface
         $title = 'Notification';
         $message = 'All object are imported.';
 
-        $this->logError();
         $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message);
     }
 
