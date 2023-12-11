@@ -97,7 +97,7 @@ pimcore:
                     to: enrich_product
                     guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_REVIEW'))"
                     options:
-                        label: "Reject enrichment and go back to start"
+                        label: "Reject enrichment"
                         notes:
                             commentEnabled: true
                             commentRequired: true
@@ -106,7 +106,7 @@ pimcore:
                     to: add_technicalities
                     guard: "is_fully_authenticated() and (is_granted('ROLE_PIMCORE_ADMIN') or  is_granted('ROLE_REVIEW'))"
                     options:
-                        label: "Reject technicalities and go back to data enrichment"
+                        label: "Reject technicalities"
                         notes:
                             commentEnabled: true
                             commentRequired: true
