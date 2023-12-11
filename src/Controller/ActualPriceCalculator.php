@@ -9,6 +9,13 @@ use Pimcore\Model\DataObject\Data\CalculatedValue;
 
 class ActualPriceCalculator implements CalculatorClassInterface
 {
+    /**
+     * Computes the actual price based on specific conditions.
+     *
+     * @param Concrete $object
+     * @param CalculatedValue $context
+     * @return float|string The computed actual price
+     */
     public function compute(Concrete $object, CalculatedValue $context): string
     {
         $fieldName = $context->getFieldname();
@@ -26,6 +33,13 @@ class ActualPriceCalculator implements CalculatorClassInterface
         }
     }
 
+    /**
+     * Retrieves the calculated value for editing mode.
+     *
+     * @param Concrete $object
+     * @param CalculatedValue $context
+     * @return string The computed value for editing mode
+     */
     public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string
     {
 

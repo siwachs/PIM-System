@@ -8,6 +8,12 @@ use Pimcore\Model\DataObject\Product;
 
 class ObjectListener
 {
+    /**
+     * Filters subcategories of a Product before update.
+     *
+     * @param ElementEventInterface $e
+     * @return void
+     */
     public function onObjectPreUpdate(ElementEventInterface $e): void
     {
         if ($e instanceof DataObjectEvent) {

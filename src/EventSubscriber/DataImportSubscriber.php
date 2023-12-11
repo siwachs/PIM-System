@@ -40,6 +40,12 @@ class DataImportSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Inserts video data into the object.
+     *
+     * @param $dataObject
+     * @throws \Exception
+     */
     private function insertVideo($dataObject)
     {
         try {
@@ -70,12 +76,24 @@ class DataImportSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Retrieves the size of the importer queue.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
     private function getImporterQueueSize()
     {
         $sql = "SELECT COUNT(*) FROM bundle_data_hub_data_importer_queue";
         return $this->db->fetchOne($sql);
     }
 
+    /**
+     * Executes actions before saving the object.
+     *
+     * @param PreSaveEvent $event
+     * @throws \Exception
+     */
     public function onPreSave(PreSaveEvent $event)
     {
         $dataObject = $event->getDataObject();
@@ -84,6 +102,12 @@ class DataImportSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Executes actions after saving the object.
+     *
+     * @param PostSaveEvent $event
+     * @throws \Exception
+     */
     public function onPostSave(PostSaveEvent $event)
     {
         try {
@@ -96,6 +120,11 @@ class DataImportSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Sends a notification.
+     *
+     * @throws \Exception
+     */
     private function sendNotification()
     {
         $title = 'Notification';
@@ -104,6 +133,11 @@ class DataImportSubscriber implements EventSubscriberInterface
         $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message);
     }
 
+    /**
+     * Fetches and logs error data to a CSV file.
+     *
+     * @throws \Exception
+     */
     private function logError()
     {
         try {
