@@ -2,13 +2,13 @@ pimcore_data_hub:
     configurations:
         ImportProducts:
             general:
+                active: true
                 type: dataImporterDataObject
                 name: ImportProducts
                 description: ''
                 group: 'Data Importers'
-                active: false
                 path: null
-                modificationDate: 1702277894
+                modificationDate: 1702288322
                 createDate: 1701163375
             loaderConfig:
                 type: asset

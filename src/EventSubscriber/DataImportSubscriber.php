@@ -19,6 +19,9 @@ class DataImportSubscriber implements EventSubscriberInterface
     private $notificationService;
     private $sender;
     private $receiver;
+    private $importerStartOn;
+    private $totalObjects;
+    private $objectHavingError;
     private $db;
 
     public function __construct(
@@ -29,6 +32,9 @@ class DataImportSubscriber implements EventSubscriberInterface
         $this->notificationService = $notificationService;
         $this->sender = $sender;
         $this->receiver = $receiver;
+        $this->totalObjects = 0;
+        $this->objectHavingError = 0;
+        $this->importerStartOn = date('Y-m-d H:i:s');
         $this->db = Db::getConnection();
     }
 
@@ -89,6 +95,32 @@ class DataImportSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Retrieves the logs of the importer queue.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    private function getLogs()
+    {
+        try {
+            $sql = "SELECT
+            application_logs.priority AS 'Priority',
+            application_logs.message AS 'Message',
+            application_logs.timestamp AS 'Occurred On'
+        FROM
+            application_logs
+        WHERE
+            application_logs.priority = 'error'
+            AND application_logs.source LIKE '%DataImporterBundle%'
+        ORDER BY
+            application_logs.timestamp DESC";
+            return $this->db->fetchAllAssociative($sql);
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
+
+    /**
      * Executes actions before saving the object.
      *
      * @param PreSaveEvent $event
@@ -97,6 +129,7 @@ class DataImportSubscriber implements EventSubscriberInterface
     public function onPreSave(PreSaveEvent $event)
     {
         $dataObject = $event->getDataObject();
+        $this->totalObjects++;
         if ($dataObject instanceof Product) {
             $this->insertVideo($dataObject);
         }
@@ -113,6 +146,7 @@ class DataImportSubscriber implements EventSubscriberInterface
         try {
             if ($this->getImporterQueueSize() === 1) {
                 $this->logError();
+                $this->logSummary();
                 $this->sendNotification();
             }
         } catch (\Exception $e) {
@@ -128,9 +162,39 @@ class DataImportSubscriber implements EventSubscriberInterface
     private function sendNotification()
     {
         $title = 'Notification';
-        $message = 'All object are imported.';
+        $message = 'All objects are imported.';
 
         $this->notificationService->sendToUser($this->receiver, $this->sender, $title, $message);
+    }
+
+    /**
+     * Fetches and logs summary.
+     *
+     * @throws \Exception
+     */
+    private function logSummary()
+    {
+        try {
+            $assetFilename = 'importer_summary.txt';
+            $existingAsset = \Pimcore\Model\Asset::getByPath("/Logs/" . $assetFilename);
+            $content = "";
+            $content = "Total Objects: " . $this->totalObjects . "\n";
+            $content .= "Objects Having Error: " . $this->objectHavingError . "\n";
+            $content .= "Objects Saved Without Error: " . ($this->totalObjects - $this->objectHavingError) . "\n";
+
+            if (!$existingAsset instanceof \Pimcore\Model\Asset) {
+                $asset = new \Pimcore\Model\Asset();
+                $asset->setFilename($assetFilename);
+                $asset->setData($content);
+                $asset->setParent(\Pimcore\Model\Asset::getByPath("/Logs"));
+                $asset->save();
+            } else {
+                $existingAsset->setData($content);
+                $existingAsset->save();
+            }
+        } catch (\Exception $e) {
+            // Handle Error.
+        }
     }
 
     /**
@@ -141,25 +205,17 @@ class DataImportSubscriber implements EventSubscriberInterface
     private function logError()
     {
         try {
-            $sql = "SELECT
-            application_logs.priority AS 'Priority',
-            application_logs.message AS 'Message',
-            application_logs.timestamp AS 'Occurred On'
-        FROM
-            application_logs
-        WHERE
-            application_logs.priority = 'error'
-            AND application_logs.source LIKE '%DataImporterBundle%'
-        ORDER BY
-            application_logs.timestamp DESC";
-            $logs = $this->db->fetchAllAssociative($sql);
-
+            $logs = $this->getLogs();
             $csvContent = "Priority,Message,Occurred On\n";
             foreach ($logs as $row) {
                 $priority = $row['Priority'];
                 $message = '"' . $row['Message'] . '"';
                 $unixTimestamp = \DateTime::createFromFormat('Y-m-d H:i:s', $row['Occurred On']);
                 $occurredOn = $unixTimestamp->format('d/m/Y h:i A');
+
+                if (strtotime($row['Occurred On']) >= strtotime($this->importerStartOn)) {
+                    $this->objectHavingError++;
+                }
 
                 $csvContent .= "$priority,$message,$occurredOn\n";
             }
