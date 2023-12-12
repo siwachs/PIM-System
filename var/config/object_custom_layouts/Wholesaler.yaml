@@ -2,12 +2,12 @@ pimcore:
     objects:
         custom_layouts:
             definitions:
-                wholesaler:
-                    id: wholesaler
-                    name: wholesaler
+                Wholesaler:
+                    id: Wholesaler
+                    name: Wholesaler
                     description: ''
-                    creationDate: 1701686023
-                    modificationDate: 1701762160
+                    creationDate: 1702367511
+                    modificationDate: 1702367605
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:

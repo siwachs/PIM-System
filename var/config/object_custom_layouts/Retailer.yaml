@@ -2,12 +2,12 @@ pimcore:
     objects:
         custom_layouts:
             definitions:
-                retailer:
-                    id: retailer
-                    name: retailer
+                Retailer:
+                    id: Retailer
+                    name: Retailer
                     description: ''
-                    creationDate: 1701407059
-                    modificationDate: 1701665127
+                    creationDate: 1702367211
+                    modificationDate: 1702367312
                     userOwner: 2
                     classId: Product
                     layoutDefinitions:
@@ -49,7 +49,7 @@ pimcore:
                                             -
                                                 name: SKU
                                                 title: SKU
-                                                tooltip: ''
+                                                tooltip: 'Unique Identifier'
                                                 mandatory: true
                                                 noteditable: true
                                                 index: false
@@ -63,7 +63,7 @@ pimcore:
                                                 visibleSearch: true
                                                 defaultValue: null
                                                 columnLength: 190
-                                                regex: ''
+                                                regex: ^SKU\d+$
                                                 regexFlags: {  }
                                                 unique: true
                                                 showCharCount: false
@@ -89,7 +89,7 @@ pimcore:
                                                     -
                                                         name: name
                                                         title: Name
-                                                        tooltip: ''
+                                                        tooltip: 'Name of the product.'
                                                         mandatory: true
                                                         noteditable: true
                                                         index: false
@@ -113,7 +113,7 @@ pimcore:
                                                     -
                                                         name: description
                                                         title: Description
-                                                        tooltip: ''
+                                                        tooltip: 'Description of the product.'
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -146,7 +146,7 @@ pimcore:
                                             -
                                                 name: country
                                                 title: Country
-                                                tooltip: ''
+                                                tooltip: 'Country from where product belongs.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -172,7 +172,7 @@ pimcore:
                                             -
                                                 name: brand
                                                 title: Brand
-                                                tooltip: ''
+                                                tooltip: 'One to many relation.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -202,7 +202,7 @@ pimcore:
                                             -
                                                 name: manufacturer
                                                 title: Manufacturer
-                                                tooltip: ''
+                                                tooltip: 'One to many relation.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -232,7 +232,7 @@ pimcore:
                                             -
                                                 name: category
                                                 title: Category
-                                                tooltip: ''
+                                                tooltip: 'One to many relation.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -262,7 +262,7 @@ pimcore:
                                             -
                                                 name: subCategory
                                                 title: 'Sub Category'
-                                                tooltip: ''
+                                                tooltip: 'Many to many relation.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -279,7 +279,7 @@ pimcore:
                                                         classes: Category
                                                 displayMode: grid
                                                 pathFormatterClass: ''
-                                                maxItems: 1
+                                                maxItems: null
                                                 visibleFields: name
                                                 allowToCreateNewObject: false
                                                 allowToClearRelation: true
@@ -292,7 +292,7 @@ pimcore:
                                             -
                                                 name: price
                                                 title: Price
-                                                tooltip: ''
+                                                tooltip: 'Calculated Price.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -314,7 +314,7 @@ pimcore:
                                             -
                                                 name: color
                                                 title: Color
-                                                tooltip: ''
+                                                tooltip: 'Color of product.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -358,7 +358,7 @@ pimcore:
                                             -
                                                 name: masterImage
                                                 title: 'Master Image'
-                                                tooltip: ''
+                                                tooltip: 'Main Image of the product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -375,7 +375,7 @@ pimcore:
                                                 height: ''
                                                 datatype: data
                                             -
-                                                name: Images
+                                                name: images
                                                 title: Images
                                                 tooltip: ''
                                                 mandatory: false
@@ -399,7 +399,7 @@ pimcore:
                                             -
                                                 name: video
                                                 title: Video
-                                                tooltip: ''
+                                                tooltip: 'Advertisement video for the product.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -455,7 +455,33 @@ pimcore:
                                                     -
                                                         name: quantitySold
                                                         title: 'Quantity Sold'
-                                                        tooltip: ''
+                                                        tooltip: 'No of product  sold .'
+                                                        mandatory: false
+                                                        noteditable: true
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 0
+                                                        integer: true
+                                                        unsigned: true
+                                                        minValue: null
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: revenue
+                                                        title: Revenue
+                                                        tooltip: 'Total revenue of the Product sold .'
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -481,7 +507,7 @@ pimcore:
                                                     -
                                                         name: productAvailability
                                                         title: 'Product Availability'
-                                                        tooltip: ''
+                                                        tooltip: 'To check weather the product is available or not .'
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -511,7 +537,7 @@ pimcore:
                                                     -
                                                         name: rating
                                                         title: Rating
-                                                        tooltip: ''
+                                                        tooltip: 'Rating field  used  for  the review purpose .'
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -554,9 +580,35 @@ pimcore:
                                                 datatype: layout
                                                 children:
                                                     -
+                                                        name: basePrice
+                                                        title: 'Base Price'
+                                                        tooltip: 'Base price of the product .'
+                                                        mandatory: false
+                                                        noteditable: true
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: numeric
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: 1
+                                                        integer: false
+                                                        unsigned: true
+                                                        minValue: 1
+                                                        maxValue: null
+                                                        unique: false
+                                                        decimalSize: null
+                                                        decimalPrecision: null
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
                                                         name: sellingPrice
                                                         title: 'Selling Price'
-                                                        tooltip: ''
+                                                        tooltip: 'Selling price of the product .'
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -582,7 +634,7 @@ pimcore:
                                                     -
                                                         name: deliveryCharges
                                                         title: 'Delivery Charges'
-                                                        tooltip: ''
+                                                        tooltip: 'Delievery charge for delievering the product to the customer. '
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -608,7 +660,7 @@ pimcore:
                                                     -
                                                         name: tax
                                                         title: Tax
-                                                        tooltip: ''
+                                                        tooltip: 'Tax that is added to product while selling  the product .'
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -634,7 +686,7 @@ pimcore:
                                                     -
                                                         name: discount
                                                         title: Discount
-                                                        tooltip: ''
+                                                        tooltip: "DIscount given   for the  product  .\n"
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -660,7 +712,7 @@ pimcore:
                                                     -
                                                         name: actualPrice
                                                         title: 'Actual Price'
-                                                        tooltip: ''
+                                                        tooltip: 'Actual price of the Product . '
                                                         mandatory: false
                                                         noteditable: true
                                                         index: false
@@ -706,9 +758,9 @@ pimcore:
                                         datatype: layout
                                         children:
                                             -
-                                                name: Dimensions
+                                                name: dimensions
                                                 title: Dimensions
-                                                tooltip: ''
+                                                tooltip: 'Dimension of the product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -732,7 +784,7 @@ pimcore:
                                             -
                                                 name: size
                                                 title: Size
-                                                tooltip: ''
+                                                tooltip: 'Size of the  product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -756,7 +808,7 @@ pimcore:
                                             -
                                                 name: weight
                                                 title: Weight
-                                                tooltip: ''
+                                                tooltip: 'weight of the product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -801,7 +853,7 @@ pimcore:
                                             -
                                                 name: modelNumber
                                                 title: 'Model Number'
-                                                tooltip: ''
+                                                tooltip: 'Model  Number of the product ,.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -825,7 +877,7 @@ pimcore:
                                             -
                                                 name: modelYear
                                                 title: 'Model Year'
-                                                tooltip: ''
+                                                tooltip: 'Model year of the product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -851,7 +903,7 @@ pimcore:
                                             -
                                                 name: modelName
                                                 title: 'Model Name'
-                                                tooltip: ''
+                                                tooltip: 'Model name of  the  product.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -875,7 +927,7 @@ pimcore:
                                             -
                                                 name: hardwareInterface
                                                 title: 'Hardware Interface'
-                                                tooltip: ''
+                                                tooltip: 'It describe the Hardware interface  of the product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -899,7 +951,7 @@ pimcore:
                                             -
                                                 name: powerSource
                                                 title: 'Power Source'
-                                                tooltip: ''
+                                                tooltip: 'Power source required by  the electronic  product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -923,7 +975,7 @@ pimcore:
                                             -
                                                 name: numberOfItems
                                                 title: 'Number of items'
-                                                tooltip: ''
+                                                tooltip: 'Total Number of items  .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -949,7 +1001,7 @@ pimcore:
                                             -
                                                 name: voltage
                                                 title: Voltage
-                                                tooltip: ''
+                                                tooltip: 'Amount of voltage required by  the product '
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -975,7 +1027,7 @@ pimcore:
                                             -
                                                 name: wattage
                                                 title: Wattage
-                                                tooltip: ''
+                                                tooltip: 'Wattage required by the product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1001,7 +1053,7 @@ pimcore:
                                             -
                                                 name: countryOfOrigin
                                                 title: 'Country of Origin'
-                                                tooltip: ''
+                                                tooltip: 'Country Of Origin of the product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1025,9 +1077,9 @@ pimcore:
                                                 restrictTo: ''
                                                 datatype: data
                                             -
-                                                name: battriesRequired
+                                                name: batteriesRequired
                                                 title: 'Batteries Required'
-                                                tooltip: ''
+                                                tooltip: 'Check whether  the  battery is required or  not .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1055,9 +1107,9 @@ pimcore:
                                                 width: ''
                                                 datatype: data
                                             -
-                                                name: battriesIncluded
+                                                name: batteriesIncluded
                                                 title: 'Batteries Included'
-                                                tooltip: ''
+                                                tooltip: 'Battery is included or not in your product .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1106,7 +1158,7 @@ pimcore:
                                             -
                                                 name: motherboard
                                                 title: Motherboard
-                                                tooltip: ''
+                                                tooltip: 'Relation with the mother board .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1136,7 +1188,7 @@ pimcore:
                                             -
                                                 name: operatingSystem
                                                 title: 'Operating System'
-                                                tooltip: ''
+                                                tooltip: 'Relation with the Operating system .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1166,7 +1218,7 @@ pimcore:
                                             -
                                                 name: processor
                                                 title: Processor
-                                                tooltip: ''
+                                                tooltip: 'Relation with the Processor .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1196,7 +1248,7 @@ pimcore:
                                             -
                                                 name: ram
                                                 title: RAM
-                                                tooltip: ''
+                                                tooltip: 'Relation with the Storage with RAM .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1226,7 +1278,7 @@ pimcore:
                                             -
                                                 name: rom
                                                 title: ROM
-                                                tooltip: ''
+                                                tooltip: 'Relation with the Storage with ROM .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1256,7 +1308,7 @@ pimcore:
                                             -
                                                 name: vram
                                                 title: VRAM
-                                                tooltip: ''
+                                                tooltip: 'Relation with the Storage with  VRAM .'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
@@ -1286,7 +1338,7 @@ pimcore:
                                             -
                                                 name: connectivityTechnology
                                                 title: 'Connectivity Technology'
-                                                tooltip: ''
+                                                tooltip: 'Options for the  available connectivity  like  3g , 4g ,5g etc.'
                                                 mandatory: false
                                                 noteditable: true
                                                 index: false
