@@ -2,7 +2,13 @@ SELECT element_workflow_state.cid AS 'Product Object Id', objects.key AS 'Produc
 
 SELECT element_workflow_state.place as 'Currently In State',count(*) as number FROM element_workflow_state JOIN objects ON element_workflow_state.cid = objects.id GROUP BY element_workflow_state.place;
 
-SELECT object_Category.key AS 'Category', COUNT(object_Product.id) AS 'Product Count' from object_Category LEFT JOIN object_Product ON object_Category.id = REPLACE(object_Product.category,',','') GROUP BY object_Category.key ORDER BY 'Product Count' DESC;
+SELECT object_Category.key AS 'Category', COUNT(object_Product.id) AS 'Product Count'
+FROM object_Category
+LEFT JOIN object_Product ON object_Category.id = REPLACE(object_Product.category, ',', '')
+                           OR object_Category.id = REPLACE(object_Product.subCategory, ',', '')
+GROUP BY object_Category.key
+ORDER BY COUNT(object_Product.id) DESC;
+
 
 SELECT
             application_logs.priority AS 'Priority',

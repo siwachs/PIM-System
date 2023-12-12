@@ -6,9 +6,9 @@ pimcore_custom_reports:
             dataSourceConfig:
                 -
                     sql: "object_Category.key AS 'Category', COUNT(object_Product.id) AS 'Product Count'"
-                    from: "object_Category LEFT JOIN object_Product ON object_Category.id = REPLACE(object_Product.category,',','')"
+                    from: "object_Category LEFT JOIN object_Product ON object_Category.id = REPLACE(object_Product.category,',','') OR object_Category.id = REPLACE(object_Product.subCategory, ',', '')"
                     where: ''
-                    groupby: "GROUP BY object_Category.key ORDER BY 'Product Count' DESC"
+                    groupby: 'GROUP BY object_Category.key ORDER BY COUNT(object_Product.id) DESC'
                     type: sql
             columnConfiguration:
                 -
@@ -18,7 +18,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel763-1
+                    id: extModel243-3
                 -
                     name: 'Product Count'
                     display: true
@@ -26,7 +26,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel763-2
+                    id: extModel243-4
             niceName: ''
             group: ''
             groupIconClass: ''
@@ -38,7 +38,7 @@ pimcore_custom_reports:
             pieLabelColumn: Category
             xAxis: null
             yAxis: {  }
-            modificationDate: 1702013332
+            modificationDate: 1702374010
             creationDate: 1701410589
             shareGlobally: true
             sharedUserNames: {  }
