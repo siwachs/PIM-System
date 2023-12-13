@@ -27,6 +27,17 @@ class ObjectListener
                     return count($pathParts) !== 1;
                 });
                 $object->setSubCategory($filteredArray);
+
+
+                $images = $object->getImages();
+                if ($images instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
+                    $imageArray = $images->getItems();
+                    $filteredImages = array_filter($imageArray, function ($image) {
+                        return $image !== null;
+                    });
+                    $filteredImages = array_slice($filteredImages, 0, 5);
+                    $images->setItems($filteredImages);
+                }
             }
         }
     }
