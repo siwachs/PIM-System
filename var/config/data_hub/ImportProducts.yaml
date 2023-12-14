@@ -8,7 +8,7 @@ pimcore_data_hub:
                 description: ''
                 group: 'Data Importers'
                 path: null
-                modificationDate: 1702288322
+                modificationDate: 1702527672
                 createDate: 1701163375
             loaderConfig:
                 type: asset
