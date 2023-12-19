@@ -8,8 +8,16 @@
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
+ * -- updatesPatching [textarea]
+ * -- supportAndMaintenance [textarea]
  * - version [input]
- * - release [input]
+ * - licenseType [input]
+ * - compatablity [input]
+ * - features [input]
+ * - systemReqirements [textarea]
+ * - securityFeatures [textarea]
+ * - quickStartGuide [link]
+ * - ui [select]
  * - bit [select]
  * - Brand [manyToManyObjectRelation]
  */
@@ -21,7 +29,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1701667554,
+   'modificationDate' => 1702917729,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -89,7 +97,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => 'Name of Operating System.',
+                 'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -106,7 +114,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '',
+                 'regex' => '^\\S+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -119,7 +127,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => 'Description of Operating System.',
+                 'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -136,6 +144,56 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'maxLength' => NULL,
                  'showCharCount' => true,
+                 'excludeFromSearchIndex' => false,
+                 'height' => '',
+                 'width' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'name' => 'updatesPatching',
+                 'title' => 'Updates/Patching',
+                 'tooltip' => 'Information about update mechanisms and patching policies.',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'height' => '',
+                 'width' => '',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'name' => 'supportAndMaintenance',
+                 'title' => 'Support & Maintenance',
+                 'tooltip' => 'Details about support duration, service availability, and maintenance options.',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
                  'excludeFromSearchIndex' => false,
                  'height' => '',
                  'width' => '',
@@ -161,7 +219,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'version',
              'title' => 'Version',
-             'tooltip' => 'Version of Operating System. ',
+             'tooltip' => 'The specific version number or release of the operating system (e.g., Windows 11, macOS Monterey, Ubuntu 22.04).',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -189,9 +247,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'release',
-             'title' => 'Release',
-             'tooltip' => 'Release of Operating System. ',
+             'name' => 'licenseType',
+             'title' => 'License Type',
+             'tooltip' => 'Information about the licensing model (e.g., proprietary, open-source).',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -201,8 +259,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => true,
-             'visibleSearch' => true,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
@@ -213,11 +271,191 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'unique' => false,
-             'showCharCount' => true,
+             'showCharCount' => false,
              'width' => '',
              'defaultValueGenerator' => '',
           )),
           3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'compatablity',
+             'title' => 'Compatibility',
+             'tooltip' => 'Details about supported hardware architectures and system requirements.',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'features',
+             'title' => 'Features',
+             'tooltip' => 'Key functionalities or features offered by the operating system (e.g., multitasking, graphical user interface, security features).',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+             'name' => 'systemReqirements',
+             'title' => 'System Requirements',
+             'tooltip' => 'Specifications for hardware, memory, storage, and other prerequisites needed to install and run the OS.',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'maxLength' => NULL,
+             'showCharCount' => false,
+             'excludeFromSearchIndex' => false,
+             'height' => '',
+             'width' => '',
+          )),
+          6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+             'name' => 'securityFeatures',
+             'title' => 'Security Features',
+             'tooltip' => 'Details about built-in security measures and protocols.',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'maxLength' => NULL,
+             'showCharCount' => false,
+             'excludeFromSearchIndex' => false,
+             'height' => '',
+             'width' => '',
+          )),
+          7 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Link::__set_state(array(
+             'name' => 'quickStartGuide',
+             'title' => 'Quick Start Guide',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'allowedTypes' => 
+            array (
+            ),
+             'allowedTargets' => 
+            array (
+            ),
+             'disabledFields' => 
+            array (
+            ),
+          )),
+          8 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'name' => 'ui',
+             'title' => 'UI',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'GUI',
+                'value' => 'GUI',
+              ),
+              1 => 
+              array (
+                'key' => 'CLI',
+                'value' => 'CLI',
+              ),
+            ),
+             'defaultValue' => '',
+             'columnLength' => 190,
+             'dynamicOptions' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => 'configure',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+          )),
+          9 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'bit',
              'title' => 'Bit',
@@ -258,7 +496,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
              'optionsProviderData' => '',
           )),
-          4 => 
+          10 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
              'name' => 'Brand',
              'title' => 'Brand',

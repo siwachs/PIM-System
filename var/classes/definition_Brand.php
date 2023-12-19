@@ -4,7 +4,6 @@
  * Inheritance: no
  * Variants: no
  * Title: Brand
- * Name of the Brand .
  *
  * Fields Summary:
  * - logo [image]
@@ -12,6 +11,9 @@
  * -- name [input]
  * -- contact [textarea]
  * - Country [country]
+ * - socialMediaLink [link]
+ * - websiteLink [link]
+ * - yearFounded [numeric]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -19,9 +21,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'id' => 'Brand',
    'name' => 'Brand',
    'title' => 'Brand',
-   'description' => 'Name of the Brand .',
+   'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1701667163,
+   'modificationDate' => 1702972030,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -68,7 +70,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
              'name' => 'logo',
              'title' => 'Logo',
-             'tooltip' => 'Logo of the brand.',
+             'tooltip' => 'Brand logo.',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -129,7 +131,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '',
+                 'regex' => '^.+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -142,7 +144,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'contact',
                  'title' => 'Contact',
-                 'tooltip' => 'contact details for the brand .',
+                 'tooltip' => 'Address, Emails and Contact Details.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -184,7 +186,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
              'name' => 'Country',
              'title' => 'Country',
-             'tooltip' => 'country of the brand .',
+             'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -208,6 +210,94 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'optionsProviderClass' => NULL,
              'optionsProviderData' => NULL,
              'restrictTo' => '',
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Link::__set_state(array(
+             'name' => 'socialMediaLink',
+             'title' => 'Social Media Link',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'allowedTypes' => 
+            array (
+            ),
+             'allowedTargets' => 
+            array (
+            ),
+             'disabledFields' => 
+            array (
+            ),
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Link::__set_state(array(
+             'name' => 'websiteLink',
+             'title' => 'Website Link',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'allowedTypes' => 
+            array (
+            ),
+             'allowedTargets' => 
+            array (
+            ),
+             'disabledFields' => 
+            array (
+            ),
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'name' => 'yearFounded',
+             'title' => 'Year Founded',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'integer' => true,
+             'unsigned' => true,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'unique' => false,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+             'width' => '',
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,

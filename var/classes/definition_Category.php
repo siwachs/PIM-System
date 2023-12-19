@@ -3,22 +3,24 @@
 /**
  * Inheritance: yes
  * Variants: yes
- * Title: Name of Category
+ * Title: Category
  *
  * Fields Summary:
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
+ * -- slug [input]
+ * -- keywords [input]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Category',
    'name' => 'Category',
-   'title' => 'Name of Category',
+   'title' => 'Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1701667221,
+   'modificationDate' => 1702917721,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -103,7 +105,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '',
+                 'regex' => '^\\S+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -116,7 +118,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => 'Description of Category.',
+                 'tooltip' => 'Category description.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -136,6 +138,66 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'excludeFromSearchIndex' => false,
                  'height' => '',
                  'width' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'slug',
+                 'title' => 'Slug',
+                 'tooltip' => ' A URL-friendly identifier for the category.',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'keywords',
+                 'title' => 'Keywords',
+                 'tooltip' => 'Keywords or tags related to the category for search and categorization purposes.',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
               )),
             ),
              'region' => NULL,

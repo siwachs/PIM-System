@@ -3,28 +3,29 @@
 /**
  * Inheritance: no
  * Variants: no
- * Title: Manufacturer
+ * Title: Screen
  *
  * Fields Summary:
- * - logo [image]
  * - localizedfields [localizedfields]
  * -- name [input]
- * -- address [textarea]
- * -- contact [textarea]
- * - standards [input]
- * - Country [country]
- * - websiteLink [link]
- * - yearFounded [numeric]
+ * -- description [textarea]
+ * - screenType [input]
+ * - screenSize [numeric]
+ * - screenSizeUnit [select]
+ * - resolution [input]
+ * - aspectRatio [input]
+ * - refreshRate [input]
+ * - brand [manyToManyObjectRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'Manufacturer',
-   'name' => 'Manufacturer',
-   'title' => 'Manufacturer',
+   'id' => 'Screen',
+   'name' => 'Screen',
+   'title' => 'Screen',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1702917714,
+   'modificationDate' => 1702917747,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -68,32 +69,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-             'name' => 'logo',
-             'title' => 'Logo',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'uploadPath' => '',
-             'width' => '',
-             'height' => '',
-          )),
-          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'name' => 'localizedfields',
-             'title' => 'Localized data',
+             'title' => '',
              'tooltip' => NULL,
              'mandatory' => false,
              'noteditable' => false,
@@ -115,7 +93,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => 'Name of the manufacturer .',
+                 'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -125,8 +103,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => '',
                  'relationType' => false,
                  'invisible' => false,
-                 'visibleGridView' => true,
-                 'visibleSearch' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
                  'blockedVarsForExport' => 
                 array (
                 ),
@@ -137,15 +115,15 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                 ),
                  'unique' => false,
-                 'showCharCount' => true,
+                 'showCharCount' => false,
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'address',
-                 'title' => 'Address',
-                 'tooltip' => 'Address of the Manufacturer .',
+                 'name' => 'description',
+                 'title' => 'Description',
+                 'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -161,32 +139,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                 ),
                  'maxLength' => NULL,
-                 'showCharCount' => true,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'contact',
-                 'title' => 'Contact',
-                 'tooltip' => 'contact details of the manufacturer.',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'maxLength' => NULL,
-                 'showCharCount' => true,
+                 'showCharCount' => false,
                  'excludeFromSearchIndex' => false,
                  'height' => '',
                  'width' => '',
@@ -208,11 +161,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
              'fieldDefinitionsCache' => NULL,
           )),
-          2 => 
+          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'standards',
-             'title' => 'Standards',
-             'tooltip' => '',
+             'name' => 'screenType',
+             'title' => 'Screen Type',
+             'tooltip' => 'Specifies the type of screen technology used (e.g., LCD, LED, OLED, AMOLED, IPS).',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -238,11 +191,82 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'name' => 'screenSize',
+             'title' => 'Screen Size',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'integer' => true,
+             'unsigned' => true,
+             'minValue' => 1.0,
+             'maxValue' => NULL,
+             'unique' => false,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
           3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
-             'name' => 'Country',
-             'title' => 'Country',
-             'tooltip' => 'Country to  which the Manufacturer belong.',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'name' => 'screenSizeUnit',
+             'title' => 'Screen Size Unit',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'Inches',
+                'value' => 'Inches',
+              ),
+              1 => 
+              array (
+                'key' => 'Centimeters',
+                'value' => 'Centimeters',
+              ),
+            ),
+             'defaultValue' => '',
+             'columnLength' => 190,
+             'dynamicOptions' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => 'configure',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'resolution',
+             'title' => 'Resolution',
+             'tooltip' => 'The number of pixels in width x height format (e.g., 1920x1080, 4K, 8K).',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -259,48 +283,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'defaultValue' => NULL,
              'columnLength' => 190,
-             'dynamicOptions' => false,
-             'defaultValueGenerator' => '',
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
              'width' => '',
-             'optionsProviderType' => NULL,
-             'optionsProviderClass' => NULL,
-             'optionsProviderData' => NULL,
-             'restrictTo' => '',
-          )),
-          4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Link::__set_state(array(
-             'name' => 'websiteLink',
-             'title' => 'Website Link',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'allowedTypes' => 
-            array (
-            ),
-             'allowedTargets' => 
-            array (
-            ),
-             'disabledFields' => 
-            array (
-            ),
+             'defaultValueGenerator' => '',
           )),
           5 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'name' => 'yearFounded',
-             'title' => 'Year Founded',
-             'tooltip' => '',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'aspectRatio',
+             'title' => 'Aspect Ratio',
+             'tooltip' => 'The proportional relationship between the width and height of the screen (e.g., 16:9, 21:9).',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -316,15 +312,85 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
              'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'showCharCount' => false,
              'width' => '',
              'defaultValueGenerator' => '',
+          )),
+          6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'refreshRate',
+             'title' => 'Refresh Rate',
+             'tooltip' => 'The number of times the screen refreshes per second, measured in Hertz (Hz).',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          7 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+             'name' => 'brand',
+             'title' => 'Brand',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Brand',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'maxItems' => 1,
+             'visibleFields' => 'logo,name',
+             'allowToCreateNewObject' => false,
+             'allowToClearRelation' => true,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,

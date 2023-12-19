@@ -3,25 +3,28 @@
 /**
  * Inheritance: no
  * Variants: no
+ * Title: Speakers
  *
  * Fields Summary:
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
- * - technolgy [input]
- * - size [input]
- * - storageType [select]
+ * - speakerType [input]
+ * - speakerConfiguration [input]
+ * - frequencyResponse [input]
+ * - driverSize [input]
+ * - compatibility [input]
  * - brand [manyToManyObjectRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'Storage',
-   'name' => 'Storage',
-   'title' => '',
+   'id' => 'Speakers',
+   'name' => 'Speakers',
+   'title' => 'Speakers',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1701667794,
+   'modificationDate' => 1702917756,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -67,7 +70,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'name' => 'localizedfields',
-             'title' => 'Localized data',
+             'title' => '',
              'tooltip' => NULL,
              'mandatory' => false,
              'noteditable' => false,
@@ -89,7 +92,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
                  'title' => 'Name',
-                 'tooltip' => 'Name of Storage.',
+                 'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -99,19 +102,19 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => '',
                  'relationType' => false,
                  'invisible' => false,
-                 'visibleGridView' => true,
-                 'visibleSearch' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
                  'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '',
+                 'regex' => '^\\S+$',
                  'regexFlags' => 
                 array (
                 ),
                  'unique' => false,
-                 'showCharCount' => true,
+                 'showCharCount' => false,
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
@@ -119,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => 'Description  of Storage.',
+                 'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -135,7 +138,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                 ),
                  'maxLength' => NULL,
-                 'showCharCount' => true,
+                 'showCharCount' => false,
                  'excludeFromSearchIndex' => false,
                  'height' => '',
                  'width' => '',
@@ -159,69 +162,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'technolgy',
-             'title' => 'technolgy',
-             'tooltip' => 'Technology used in Storage.',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => true,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => true,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'size',
-             'title' => 'size',
-             'tooltip' => 'Size of Storage.',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => true,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => true,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'name' => 'storageType',
-             'title' => 'Storage Type',
-             'tooltip' => 'Type of Storage.',
+             'name' => 'speakerType',
+             'title' => 'Speaker Type',
+             'tooltip' => 'Specifies the type of speaker (e.g., bookshelf, floor-standing, soundbar, portable).',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -236,48 +179,142 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'RAM',
-                'value' => 'RAM',
-              ),
-              1 => 
-              array (
-                'key' => 'ROM',
-                'value' => 'ROM',
-              ),
-              2 => 
-              array (
-                'key' => 'VRAM',
-                'value' => 'VRAM',
-              ),
-              3 => 
-              array (
-                'key' => 'SSD',
-                'value' => 'SSD',
-              ),
-              4 => 
-              array (
-                'key' => 'HDD',
-                'value' => 'HDD',
-              ),
-            ),
-             'defaultValue' => '',
+             'defaultValue' => NULL,
              'columnLength' => 190,
-             'dynamicOptions' => false,
-             'defaultValueGenerator' => '',
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
              'width' => '',
-             'optionsProviderType' => 'configure',
-             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-             'optionsProviderData' => '',
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'speakerConfiguration',
+             'title' => 'Speaker Configuration',
+             'tooltip' => 'Details about the speaker setup (e.g., 2.0, 2.1, 5.1, indicating the number of channels and subwoofers).',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'frequencyResponse',
+             'title' => 'Frequency Response',
+             'tooltip' => 'The range of frequencies the speaker can reproduce (e.g., 20Hz - 20kHz).',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
           )),
           4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'driverSize',
+             'title' => 'Driver Size',
+             'tooltip' => 'Sizes of individual speaker drivers (e.g., 5-inch woofer, 1-inch tweeter).',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'compatibility',
+             'title' => 'Compatibility',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          6 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
              'name' => 'brand',
              'title' => 'Brand',
-             'tooltip' => 'Brand of Storage',
+             'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -287,8 +324,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => '',
              'relationType' => true,
              'invisible' => false,
-             'visibleGridView' => true,
-             'visibleSearch' => true,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
@@ -302,7 +339,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'displayMode' => 'grid',
              'pathFormatterClass' => '',
              'maxItems' => 1,
-             'visibleFields' => 'id,logo,name',
+             'visibleFields' => 'logo,name',
              'allowToCreateNewObject' => false,
              'allowToClearRelation' => true,
              'optimizedAdminLoading' => false,

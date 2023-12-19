@@ -56,13 +56,6 @@ services:
     App\Twig\Extension\UniqidExtension:
         tags: ["twig.extension"]
 
-    App\EventSubscriber\DataImportSubscriber:
-        tags:
-            - { name: "kernel.event_subscriber" }
-        arguments:
-            $sender: 2
-            $receiver: 13
-
     # Example event listener for objects
     App\EventListener\ObjectListener:
         tags:
@@ -71,3 +64,8 @@ services:
                   event: pimcore.dataobject.preUpdate,
                   method: onObjectPreUpdate,
               }
+
+    App\Command\ImportBrandsCommand:
+        arguments:
+            $sender: 2
+            $receiver: 13

@@ -6,11 +6,9 @@ pimcore:
         valid_languages:
             - en
             - de
-            - es
         fallback_languages:
             en: ''
             de: ''
-            es: ''
         default_language: en
         debug_admin_translations: false
     documents:
