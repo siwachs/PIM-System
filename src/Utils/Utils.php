@@ -3,11 +3,38 @@
 namespace App\Utils;
 
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject\Folder;
+use Pimcore\Model\DataObject\Brand;
+use Pimcore\Model\DataObject\Manufacturer;
 use Pimcore\Model\DataObject\Data\Link;
 use Pimcore\Model\Notification\Service\NotificationService;
 
 class Utils
 {
+    /**
+     * Get folder ID by path. If the folder exists, return its ID; otherwise, create the folder and return its ID.
+     *
+     * @param string $folderPath The path of the folder
+     * @param int $parentId The ID of the parent folder
+     *
+     * @return int The ID of the folder (existing or newly created)
+     */
+    public static function getOrCreateFolderIdByPath(string $folderPath, int $parentId): int
+    {
+        $folder = Folder::getByPath($folderPath);
+
+        if ($folder instanceof Folder) {
+            return $folder->getId();
+        }
+
+        $newFolder = new Folder();
+        $newFolder->setKey(basename($folderPath));
+        $newFolder->setParentId($parentId);
+        $newFolder->save();
+
+        return $newFolder->getId();
+    }
+
     /**
      * Get Asset by Path
      *
@@ -22,6 +49,45 @@ class Utils
             return null;
         }
     }
+
+    /**
+     * Get Brand by Path if it exists, otherwise return null.
+     *
+     * @param string $brandPath The path to the Brand object
+     *
+     * @return Brand|null The Brand object if found, otherwise null
+     */
+    public static function getBrandIfExists(string $brandPath): ?Brand
+    {
+        try {
+            // Try to retrieve the Brand object by its path
+            $brandObj = Brand::getByPath($brandPath);
+            return $brandObj instanceof Brand ? $brandObj : null;
+        } catch (\Exception $e) {
+            // Handle exceptions, log errors, or return null based on your requirement
+            return null;
+        }
+    }
+
+    /**
+     * Get Manufacturer by Path if it exists, otherwise return null.
+     *
+     * @param string $manufacturerPath The path to the Manufacturer object
+     *
+     * @return Manufacturer|null The Manufacturer object if found, otherwise null
+     */
+    public static function getManufacturerIfExists(string $manufacturerPath): ?Manufacturer
+    {
+        try {
+            // Try to retrieve the Manufacturer object by its path
+            $manufacturerObj = Manufacturer::getByPath($manufacturerPath);
+            return $manufacturerObj instanceof Manufacturer ? $manufacturerObj : null;
+        } catch (\Exception $e) {
+            // Handle exceptions, log errors, or return null based on your requirement
+            return null;
+        }
+    }
+
 
     /**
      * Convert Spreadsheet Sheet to Associative Array
@@ -40,7 +106,8 @@ class Utils
             // Get the header row values
             $columnIndex = 'A';
             while ($columnIndex <= $highestColumn) {
-                $headerRow[] = $sheet->getCell($columnIndex . '1')->getValue();
+                $cellValue = $sheet->getCell($columnIndex . '1')->getValue();
+                $headerRow[] = trim($cellValue);
                 $columnIndex++;
             }
 
@@ -50,7 +117,7 @@ class Utils
                 $columnIndex = 'A';
                 foreach ($headerRow as $header) {
                     $cellValue = $sheet->getCell($columnIndex . $row)->getValue();
-                    $rowData[$header] = $cellValue;
+                    $rowData[$header] = trim($cellValue);
                     $columnIndex++;
                 }
                 $data[] = $rowData; // Push each row as an associative array to the main array
@@ -71,7 +138,7 @@ class Utils
     public static function isValidYearFounded($yearFounded): bool
     {
         $currentYear = date('Y');
-        return $yearFounded <= $currentYear;
+        return is_numeric($yearFounded) && $yearFounded > 0 && $yearFounded <= $currentYear;
     }
 
     /**
@@ -87,9 +154,9 @@ class Utils
         }
 
         $l = new Link();
-        $l->setPath($url);
-        $l->setText($text);
-        $l->setTitle($title);
+        $l->setPath($url ?? "");
+        $l->setText($text ?? "");
+        $l->setTitle($title ?? "");
         return $l;
     }
 
@@ -127,7 +194,7 @@ class Utils
                 $existingAsset->save();
             }
         } catch (\Exception $e) {
-            // Handle Error.
+            dump($e->getMessage());
         }
     }
 
@@ -157,7 +224,7 @@ class Utils
                 $existingAsset->save();
             }
         } catch (\Exception $e) {
-            // Handle Error.
+            dump($e->getMessage());
         }
     }
 

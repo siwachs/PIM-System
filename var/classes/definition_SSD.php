@@ -16,6 +16,7 @@
  * - readWriteSpeed [input]
  * - enduranceOrLifespan [input]
  * - brand [manyToManyObjectRelation]
+ * - manufacturer [manyToManyObjectRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -25,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'SSD',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1702917761,
+   'modificationDate' => 1703059013,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -110,7 +111,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '^\\S+$',
+                 'regex' => '^.+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -365,6 +366,46 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               array (
                 'classes' => 'Brand',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'maxItems' => 1,
+             'visibleFields' => 'logo,name',
+             'allowToCreateNewObject' => false,
+             'allowToClearRelation' => true,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+          )),
+          8 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+             'name' => 'manufacturer',
+             'title' => 'Manufacturer',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Manufacturer',
               ),
             ),
              'displayMode' => 'grid',

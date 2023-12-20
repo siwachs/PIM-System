@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use Pimcore\Model\DataObject\Brand;
+use Pimcore\Model\DataObject\Folder;
 
 class BrandStorageMethods
 {
@@ -28,7 +29,7 @@ class BrandStorageMethods
             $brand['Website Link Text'],
             $brand['Website Link Title']
         ));
-        if (Utils::isValidYearFounded($brand['Year Founded'])) {
+        if (Utils::isValidYearFounded($brand['Year Founded'] ?? 0)) {
             $brandObj->setYearFounded($brand['Year Founded']);
             self::$fullySuccessful++;
         } else {
@@ -52,7 +53,7 @@ class BrandStorageMethods
                 $brandObj = Brand::getByPath('/Brands/' . $brandName);
                 if (empty($brand['Name'])) {
                     self::$completelyFailed++;
-                    self::$errorLog .= "Error in " . $brandName . " 's name field is empty.\n";
+                    self::$errorLog .= "Error in " . $brandName . ". The name field is empty.\n";
                     continue;
                 }
 
@@ -63,12 +64,13 @@ class BrandStorageMethods
                 } else {
                     $newBrand = new Brand();
                     $newBrand->setKey(\Pimcore\Model\Element\Service::getValidKey($brandName, 'object'));
-                    $newBrand->setParentId(!empty($brand['Storage Parent Id']) ? $brand['Storage Parent Id'] : 1);
+                    $parentId = Utils::getOrCreateFolderIdByPath("/Brands", 1);
+                    $newBrand->setParentId($parentId);
                     self::mapData($brandName, $brand, $countryCode, $newBrand);
                     $newBrand->save();
                 }
             } catch (\Exception $e) {
-                // Handle Error.
+                dump($e->getMessage());
             }
         }
 

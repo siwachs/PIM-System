@@ -24,7 +24,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Speakers',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1702917756,
+   'modificationDate' => 1703053720,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -109,7 +109,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '^\\S+$',
+                 'regex' => '^.+$',
                  'regexFlags' => 
                 array (
                 ),

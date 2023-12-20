@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Inheritance: yes
- * Variants: yes
+ * Inheritance: no
+ * Variants: no
  * Title: Category
  *
  * Fields Summary:
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1702917721,
+   'modificationDate' => 1703060657,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -32,9 +32,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => true,
-   'allowVariants' => true,
-   'showVariants' => true,
+   'allowInherit' => false,
+   'allowVariants' => false,
+   'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
@@ -105,7 +105,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '^\\S+$',
+                 'regex' => '^.+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -118,7 +118,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'description',
                  'title' => 'Description',
-                 'tooltip' => 'Category description.',
+                 'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
