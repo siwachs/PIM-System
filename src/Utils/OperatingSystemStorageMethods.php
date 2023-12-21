@@ -6,6 +6,7 @@ use Pimcore\Model\DataObject\OperatingSystem;
 
 class OperatingSystemStorageMethods
 {
+    // Properties for tracking import status
     private static $totalObjects = 0;
     private static $partialFailed = 0;
     private static $completelyFailed = 0;
@@ -52,33 +53,83 @@ class OperatingSystemStorageMethods
     public static function storeOperatingSystems($osArray, $countryCode)
     {
         self::$totalObjects = count($osArray);
+
         foreach ($osArray as $os) {
             try {
                 $osName = $os['Object Name'];
-                $osObj = OperatingSystem::getByPath('/Operating Systems/' . $osName);
                 if (empty($os['Name'])) {
                     self::$completelyFailed++;
                     self::$errorLog .= "Error: The name field is empty in " . $osName . ".\n";
                     continue;
                 }
 
+                $osObj = self::fetchOperatingSystem($osName);
+
                 if ($osObj instanceof OperatingSystem) {
-                    self::mapData($osName, $os, $countryCode, $osObj);
-                    $osObj->setPublished(false);
-                    $osObj->save();
+                    self::updateOperatingSystem($osName, $os, $countryCode, $osObj);
                 } else {
-                    $newOS = new OperatingSystem();
-                    $newOS->setKey(\Pimcore\Model\Element\Service::getValidKey($osName, 'object'));
-                    $parentId = Utils::getOrCreateFolderIdByPath("/Operating Systems", 1);
-                    $newOS->setParentId($parentId);
-                    self::mapData($osName, $os, $countryCode, $newOS);
-                    $newOS->save();
+                    self::createOperatingSystem($osName, $os, $countryCode);
                 }
             } catch (\Exception $e) {
                 dump($e->getMessage());
             }
         }
 
+        // Log import summary and error report
+        self::logOperatingSystemSummary();
+    }
+
+    // ...
+
+    /**
+     * Fetch an operating system based on the provided name
+     *
+     * @param string $osName Operating system name
+     * @return OperatingSystem|null Returns an OperatingSystem object or null if not found
+     */
+    private static function fetchOperatingSystem($osName)
+    {
+        return OperatingSystem::getByPath('/Operating Systems/' . $osName);
+    }
+
+    /**
+     * Update an existing operating system
+     *
+     * @param string $osName Operating system name
+     * @param array $os Operating system data
+     * @param string $countryCode Country code for the operating system
+     * @param OperatingSystem $osObj Existing OperatingSystem object
+     */
+    private static function updateOperatingSystem($osName, $os, $countryCode, $osObj)
+    {
+        self::mapData($osName, $os, $countryCode, $osObj);
+        $osObj->setPublished(false);
+        $osObj->save();
+    }
+
+    /**
+     * Create a new operating system
+     *
+     * @param string $osName Operating system name
+     * @param array $os Operating system data
+     * @param string $countryCode Country code for the operating system
+     */
+    private static function createOperatingSystem($osName, $os, $countryCode)
+    {
+        $newOS = new OperatingSystem();
+        $newOS->setKey(\Pimcore\Model\Element\Service::getValidKey($osName, 'object'));
+        $parentId = Utils::getOrCreateFolderIdByPath("/Operating Systems", 1);
+        $newOS->setParentId($parentId);
+        self::mapData($osName, $os, $countryCode, $newOS);
+        $newOS->save();
+    }
+
+    /**
+     * Log the operating system import summary
+     */
+    private static function logOperatingSystemSummary()
+    {
+        // Log import summary and error report
         Utils::logSummary(
             "Operating Systems Import Summary.txt",
             "/Logs/OperatingSystems/Operating Systems Import Summary.txt",

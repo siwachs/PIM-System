@@ -10,7 +10,7 @@
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
- * -- price [calculatedValue]
+ * -- price [numeric]
  * -- masterImage [image]
  * -- images [imageGallery]
  * -- video [video]
@@ -26,7 +26,8 @@
  * - country [country]
  * - brand [manyToManyObjectRelation]
  * - manufacturer [manyToManyObjectRelation]
- * - categories [manyToManyObjectRelation]
+ * - category [manyToManyObjectRelation]
+ * - subCategory [manyToManyObjectRelation]
  * - color [input]
  * - energyRating [input]
  * - length [numeric]
@@ -68,7 +69,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1703060525,
+   'modificationDate' => 1703137390,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -232,7 +233,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'price',
                      'title' => 'Price',
                      'tooltip' => '',
@@ -250,12 +251,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'elementType' => 'input',
-                     'calculatorType' => 'class',
-                     'calculatorExpression' => '',
-                     'calculatorClass' => '@calculate_price',
-                     'columnLength' => 190,
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'width' => '',
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'region' => NULL,
@@ -427,7 +432,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => true,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -441,7 +446,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'revenue',
-                         'title' => 'revenue',
+                         'title' => 'Revenue',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -457,7 +462,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => true,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -529,7 +534,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -583,7 +588,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'basePrice',
                          'title' => 'Base Price',
                          'tooltip' => '',
-                         'mandatory' => false,
+                         'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -613,7 +618,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'sellingPrice',
                          'title' => 'Selling Price',
                          'tooltip' => '',
-                         'mandatory' => false,
+                         'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -657,7 +662,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -687,7 +692,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -701,7 +706,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'discount',
-                         'title' => 'discount',
+                         'title' => 'Discount',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -717,7 +722,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -863,8 +868,48 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'name' => 'categories',
-                 'title' => 'Categories',
+                 'name' => 'category',
+                 'title' => 'Category',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'Category',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => 1,
+                 'visibleFields' => 'name,description',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              6 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'subCategory',
+                 'title' => 'Sub Category',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -901,7 +946,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'height' => '',
               )),
-              6 => 
+              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'color',
                  'title' => 'Color',
@@ -931,7 +976,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              7 => 
+              8 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'energyRating',
                  'title' => 'Energy Rating',
@@ -1187,7 +1232,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => true,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -1201,7 +1246,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'revenue',
-                         'title' => 'revenue',
+                         'title' => 'Revenue',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1217,7 +1262,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => true,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -1289,7 +1334,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -1369,7 +1414,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'basePrice',
                          'title' => 'Base Price',
                          'tooltip' => '',
-                         'mandatory' => false,
+                         'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -1399,7 +1444,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'sellingPrice',
                          'title' => 'Selling Price',
                          'tooltip' => '',
-                         'mandatory' => false,
+                         'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -1443,7 +1488,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -1473,7 +1518,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -1487,7 +1532,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'discount',
-                         'title' => 'discount',
+                         'title' => 'Discount',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1503,7 +1548,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => 0.0,
@@ -2919,86 +2964,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-       'name' => 'category',
-       'title' => 'Category',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => true,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'classes' => 
-      array (
-        0 => 
-        array (
-          'classes' => 'Category',
-        ),
-      ),
-       'displayMode' => 'grid',
-       'pathFormatterClass' => '',
-       'maxItems' => 1,
-       'visibleFields' => 'name',
-       'allowToCreateNewObject' => false,
-       'allowToClearRelation' => true,
-       'optimizedAdminLoading' => false,
-       'enableTextSelection' => false,
-       'visibleFieldDefinitions' => 
-      array (
-      ),
-       'width' => '',
-       'height' => '',
-    )),
-    1 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-       'name' => 'subCategories',
-       'title' => 'Sub Categories',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => true,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'classes' => 
-      array (
-        0 => 
-        array (
-          'classes' => 'Category',
-        ),
-      ),
-       'displayMode' => 'grid',
-       'pathFormatterClass' => '',
-       'maxItems' => NULL,
-       'visibleFields' => 'name',
-       'allowToCreateNewObject' => false,
-       'allowToClearRelation' => true,
-       'optimizedAdminLoading' => false,
-       'enableTextSelection' => false,
-       'visibleFieldDefinitions' => 
-      array (
-      ),
-       'width' => '',
-       'height' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

@@ -6,6 +6,7 @@ use Pimcore\Model\DataObject\SSD;
 
 class SSDStorageMethods
 {
+    // Properties for tracking import status
     private static $totalObjects = 0;
     private static $partialFailed = 0;
     private static $completelyFailed = 0;
@@ -26,7 +27,6 @@ class SSDStorageMethods
 
         $brand = Utils::getBrandIfExists('/Brands/' . $ssd['Brand']);
         if ($brand == null) {
-            self::$partialFailed++;
             self::$errorLog .= "Warning: in the brand name, in " .
                 $ssdName . ", the brand object of " .
                 $ssd['Brand'] . " is missing.\n";
@@ -37,7 +37,6 @@ class SSDStorageMethods
 
         $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $ssd['Manufacturer']);
         if ($manufacturer === null) {
-            self::$partialFailed++;
             self::$errorLog .= "Warning: in the manufacturer name, in " .
                 $ssdName . ", the manufacturer object of " .
                 $ssd['Manufacturer'] . " is missing.\n";
@@ -48,6 +47,8 @@ class SSDStorageMethods
 
         if ($fullySuccessful) {
             self::$fullySuccessful++;
+        } else {
+            self::$partialFailed++;
         }
     }
 
@@ -60,33 +61,81 @@ class SSDStorageMethods
     public static function storeSSDs($ssdArray, $countryCode)
     {
         self::$totalObjects = count($ssdArray);
+
         foreach ($ssdArray as $ssd) {
             try {
                 $ssdName = $ssd['Object Name'];
-                $ssdObj = SSD::getByPath('/SSDs/' . $ssdName);
                 if (empty($ssd['Name'])) {
                     self::$completelyFailed++;
                     self::$errorLog .= "Error: in " . $ssdName . ", the Name field is empty.\n";
                     continue;
                 }
 
+                $ssdObj = self::fetchSSD($ssdName);
+
                 if ($ssdObj instanceof SSD) {
-                    self::mapData($ssdName, $ssd, $countryCode, $ssdObj);
-                    $ssdObj->setPublished(false);
-                    $ssdObj->save();
+                    self::updateSSD($ssdName, $ssd, $countryCode, $ssdObj);
                 } else {
-                    $newSSD = new SSD();
-                    $newSSD->setKey(\Pimcore\Model\Element\Service::getValidKey($ssdName, 'object'));
-                    $parentId = Utils::getOrCreateFolderIdByPath("/SSDs", 1);
-                    $newSSD->setParentId($parentId);
-                    self::mapData($ssdName, $ssd, $countryCode, $newSSD);
-                    $newSSD->save();
+                    self::createSSD($ssdName, $ssd, $countryCode);
                 }
             } catch (\Exception $e) {
                 dump($e->getMessage());
             }
         }
 
+        // Log import summary and error report
+        self::logSSDSummary();
+    }
+
+    /**
+     * Fetch an SSD based on the provided name
+     *
+     * @param string $ssdName SSD name
+     * @return SSD|null Returns an SSD object or null if not found
+     */
+    private static function fetchSSD($ssdName)
+    {
+        return SSD::getByPath('/SSDs/' . $ssdName);
+    }
+
+    /**
+     * Update an existing SSD
+     *
+     * @param string $ssdName SSD name
+     * @param array $ssd SSD data
+     * @param string $countryCode Country code for the SSD
+     * @param SSD $ssdObj Existing SSD object
+     */
+    private static function updateSSD($ssdName, $ssd, $countryCode, $ssdObj)
+    {
+        self::mapData($ssdName, $ssd, $countryCode, $ssdObj);
+        $ssdObj->setPublished(false);
+        $ssdObj->save();
+    }
+
+    /**
+     * Create a new SSD
+     *
+     * @param string $ssdName SSD name
+     * @param array $ssd SSD data
+     * @param string $countryCode Country code for the SSD
+     */
+    private static function createSSD($ssdName, $ssd, $countryCode)
+    {
+        $newSSD = new SSD();
+        $newSSD->setKey(\Pimcore\Model\Element\Service::getValidKey($ssdName, 'object'));
+        $parentId = Utils::getOrCreateFolderIdByPath("/SSDs", 1);
+        $newSSD->setParentId($parentId);
+        self::mapData($ssdName, $ssd, $countryCode, $newSSD);
+        $newSSD->save();
+    }
+
+    /**
+     * Log the SSD import summary
+     */
+    private static function logSSDSummary()
+    {
+        // Log import summary and error report
         Utils::logSummary(
             "SSDs Import Summary.txt",
             "/Logs/SSDs/SSDs Import Summary.txt",

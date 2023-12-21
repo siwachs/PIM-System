@@ -6,6 +6,7 @@ use Pimcore\Model\DataObject\MotherBoard;
 
 class MotherboardStorageMethods
 {
+    // Properties for tracking import status
     private static $totalObjects = 0;
     private static $partialFailed = 0;
     private static $completelyFailed = 0;
@@ -34,7 +35,6 @@ class MotherboardStorageMethods
 
         $brand = Utils::getBrandIfExists('/Brands/' . $motherboard['Brand']);
         if ($brand == null) {
-            self::$partialFailed++;
             self::$errorLog .= "Warning in the brand name: in " .
                 $motherboardName . " the brand object of " .
                 $motherboard['Brand'] . " is missing.\n";
@@ -45,7 +45,6 @@ class MotherboardStorageMethods
 
         $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $motherboard['Manufacturer']);
         if ($manufacturer == null) {
-            self::$partialFailed++;
             self::$errorLog .= "Warning in the manufacturer name: in " .
                 $motherboardName . " the manufacturer object of " .
                 $motherboard['Manufacturer'] . " is missing.\n";
@@ -56,6 +55,8 @@ class MotherboardStorageMethods
 
         if ($fullySuccessful) {
             self::$fullySuccessful++;
+        } else {
+            self::$partialFailed++;
         }
     }
 
@@ -68,33 +69,83 @@ class MotherboardStorageMethods
     public static function storeMotherboards($motherboardArray, $countryCode)
     {
         self::$totalObjects = count($motherboardArray);
+
         foreach ($motherboardArray as $motherboard) {
             try {
                 $motherboardName = $motherboard['Object Name'];
-                $motherboardObj = Motherboard::getByPath('/Motherboards/' . $motherboardName);
                 if (empty($motherboard['Name'])) {
                     self::$completelyFailed++;
                     self::$errorLog .= "Error in " . $motherboardName . ". The name field is empty.\n";
                     continue;
                 }
 
+                $motherboardObj = self::fetchMotherboard($motherboardName);
+
                 if ($motherboardObj instanceof Motherboard) {
-                    self::mapData($motherboardName, $motherboard, $countryCode, $motherboardObj);
-                    $motherboardObj->setPublished(false);
-                    $motherboardObj->save();
+                    self::updateMotherboard($motherboardName, $motherboard, $countryCode, $motherboardObj);
                 } else {
-                    $newMotherboard = new Motherboard();
-                    $newMotherboard->setKey(\Pimcore\Model\Element\Service::getValidKey($motherboardName, 'object'));
-                    $parentId = Utils::getOrCreateFolderIdByPath("/Motherboards", 1);
-                    $newMotherboard->setParentId($parentId);
-                    self::mapData($motherboardName, $motherboard, $countryCode, $newMotherboard);
-                    $newMotherboard->save();
+                    self::createMotherboard($motherboardName, $motherboard, $countryCode);
                 }
             } catch (\Exception $e) {
                 dump($e->getMessage());
             }
         }
 
+        // Log import summary and error report
+        self::logMotherboardSummary();
+    }
+
+    // ...
+
+    /**
+     * Fetch a motherboard based on provided name
+     *
+     * @param string $motherboardName Motherboard name
+     * @return Motherboard|null Returns a Motherboard object or null if not found
+     */
+    private static function fetchMotherboard($motherboardName)
+    {
+        return Motherboard::getByPath('/Motherboards/' . $motherboardName);
+    }
+
+    /**
+     * Update an existing motherboard
+     *
+     * @param string $motherboardName Motherboard name
+     * @param array $motherboard Motherboard data
+     * @param string $countryCode Country code for motherboard
+     * @param Motherboard $motherboardObj Existing Motherboard object
+     */
+    private static function updateMotherboard($motherboardName, $motherboard, $countryCode, $motherboardObj)
+    {
+        self::mapData($motherboardName, $motherboard, $countryCode, $motherboardObj);
+        $motherboardObj->setPublished(false);
+        $motherboardObj->save();
+    }
+
+    /**
+     * Create a new motherboard
+     *
+     * @param string $motherboardName Motherboard name
+     * @param array $motherboard Motherboard data
+     * @param string $countryCode Country code for motherboard
+     */
+    private static function createMotherboard($motherboardName, $motherboard, $countryCode)
+    {
+        $newMotherboard = new Motherboard();
+        $newMotherboard->setKey(\Pimcore\Model\Element\Service::getValidKey($motherboardName, 'object'));
+        $parentId = Utils::getOrCreateFolderIdByPath("/Motherboards", 1);
+        $newMotherboard->setParentId($parentId);
+        self::mapData($motherboardName, $motherboard, $countryCode, $newMotherboard);
+        $newMotherboard->save();
+    }
+
+    /**
+     * Log the motherboard import summary
+     */
+    private static function logMotherboardSummary()
+    {
+        // Log import summary and error report
         Utils::logSummary(
             "Motherboards Import Summary.txt",
             "/Logs/Motherboards/Motherboards Import Summary.txt",

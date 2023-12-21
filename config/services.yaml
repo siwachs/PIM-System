@@ -93,3 +93,11 @@ services:
         arguments:
             $sender: 2
             $receiver: 13
+    App\Command\ImportCategoriesCommand:
+        arguments:
+            $sender: 2
+            $receiver: 13
+    App\Command\ImportProductsCommand:
+        arguments:
+            $sender: 2
+            $receiver: 13

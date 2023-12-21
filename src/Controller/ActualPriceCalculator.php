@@ -19,18 +19,10 @@ class ActualPriceCalculator implements CalculatorClassInterface
     public function compute(Concrete $object, CalculatedValue $context): string
     {
         $fieldName = $context->getFieldname();
-        if ($fieldName == "actualPrice" || $fieldName === "price") {
-            // $sellingPrice = $object->getSellingPrice();
-            // $discount = $object->getDiscount();
-            // $delivery = $object->getDeliveryCharges();
-            // $tax = $object->getTax();
-            // $discountAmount = $sellingPrice * ($discount / 100);
-            // $sellingPrice -= $discountAmount;
-
-            // return (float)($sellingPrice + $delivery + $tax);
-            return 0;
+        if ($fieldName === "price") {
+            return (float)(0.0);
         } else {
-            //Logger
+            // Logger
         }
     }
 
@@ -44,7 +36,6 @@ class ActualPriceCalculator implements CalculatorClassInterface
     public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string
     {
 
-        // return $this->compute($object, $context);
-        return 0;
+        return $this->compute($object, $context);
     }
 }

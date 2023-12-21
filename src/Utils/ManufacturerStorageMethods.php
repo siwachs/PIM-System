@@ -6,6 +6,7 @@ use Pimcore\Model\DataObject\Manufacturer;
 
 class ManufacturerStorageMethods
 {
+    // Properties for tracking import status
     private static $totalObjects = 0;
     private static $partialFailed = 0;
     private static $completelyFailed = 0;
@@ -14,7 +15,7 @@ class ManufacturerStorageMethods
 
     private static function mapData($manufacturerName, $manufacturer, $countryCode, $manufacturerObj)
     {
-        $manufacturerObj->setLogo(Utils::getAsset(Utils::getAsset('/LOGOS/' . $manufacturer['Logo'])));
+        $manufacturerObj->setLogo(Utils::getAsset('/LOGOS/' . $manufacturer['Logo']));
         $manufacturerObj->setName($manufacturer['Name'], $countryCode);
         $manufacturerObj->setAddress($manufacturer['Address'], $countryCode);
         $manufacturerObj->setContact($manufacturer['Contact'], $countryCode);
@@ -43,33 +44,83 @@ class ManufacturerStorageMethods
     public static function storeManufacturers($manufacturerArray, $countryCode)
     {
         self::$totalObjects = count($manufacturerArray);
+
         foreach ($manufacturerArray as $manufacturer) {
             try {
                 $manufacturerName = $manufacturer['Object Name'];
-                $manufacturerObj = Manufacturer::getByPath('/Manufacturers/' . $manufacturerName);
                 if (empty($manufacturer['Name'])) {
                     self::$completelyFailed++;
                     self::$errorLog .= "Error in " . $manufacturerName . ". The name field is empty.\n";
                     continue;
                 }
 
+                $manufacturerObj = self::fetchManufacturer($manufacturerName);
+
                 if ($manufacturerObj instanceof Manufacturer) {
-                    self::mapData($manufacturerName, $manufacturer, $countryCode, $manufacturerObj);
-                    $manufacturerObj->setPublished(false);
-                    $manufacturerObj->save();
+                    self::updateManufacturer($manufacturerName, $manufacturer, $countryCode, $manufacturerObj);
                 } else {
-                    $newManufacturer = new Manufacturer();
-                    $newManufacturer->setKey(\Pimcore\Model\Element\Service::getValidKey($manufacturerName, 'object'));
-                    $parentId = Utils::getOrCreateFolderIdByPath("/Manufacturers", 1);
-                    $newManufacturer->setParentId($parentId);
-                    self::mapData($manufacturerName, $manufacturer, $countryCode, $newManufacturer);
-                    $newManufacturer->save();
+                    self::createManufacturer($manufacturerName, $manufacturer, $countryCode);
                 }
             } catch (\Exception $e) {
                 dump($e->getMessage());
             }
         }
 
+        // Log import summary and error report
+        self::logManufacturerSummary();
+    }
+
+    // ...
+
+    /**
+     * Fetch a manufacturer based on provided name
+     *
+     * @param string $manufacturerName Manufacturer name
+     * @return Manufacturer|null Returns a Manufacturer object or null if not found
+     */
+    private static function fetchManufacturer($manufacturerName)
+    {
+        return Manufacturer::getByPath('/Manufacturers/' . $manufacturerName);
+    }
+
+    /**
+     * Update an existing manufacturer
+     *
+     * @param string $manufacturerName Manufacturer name
+     * @param array $manufacturer Manufacturer data
+     * @param string $countryCode Country code for manufacturer
+     * @param Manufacturer $manufacturerObj Existing Manufacturer object
+     */
+    private static function updateManufacturer($manufacturerName, $manufacturer, $countryCode, $manufacturerObj)
+    {
+        self::mapData($manufacturerName, $manufacturer, $countryCode, $manufacturerObj);
+        $manufacturerObj->setPublished(false);
+        $manufacturerObj->save();
+    }
+
+    /**
+     * Create a new manufacturer
+     *
+     * @param string $manufacturerName Manufacturer name
+     * @param array $manufacturer Manufacturer data
+     * @param string $countryCode Country code for manufacturer
+     */
+    private static function createManufacturer($manufacturerName, $manufacturer, $countryCode)
+    {
+        $newManufacturer = new Manufacturer();
+        $newManufacturer->setKey(\Pimcore\Model\Element\Service::getValidKey($manufacturerName, 'object'));
+        $parentId = Utils::getOrCreateFolderIdByPath("/Manufacturers", 1);
+        $newManufacturer->setParentId($parentId);
+        self::mapData($manufacturerName, $manufacturer, $countryCode, $newManufacturer);
+        $newManufacturer->save();
+    }
+
+    /**
+     * Log the manufacturer import summary
+     */
+    private static function logManufacturerSummary()
+    {
+        // Log import summary and error report
         Utils::logSummary(
             "Manufacturers Import Summary.txt",
             "/Logs/Manufacturers/Manufacturers Import Summary.txt",

@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Brand;
@@ -83,7 +84,6 @@ class Utils
             $manufacturerObj = Manufacturer::getByPath($manufacturerPath);
             return $manufacturerObj instanceof Manufacturer ? $manufacturerObj : null;
         } catch (\Exception $e) {
-            // Handle exceptions, log errors, or return null based on your requirement
             return null;
         }
     }
@@ -102,23 +102,22 @@ class Utils
             $headerRow = [];
             $highestRow = $sheet->getHighestDataRow();
             $highestColumn = $sheet->getHighestDataColumn();
+            $lastColumnIndex = Coordinate::columnIndexFromString($highestColumn);
 
             // Get the header row values
-            $columnIndex = 'A';
-            while ($columnIndex <= $highestColumn) {
-                $cellValue = $sheet->getCell($columnIndex . '1')->getValue();
+            for ($columnIndex = 1; $columnIndex <= $lastColumnIndex; $columnIndex++) {
+                $cellCoordinate = Coordinate::stringFromColumnIndex($columnIndex) . 1;
+                $cellValue = $sheet->getCell($cellCoordinate)->getValue();
                 $headerRow[] = trim($cellValue);
-                $columnIndex++;
             }
 
             // Read each row and create associative array with keys from header row
             for ($row = 2; $row <= $highestRow; $row++) {
                 $rowData = [];
-                $columnIndex = 'A';
-                foreach ($headerRow as $header) {
-                    $cellValue = $sheet->getCell($columnIndex . $row)->getValue();
-                    $rowData[$header] = trim($cellValue);
-                    $columnIndex++;
+                for ($columnIndex = 1; $columnIndex <= $lastColumnIndex; $columnIndex++) {
+                    $cellCoordinate = Coordinate::stringFromColumnIndex($columnIndex) . $row;
+                    $cellValue = $sheet->getCell($cellCoordinate)->getValue();
+                    $rowData[$headerRow[$columnIndex - 1]] = trim($cellValue);
                 }
                 $data[] = $rowData; // Push each row as an associative array to the main array
             }
@@ -129,8 +128,9 @@ class Utils
         }
     }
 
+
     /**
-     * Check if founded year is valid (not greater than current year)
+     * Check if founded year is valid (not greater than current year and must be numeric)
      *
      * @param int $yearFounded The year the brand was founded
      * @return bool Returns true if the year is valid (not greater than the current year), otherwise false
@@ -142,10 +142,13 @@ class Utils
     }
 
     /**
-     * Get Social Media Link as Pimcore Link object
+     * Creates a Pimcore Link object representing a Social Media Link.
      *
-     * @param string $url The URL of the social media link
-     * @return Link|null Returns a Link object or null if the URL is empty
+     * @param string $url   The URL of the social media link.
+     * @param string $text  The text or label associated with the link.
+     * @param string $title The title attribute for the link.
+     *
+     * @return Link|null Returns a Pimcore Link object if the URL is not empty, otherwise returns null.
      */
     public static function getSocialMediaLinkObject($url, $text, $title): ?Link
     {
@@ -153,17 +156,27 @@ class Utils
             return null;
         }
 
-        $l = new Link();
-        $l->setPath($url ?? "");
-        $l->setText($text ?? "");
-        $l->setTitle($title ?? "");
-        return $l;
+        $link = new Link();
+        $link->setPath($url ?? "");
+        $link->setText($text ?? "");
+        $link->setTitle($title ?? "");
+
+        return $link;
     }
 
+
     /**
-     * logs summary.
+     * Logs a summary of the imported data.
      *
-     * @throws \Exception
+     * @param string $assetFilename   The filename for the summary asset.
+     * @param string $assetFilePath   The file path for the summary asset.
+     * @param string $parentIdPath    The path of the parent directory for the asset.
+     * @param int    $totalObjects    Total count of objects processed.
+     * @param int    $partialFailed   Count of partially failed objects.
+     * @param int    $completelyFailed Count of completely failed objects.
+     * @param int    $fullySuccessful Count of fully successful objects.
+     *
+     * @throws \Exception If there's an issue while handling the asset or its data.
      */
     public static function logSummary(
         $assetFilename,
@@ -178,9 +191,8 @@ class Utils
             $existingAsset = \Pimcore\Model\Asset::getByPath($assetFilePath);
             $content = "";
             $content .= "Total Objects: " . $totalObjects . "\n" . "Partial Failed Objects: " . $partialFailed . "\n";
-            $content .= "Completly Failed Objects: " . $completelyFailed . "\n";
+            $content .= "Completely Failed Objects: " . $completelyFailed . "\n";
             $content .= "Fully Successful Objects: " . $fullySuccessful;
-
 
             if (!$existingAsset instanceof \Pimcore\Model\Asset) {
                 $asset = new \Pimcore\Model\Asset();
@@ -198,10 +210,16 @@ class Utils
         }
     }
 
+
     /**
-     * logs error.
+     * Logs an error report or messages.
      *
-     * @throws \Exception
+     * @param string $assetFilename   The filename for the error report asset.
+     * @param string $assetFilePath   The file path for the error report asset.
+     * @param string $parentIdPath    The path of the parent directory for the asset.
+     * @param string $content         The error report or messages content.
+     *
+     * @throws \Exception If there's an issue while handling the asset or its data.
      */
     public static function logError(
         $assetFilename,
@@ -227,6 +245,7 @@ class Utils
             dump($e->getMessage());
         }
     }
+
 
     /**
      * Sends a notification to a user.

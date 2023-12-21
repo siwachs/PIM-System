@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Inheritance: no
- * Variants: no
+ * Inheritance: yes
+ * Variants: yes
  * Title: Category
  *
  * Fields Summary:
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1703060657,
+   'modificationDate' => 1703065703,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -32,9 +32,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
-   'allowVariants' => false,
-   'showVariants' => false,
+   'allowInherit' => true,
+   'allowVariants' => true,
+   'showVariants' => true,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',

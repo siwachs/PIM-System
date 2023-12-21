@@ -3,10 +3,10 @@
 namespace App\Utils;
 
 use Pimcore\Model\DataObject\Brand;
-use Pimcore\Model\DataObject\Folder;
 
 class BrandStorageMethods
 {
+    // Properties for tracking import status
     private static $totalObjects = 0;
     private static $partialFailed = 0;
     private static $completelyFailed = 0;
@@ -15,7 +15,7 @@ class BrandStorageMethods
 
     private static function mapData($brandName, $brand, $countryCode, $brandObj)
     {
-        $brandObj->setLogo(Utils::getAsset(Utils::getAsset('/LOGOS/' . $brand['Logo'])));
+        $brandObj->setLogo(Utils::getAsset('/LOGOS/' . $brand['Logo']));
         $brandObj->setName($brand['Name'], $countryCode);
         $brandObj->setContact($brand['Contact'], $countryCode);
         $brandObj->setCountry($brand['Country']);
@@ -47,33 +47,83 @@ class BrandStorageMethods
     public static function storeBrands($brandArray, $countryCode)
     {
         self::$totalObjects = count($brandArray);
+
         foreach ($brandArray as $brand) {
             try {
                 $brandName = $brand['Object Name'];
-                $brandObj = Brand::getByPath('/Brands/' . $brandName);
                 if (empty($brand['Name'])) {
                     self::$completelyFailed++;
                     self::$errorLog .= "Error in " . $brandName . ". The name field is empty.\n";
                     continue;
                 }
 
+                $brandObj = self::fetchBrand($brandName);
+
                 if ($brandObj instanceof Brand) {
-                    self::mapData($brandName, $brand, $countryCode, $brandObj);
-                    $brandObj->setPublished(false);
-                    $brandObj->save();
+                    self::updateBrand($brandName, $brand, $countryCode, $brandObj);
                 } else {
-                    $newBrand = new Brand();
-                    $newBrand->setKey(\Pimcore\Model\Element\Service::getValidKey($brandName, 'object'));
-                    $parentId = Utils::getOrCreateFolderIdByPath("/Brands", 1);
-                    $newBrand->setParentId($parentId);
-                    self::mapData($brandName, $brand, $countryCode, $newBrand);
-                    $newBrand->save();
+                    self::createBrand($brandName, $brand, $countryCode);
                 }
             } catch (\Exception $e) {
                 dump($e->getMessage());
             }
         }
 
+        // Log import summary and error report
+        self::logBrandSummary();
+    }
+
+    // ...
+
+    /**
+     * Fetch a brand based on provided brand name
+     *
+     * @param string $brandName Brand name
+     * @return Brand|null Returns a Brand object or null if not found
+     */
+    private static function fetchBrand($brandName)
+    {
+        return Brand::getByPath('/Brands/' . $brandName);
+    }
+
+    /**
+     * Update an existing brand
+     *
+     * @param string $brandName Brand name
+     * @param array $brand Brand data
+     * @param string $countryCode Country code for brand
+     * @param Brand $brandObj Existing Brand object
+     */
+    private static function updateBrand($brandName, $brand, $countryCode, $brandObj)
+    {
+        self::mapData($brandName, $brand, $countryCode, $brandObj);
+        $brandObj->setPublished(false);
+        $brandObj->save();
+    }
+
+    /**
+     * Create a new brand
+     *
+     * @param string $brandName Brand name
+     * @param array $brand Brand data
+     * @param string $countryCode Country code for brand
+     */
+    private static function createBrand($brandName, $brand, $countryCode)
+    {
+        $newBrand = new Brand();
+        $newBrand->setKey(\Pimcore\Model\Element\Service::getValidKey($brandName, 'object'));
+        $parentId = Utils::getOrCreateFolderIdByPath("/Brands", 1);
+        $newBrand->setParentId($parentId);
+        self::mapData($brandName, $brand, $countryCode, $newBrand);
+        $newBrand->save();
+    }
+
+    /**
+     * Log the brand import summary
+     */
+    private static function logBrandSummary()
+    {
+        // Log import summary and error report
         Utils::logSummary(
             "Brands Import Summary.txt",
             "/Logs/Brands/Brands Import Summary.txt",
