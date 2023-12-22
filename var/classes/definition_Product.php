@@ -46,8 +46,8 @@
  * - voltage [numeric]
  * - wattage [numeric]
  * - countryOfOrigin [country]
- * - battriesRequired [booleanSelect]
- * - battriesIncluded [booleanSelect]
+ * - batteriesRequired [booleanSelect]
+ * - batteriesIncluded [booleanSelect]
  * - camera [manyToManyObjectRelation]
  * - motherboard [manyToManyObjectRelation]
  * - operatingSystem [manyToManyObjectRelation]
@@ -69,7 +69,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1703137390,
+   'modificationDate' => 1703222690,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -147,7 +147,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '',
+                 'regex' => '^SKU\\d+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -2234,8 +2234,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               8 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                 'name' => 'battriesRequired',
-                 'title' => 'Battries Required',
+                 'name' => 'batteriesRequired',
+                 'title' => 'Batteries Required',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -2276,8 +2276,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               9 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                 'name' => 'battriesIncluded',
-                 'title' => 'Battries Included',
+                 'name' => 'batteriesIncluded',
+                 'title' => 'Batteries Included',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,

@@ -3,6 +3,7 @@
 namespace App\EventListener;
 
 use Pimcore\Event\Model\ElementEventInterface;
+use Pimcore\Model\DataObject;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\Category;
@@ -37,14 +38,21 @@ class ObjectListener
      */
     private function filterSubCategories(Product $product): void
     {
-        $subCategories = $product->getSubCategory();
-        $filteredSubCategories = array_filter($subCategories, function ($item) {
-            $path = $item->getPath();
-            $pathParts = explode('/', trim($path, '/'));
-            return count($pathParts) !== 1;
+        $category = $product->getCategory();
+        if (empty($category)) {
+            $product->setSubCategory([]);
+            return;
+        }
+
+        $categoryVariants = $category[0]->getChildren([DataObject::OBJECT_TYPE_VARIANT]);
+        $categoryVariantIds = array_map(fn ($variant) => $variant->getId(), iterator_to_array($categoryVariants));
+
+        $subCategoriesArray = $product->getSubCategory();
+        $subCategoriesArray = array_filter($subCategoriesArray, function ($subCategory) use ($categoryVariantIds) {
+            return in_array($subCategory->getId(), $categoryVariantIds, true);
         });
 
-        $product->setSubCategory($filteredSubCategories);
+        $product->setSubCategory($subCategoriesArray);
     }
 
     /**

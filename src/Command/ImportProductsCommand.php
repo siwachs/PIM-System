@@ -66,7 +66,7 @@ class ImportProductsCommand extends Command
             }
 
             $data = Utils::sheetToAssocArray($sheet);
-            // ProductStorageMethods::storeProducts($data, $countryCode);
+            ProductStorageMethods::storeProducts($data, $countryCode);
 
             Utils::sendNotification(
                 $this->notificationService,
