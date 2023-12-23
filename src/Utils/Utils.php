@@ -274,6 +274,26 @@ class BaseClass
         }
     }
 
+    public static function uploadToAssets(
+        $assetFilename,
+        $assetFilePath,
+        $parentIdPath,
+        $localPath
+    ) {
+        $existingAsset = \Pimcore\Model\Asset::getByPath($assetFilePath);
+        if (!$existingAsset instanceof \Pimcore\Model\Asset) {
+            $newAsset = new \Pimcore\Model\Asset();
+            $newAsset->setFilename($assetFilename);
+            $newAsset->setData(file_get_contents($localPath));
+            $newAsset->setParent(\Pimcore\Model\Asset::getByPath($parentIdPath)
+                ?? \Pimcore\Model\Asset::getByPath("/"));
+            $newAsset->save();
+        } else {
+            $existingAsset->setData(file_get_contents($localPath));
+            $existingAsset->save();
+        }
+    }
+
 
     /**
      * Sends a notification to a user.

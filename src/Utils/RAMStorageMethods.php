@@ -92,7 +92,7 @@ class RAMStorageMethods
      */
     private static function fetchRAM($ramName)
     {
-        return RAM::getByPath('/RAM/' . $ramName);
+        return RAM::getByPath('/RAMs/' . $ramName);
     }
 
     /**

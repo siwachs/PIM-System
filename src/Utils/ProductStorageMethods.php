@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use Pimcore\Model\DataObject\Product;
+use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\Video;
 
 class ProductStorageMethods
@@ -20,6 +21,18 @@ class ProductStorageMethods
     public static function storeProducts($productArray, $countryCode)
     {
         self::$totalObjects = count($productArray);
+        usort($productArray, function ($a, $b) {
+            $isEmptyParentA = empty($a['Variant']);
+            $isEmptyParentB = empty($b['Variant']);
+
+            // Compare the empty parent conditions
+            if ($isEmptyParentA !== $isEmptyParentB) {
+                return $isEmptyParentA ? -1 : 1;
+            }
+
+            // Both elements have the same empty/non-empty parent status
+            return 0;
+        });
 
         foreach ($productArray as $productData) {
             try {
@@ -71,8 +84,22 @@ class ProductStorageMethods
     {
         $newProduct = new Product();
         $newProduct->setKey(\Pimcore\Model\Element\Service::getValidKey($productName, 'object'));
-        $parentId = Utils::getOrCreateFolderIdByPath("/Products/" . $productData['Parent'], 1);
-        $newProduct->setParentId($parentId);
+        if (!empty($productData['Variant'])) {
+            $rootProduct = Product::getByPath("/Products/" . $productData['Storage Location']
+                . '/' . $productData['Variant']);
+
+            if (!$rootProduct instanceof Product) {
+                self::$errorLog = 'The root product for variant ' . $productName . self::IS_MISSING;
+                return;
+            }
+            $newProduct->setParent($rootProduct);
+            $newProduct->setKey($productName);
+            $newProduct->setType(DataObject::OBJECT_TYPE_VARIANT);
+        } else {
+            $parentId = Utils::getOrCreateFolderIdByPath("/Products/" . $productData['Storage Location'], 1);
+            $newProduct->setParentId($parentId);
+        }
+
         self::mapProductData($productName, $productData, $countryCode, $newProduct);
         $newProduct->save();
     }
@@ -135,8 +162,8 @@ class ProductStorageMethods
         $video = Utils::getAsset($productData['Video Link']);
         if ($video !== null) {
             $videoPoster = Utils::getAsset($productData['Video Poster']);
-            $videoTitle = Utils::getAsset($productData['Video Title']);
-            $videoDescription = Utils::getAsset($productData['Video Description']);
+            $videoTitle = $productData['Video Title'];
+            $videoDescription = $productData['Video Description'];
 
             $videoData = new Video();
             $videoData->setData($video);
@@ -251,8 +278,8 @@ class ProductStorageMethods
                 $productObj->setMotherboard([$motherboard]);
             }
         }
-        if (isset($productData['OperatingSystem']) && !empty($productData['OperatingSystem'])) {
-            $os = Utils::getOperatingSystemIfExist('/OperatingSystems/' . $productData['OperatingSystem']);
+        if (isset($productData['Operating System']) && !empty($productData['Operating System'])) {
+            $os = Utils::getOperatingSystemIfExist('/Operating Systems/' . $productData['Operating System']);
             if ($os !== null) {
                 $productObj->setOperatingSystem([$os]);
             }
@@ -266,13 +293,13 @@ class ProductStorageMethods
         if (isset($productData['RAM']) && !empty($productData['RAM'])) {
             $ram = Utils::getRAMIfExist('/RAMs/' . $productData['RAM']);
             if ($ram !== null) {
-                $productObj->setRAM([$ram]);
+                $productObj->setRam([$ram]);
             }
         }
         if (isset($productData['ROM']) && !empty($productData['ROM'])) {
             $rom = Utils::getROMIfExist('/ROMs/' . $productData['ROM']);
             if ($rom !== null) {
-                $productObj->setROM([$rom]);
+                $productObj->setRom([$rom]);
             }
         }
         if (isset($productData['Screen']) && !empty($productData['Screen'])) {
@@ -281,8 +308,8 @@ class ProductStorageMethods
                 $productObj->setScreen([$screen]);
             }
         }
-        if (isset($productData['SensorsSet']) && !empty($productData['SensorsSet'])) {
-            $sensorsSet = Utils::getSensorsSetIfExist('/SensorsSets/' . $productData['SensorsSet']);
+        if (isset($productData['Sensors Set']) && !empty($productData['Sensors Set'])) {
+            $sensorsSet = Utils::getSensorsSetIfExist('/SensorsSets/' . $productData['Sensors Set']);
             if ($sensorsSet !== null) {
                 $productObj->setSensorsSet([$sensorsSet]);
             }
@@ -296,13 +323,13 @@ class ProductStorageMethods
         if (isset($productData['SSD']) && !empty($productData['SSD'])) {
             $ssd = Utils::getSSDIfExist('/SSDs/' . $productData['SSD']);
             if ($ssd !== null) {
-                $productObj->setSSD([$ssd]);
+                $productObj->setSsd([$ssd]);
             }
         }
         if (isset($productData['HDD']) && !empty($productData['HDD'])) {
             $hdd = Utils::getHDDIfExist('/HDDs/' . $productData['HDD']);
             if ($hdd !== null) {
-                $productObj->setHDD([$hdd]);
+                $productObj->setHdd([$hdd]);
             }
         }
         if (
