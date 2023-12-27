@@ -24,7 +24,6 @@ class ObjectListener
             if ($object instanceof Product) {
                 $this->filterSubCategories($object);
                 $this->filterImages($object);
-                $this->calculateLocalizedPrice($object);
             }
         }
     }
@@ -74,23 +73,6 @@ class ObjectListener
             // Allow only a maximum of 5 images
             $filteredImages = array_slice($filteredImages, 0, 5);
             $images->setItems($filteredImages);
-        }
-    }
-
-    private function calculateLocalizedPrice(Product $product): void
-    {
-        // Fetch All available languages
-        $languages = \Pimcore\Tool::getValidLanguages();
-        foreach ($languages as $language) {
-            $sellingPriceLocalized = $product->getSellingPrice($language);
-            $discountLocalized = $product->getDiscount($language);
-            $deliveryLocalized = $product->getDeliveryCharges($language);
-            $taxLocalized = $product->getTax($language);
-
-            $discountAmount = $sellingPriceLocalized * ($discountLocalized / 100);
-            $sellingPriceLocalized -= $discountAmount;
-
-            $product->setPrice($sellingPriceLocalized + $deliveryLocalized + $taxLocalized, $language);
         }
     }
 }

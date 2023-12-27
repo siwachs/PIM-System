@@ -12,15 +12,24 @@ class ActualPriceCalculator implements CalculatorClassInterface
     /**
      * Computes the actual price based on specific conditions.
      *
-     * @param Concrete $object
+     * @param Concrete $product
      * @param CalculatedValue $context
      * @return float|string The computed actual price
      */
-    public function compute(Concrete $object, CalculatedValue $context): string
+    public function compute(Concrete $product, CalculatedValue $context): string
     {
-        $fieldName = $context->getFieldname();
-        if ($fieldName === "price") {
-            return (float)(0.0);
+        if ($context->getFieldname() == "price") {
+
+            $language = $context->getPosition();
+            $sellingPriceLocalized = $product->getSellingPrice($language);
+            $discountLocalized = $product->getDiscount($language);
+            $deliveryLocalized = $product->getDeliveryCharges($language);
+            $taxLocalized = $product->getTax($language);
+
+            $discountAmount = $sellingPriceLocalized * ($discountLocalized / 100);
+            $sellingPriceLocalized -= $discountAmount;
+
+            return $sellingPriceLocalized + $deliveryLocalized + $taxLocalized;
         } else {
             // Logger
         }

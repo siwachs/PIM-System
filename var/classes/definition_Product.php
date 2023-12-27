@@ -10,7 +10,7 @@
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
- * -- price [numeric]
+ * -- price [calculatedValue]
  * -- masterImage [image]
  * -- images [imageGallery]
  * -- video [video]
@@ -69,7 +69,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1703317366,
+   'modificationDate' => 1703672300,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -233,7 +233,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                      'name' => 'price',
                      'title' => 'Price',
                      'tooltip' => '',
@@ -251,16 +251,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'elementType' => 'input',
+                     'calculatorType' => 'class',
+                     'calculatorExpression' => '',
+                     'calculatorClass' => '@calculate_price',
+                     'columnLength' => 190,
                      'width' => '',
-                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'region' => NULL,
