@@ -9,6 +9,17 @@ use Pimcore\Model\DataObject\Data\Video;
 class ProductStorageMethods
 {
     const IS_MISSING = " is missing.\n";
+    const CAMERA = "Camera";
+    const OPERATING_SYSTEM = "Operating System";
+    const MOTHERBOARD = "Motherboard";
+    const PROCESSOR = "Processor";
+    const RAM = "RAM";
+    const ROM = 'ROM';
+    const SCREEN = 'Screen';
+    const SPEAKERS = 'Speakers';
+    const SSD = 'SSD';
+    const HDD = 'HDD';
+    const SENSORS_SET = "Sensor Sets";
     const CONNECTIVITY_TECHNOLGIES = "Connectivity Technolgies";
 
     // Properties for tracking import status
@@ -266,72 +277,83 @@ class ProductStorageMethods
 
     private static function setAdvanceTechnicalData(Product $productObj, array $productData): void
     {
-        if (isset($productData['Camera']) && !empty($productData['Camera'])) {
-            $camera = Utils::getCameraIfExist('/Cameras/' . $productData['Camera']);
+        if (isset($productData[self::CAMERA]) && !empty($productData[self::CAMERA])) {
+            $camera = Utils::getCameraIfExist('/Cameras/' . $productData[self::CAMERA]);
             if ($camera !== null) {
                 $productObj->setCamera([$camera]);
             }
         }
-        if (isset($productData['Motherboard']) && !empty($productData['Motherboard'])) {
-            $motherboard = Utils::getMotherboardIfExist('/Motherboards/' . $productData['Motherboard']);
+
+        if (isset($productData[self::MOTHERBOARD]) && !empty($productData[self::MOTHERBOARD])) {
+            $motherboard = Utils::getMotherboardIfExist('/Motherboards/' . $productData[self::MOTHERBOARD]);
             if ($motherboard !== null) {
                 $productObj->setMotherboard([$motherboard]);
             }
         }
-        if (isset($productData['Operating System']) && !empty($productData['Operating System'])) {
-            $os = Utils::getOperatingSystemIfExist('/Operating Systems/' . $productData['Operating System']);
+
+        if (isset($productData[self::OPERATING_SYSTEM]) && !empty($productData[self::OPERATING_SYSTEM])) {
+            $os = Utils::getOperatingSystemIfExist('/Operating Systems/' . $productData[self::OPERATING_SYSTEM]);
             if ($os !== null) {
                 $productObj->setOperatingSystem([$os]);
             }
         }
-        if (isset($productData['Processor']) && !empty($productData['Processor'])) {
-            $processor = Utils::getProcessorIfExist('/Processors/' . $productData['Processor']);
+
+        if (isset($productData[self::PROCESSOR]) && !empty($productData[self::PROCESSOR])) {
+            $processor = Utils::getProcessorIfExist('/Processors/' . $productData[self::PROCESSOR]);
             if ($processor !== null) {
                 $productObj->setProcessor([$processor]);
             }
         }
-        if (isset($productData['RAM']) && !empty($productData['RAM'])) {
-            $ram = Utils::getRAMIfExist('/RAMs/' . $productData['RAM']);
+
+        if (isset($productData[self::RAM]) && !empty($productData[self::RAM])) {
+            $ram = Utils::getRAMIfExist('/RAMs/' . $productData[self::RAM]);
             if ($ram !== null) {
                 $productObj->setRam([$ram]);
             }
         }
-        if (isset($productData['ROM']) && !empty($productData['ROM'])) {
-            $rom = Utils::getROMIfExist('/ROMs/' . $productData['ROM']);
+
+        if (isset($productData[self::ROM]) && !empty($productData[self::ROM])) {
+            $rom = Utils::getROMIfExist('/ROMs/' . $productData[self::ROM]);
             if ($rom !== null) {
                 $productObj->setRom([$rom]);
             }
         }
-        if (isset($productData['Screen']) && !empty($productData['Screen'])) {
-            $screen = Utils::getScreenIfExist('/Screens/' . $productData['Screen']);
+
+        if (isset($productData[self::SCREEN]) && !empty($productData[self::SCREEN])) {
+            $screen = Utils::getScreenIfExist('/Screens/' . $productData[self::SCREEN]);
             if ($screen !== null) {
                 $productObj->setScreen([$screen]);
             }
         }
-        if (isset($productData['Sensors Set']) && !empty($productData['Sensors Set'])) {
-            $sensorsSet = Utils::getSensorsSetIfExist('/SensorsSets/' . $productData['Sensors Set']);
+
+        if (isset($productData[self::SENSORS_SET]) && !empty($productData[self::SENSORS_SET])) {
+            $sensorsSet = Utils::getSensorsSetIfExist('/Sensor Sets/' . $productData[self::SENSORS_SET]);
             if ($sensorsSet !== null) {
                 $productObj->setSensorsSet([$sensorsSet]);
             }
         }
-        if (isset($productData['Speakers']) && !empty($productData['Speakers'])) {
-            $speakers = Utils::getSpeakersIfExist('/Speakers/' . $productData['Speakers']);
+
+        if (isset($productData[self::SPEAKERS]) && !empty($productData[self::SPEAKERS])) {
+            $speakers = Utils::getSpeakersIfExist('/Speakers/' . $productData[self::SPEAKERS]);
             if ($speakers !== null) {
                 $productObj->setSpeakers([$speakers]);
             }
         }
-        if (isset($productData['SSD']) && !empty($productData['SSD'])) {
-            $ssd = Utils::getSSDIfExist('/SSDs/' . $productData['SSD']);
+
+        if (isset($productData[self::SSD]) && !empty($productData[self::SSD])) {
+            $ssd = Utils::getSSDIfExist('/SSDs/' . $productData[self::SSD]);
             if ($ssd !== null) {
                 $productObj->setSsd([$ssd]);
             }
         }
-        if (isset($productData['HDD']) && !empty($productData['HDD'])) {
-            $hdd = Utils::getHDDIfExist('/HDDs/' . $productData['HDD']);
+
+        if (isset($productData[self::HDD]) && !empty($productData[self::HDD])) {
+            $hdd = Utils::getHDDIfExist('/HDDs/' . $productData[self::HDD]);
             if ($hdd !== null) {
                 $productObj->setHdd([$hdd]);
             }
         }
+
         if (
             isset($productData[self::CONNECTIVITY_TECHNOLGIES])
             && !empty($productData[self::CONNECTIVITY_TECHNOLGIES])

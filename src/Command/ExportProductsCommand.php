@@ -54,8 +54,8 @@ class ExportProductsCommand extends Command
             $writer->save($localPath);
             Utils::uploadToAssets(
                 $fileName . self::FILE_FORMAT,
-                '/Imports/' . $fileName . self::FILE_FORMAT,
-                '/Imports',
+                '/Exports/' . $fileName . self::FILE_FORMAT,
+                '/Exports',
                 $localPath
             );
             if (file_exists($localPath)) {

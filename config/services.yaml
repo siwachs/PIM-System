@@ -101,3 +101,7 @@ services:
         arguments:
             $sender: 2
             $receiver: 13
+    App\Command\ImportSensorSetCommand:
+        arguments:
+            $sender: 2
+            $receiver: 13
