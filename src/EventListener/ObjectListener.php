@@ -94,5 +94,22 @@ class ObjectListener
                 throw new ValidationException("Object type cannot have SKU.");
             }
         }
+
+        // Check if the product type is 'variant'
+        if ($product->getType() === 'variant') {
+            $languages = \Pimcore\Tool::getValidLanguages();
+            foreach ($languages as $language) {
+                $basePrice = $product->getBasePrice($language);
+                $sellingPrice =  $product->getSellingPrice($language);
+
+                if (empty($basePrice) || $basePrice === null) {
+                    throw new ValidationException("Variant type cannot have empty base price.");
+                }
+
+                if (empty($sellingPrice) || $sellingPrice === null) {
+                    throw new ValidationException("Variant type cannot have empty selling price.");
+                }
+            }
+        }
     }
 }

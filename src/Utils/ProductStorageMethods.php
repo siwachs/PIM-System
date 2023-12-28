@@ -213,12 +213,14 @@ class ProductStorageMethods
         Product $productObj
     ) {
         $fullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
-        self::setAssetData($productObj, $productData, $countryCode);
-        self::setSalesData($productObj, $productData, $countryCode);
-        self::setPricingData($productObj, $productData, $countryCode);
-        self::setMeasurementsData($productObj, $productData);
-        self::setTechnicalDetailsData($productObj, $productData);
-        self::setAdvanceTechnicalData($productObj, $productData);
+        if ($type === 'Variant') {
+            self::setAssetData($productObj, $productData, $countryCode);
+            self::setSalesData($productObj, $productData, $countryCode);
+            self::setPricingData($productObj, $productData, $countryCode);
+            self::setMeasurementsData($productObj, $productData);
+            self::setTechnicalDetailsData($productObj, $productData);
+            self::setAdvanceTechnicalData($productObj, $productData);
+        }
 
         if ($fullySuccessful) {
             self::$fullySuccessful++;
@@ -278,7 +280,9 @@ class ProductStorageMethods
                     $productData['Sub Categories']
                 );
             }
-            $productObj->setColor($productData['Color']);
+            if ($type === 'Variant') {
+                $productObj->setColor($productData['Color']);
+            }
             $productObj->setEnergyRating($productData['Energy Rating']);
             return $fullySuccessful;
         } catch (\Exception $e) {
