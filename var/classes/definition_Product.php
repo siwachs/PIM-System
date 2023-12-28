@@ -69,7 +69,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1703672300,
+   'modificationDate' => 1703744924,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -129,9 +129,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'sku',
-                 'title' => 'Sku',
+                 'title' => 'SKU',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -182,7 +182,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'name' => 'name',
                      'title' => 'Name',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -202,7 +202,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'regexFlags' => 
                     array (
                     ),
-                     'unique' => false,
+                     'unique' => true,
                      'showCharCount' => false,
                      'width' => '',
                      'defaultValueGenerator' => '',

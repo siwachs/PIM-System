@@ -4,9 +4,9 @@ namespace App\EventListener;
 
 use Pimcore\Event\Model\ElementEventInterface;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\Element\ValidationException;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject\Product;
-use Pimcore\Model\DataObject\Category;
 
 class ObjectListener
 {
@@ -22,6 +22,7 @@ class ObjectListener
             $object = $event->getObject();
 
             if ($object instanceof Product) {
+                $this->errorLogger($object);
                 $this->filterSubCategories($object);
                 $this->filterImages($object);
             }
@@ -73,6 +74,25 @@ class ObjectListener
             // Allow only a maximum of 5 images
             $filteredImages = array_slice($filteredImages, 0, 5);
             $images->setItems($filteredImages);
+        }
+    }
+
+    /**
+     * Logs an error if the product type is 'object' and it has a SKU (which is not expected for 'object' types).
+     *
+     * @param Product $product The Product object to be checked
+     * @throws ValidationException Throws a ValidationException if the product type is 'object' and it has a SKU
+     */
+    private function errorLogger(Product $product): void
+    {
+        // Check if the product type is 'object'
+        if ($product->getType() === 'object') {
+            $sku = $product->getSku();
+
+            // If SKU is not empty and is not null for an 'object' type, throw an exception
+            if (!empty($sku) || $sku !== null) {
+                throw new ValidationException("Object type cannot have SKU.");
+            }
         }
     }
 }

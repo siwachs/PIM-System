@@ -8,6 +8,7 @@ use Pimcore\Model\DataObject\Data\Video;
 
 class ProductStorageMethods
 {
+    const PRODUCTS_PATH = "/Products/";
     const IS_MISSING = " is missing.\n";
     const CAMERA = "Camera";
     const OPERATING_SYSTEM = "Operating System";
@@ -33,38 +34,38 @@ class ProductStorageMethods
     {
         self::$totalObjects = count($productArray);
         usort($productArray, function ($a, $b) {
-            $isEmptyParentA = empty($a['Variant']);
-            $isEmptyParentB = empty($b['Variant']);
-
-            // Compare the empty parent conditions
-            if ($isEmptyParentA !== $isEmptyParentB) {
-                return $isEmptyParentA ? -1 : 1;
-            }
-
-            // Both elements have the same empty/non-empty parent status
-            return 0;
+            return self::compareProductData($a, $b);
         });
 
         foreach ($productArray as $productData) {
             try {
-                $productName = $productData['Object Name'];
-                if (
-                    empty($productData['Name']) ||
-                    empty($productData['SKU']) ||
-                    !preg_match('/^SKU\d+$/', $productData['SKU'])
-                ) {
-                    self::$completelyFailed++;
-                    self::$errorLog .= "Error in " . $productName . ". The name or SKU field is empty or invalid.\n";
+                if (self::handleEmptyTypeVariant($productData)) {
                     continue;
                 }
 
+                if (self::handleNonVariantEmptyFields($productData)) {
+                    continue;
+                }
 
-                $productObj = self::fetchProduct($productData['SKU']);
+                $objectName = $productData['Object Name'];
+                $productHierarchy = $productData['Product Hierarchy'];
+                $type = $productData['Type'];
+                $productName = $productData['Name'];
+                $sku = $productData['SKU'];
+
+                $productObj = self::fetchProduct($objectName, $productHierarchy, $type, $sku);
 
                 if ($productObj instanceof Product) {
-                    self::updateProduct($productName, $productData, $countryCode, $productObj);
+                    self::updateProduct($type, $objectName, $productName, $productData, $countryCode, $productObj);
                 } else {
-                    self::createProduct($productName, $productData, $countryCode);
+                    self::createProduct(
+                        $objectName,
+                        $productHierarchy,
+                        $type,
+                        $productName,
+                        $productData,
+                        $countryCode
+                    );
                 }
             } catch (\Exception $e) {
                 dump($e->getMessage());
@@ -74,96 +75,215 @@ class ProductStorageMethods
         self::logProductSummary();
     }
 
-    private static function fetchProduct($sku)
+    private static function compareProductData($a, $b)
     {
-        $product = new Product\Listing();
-        $product->setLimit(1);
-        $product->setUnpublished(true);
-        $product->filterBySku($sku);
-        $filtredProduct = current(iterator_to_array($product));
-        return $filtredProduct instanceof Product ? $filtredProduct : null;
-    }
+        $isEmptyParentA = empty($a['Type']);
+        $isEmptyParentB = empty($b['Type']);
 
-    private static function updateProduct($productName, $productData, $countryCode, $productObj)
-    {
-        self::mapProductData($productName, $productData, $countryCode, $productObj);
-        $productObj->setPublished(false);
-        $productObj->save();
-    }
-
-    private static function createProduct($productName, $productData, $countryCode)
-    {
-        $newProduct = new Product();
-        $newProduct->setKey(\Pimcore\Model\Element\Service::getValidKey($productName, 'object'));
-        if (!empty($productData['Variant'])) {
-            $rootProduct = Product::getByPath("/Products/" . $productData['Storage Location']
-                . '/' . $productData['Variant']);
-
-            if (!$rootProduct instanceof Product) {
-                self::$errorLog = 'The root product for variant ' . $productName . self::IS_MISSING;
-                return;
-            }
-            $newProduct->setParent($rootProduct);
-            $newProduct->setKey($productName);
-            $newProduct->setType(DataObject::OBJECT_TYPE_VARIANT);
-        } else {
-            $parentId = Utils::getOrCreateFolderIdByPath("/Products/" . $productData['Storage Location'], 1);
-            $newProduct->setParentId($parentId);
+        if ($isEmptyParentA !== $isEmptyParentB) {
+            return $isEmptyParentA ? -1 : 1;
         }
 
-        self::mapProductData($productName, $productData, $countryCode, $newProduct);
-        $newProduct->save();
+        return 0;
+    }
+
+    private static function handleEmptyTypeVariant($productData)
+    {
+        $type = $productData['Type'];
+        $productName = $productData['Name'];
+        $sku = $productData['SKU'];
+
+        if ($type === 'Variant' && (empty($productName) || !preg_match('/^SKU\d+$/', $sku))) {
+            self::$completelyFailed++;
+            self::$errorLog .= "Error in " . $productName . ". The name or SKU field is empty or invalid.\n";
+            return true;
+        }
+
+        return false;
+    }
+
+    private static function handleNonVariantEmptyFields($productData)
+    {
+        $type = $productData['Type'];
+        $objectName = $productData['Object Name'];
+        $productName = $productData['Name'];
+
+        if ($type !== 'Variant' && (empty($objectName) || empty($productName))) {
+            self::$completelyFailed++;
+            self::$errorLog .= "Error in object" . $objectName .
+                ". The name or object name field is empty or invalid.\n";
+            return true;
+        }
+
+        return false;
+    }
+
+
+    private static function fetchProduct($objectName, $productHierarchy, $type, $sku)
+    {
+        $product = new Product\Listing();
+        if ($type === 'Variant') {
+            $product->setLimit(1);
+            $product->setUnpublished(true);
+            $product->filterBySku($sku);
+            $filtredProduct = current(iterator_to_array($product));
+            return $filtredProduct instanceof Product ? $filtredProduct : null;
+        } else {
+            $objectPath = self::PRODUCTS_PATH . $productHierarchy . '/' . $objectName;
+            $product = Product::getByPath($objectPath);
+            return $product instanceof Product ? $product : null;
+        }
+    }
+
+    private static function updateProduct(
+        string $type,
+        string $objectName,
+        string $productName,
+        array $productData,
+        string $countryCode,
+        Product $productObj
+    ) {
+        try {
+            if ($type === 'Variant') {
+                self::mapProductData($type, $productName, $productData, $countryCode, $productObj);
+            } else {
+                self::mapProductData($type, $objectName, $productData, $countryCode, $productObj);
+            }
+
+            $productObj->setPublished(false);
+            $productObj->save();
+        } catch (\Exception $e) {
+            dump($e->getMessage());
+        }
+    }
+
+    private static function createProduct(
+        string $objectName,
+        string $productHierarchy,
+        string $type,
+        string $productName,
+        array $productData,
+        string $countryCode
+    ) {
+        try {
+            $newProduct = new Product();
+            if ($type === 'Variant') {
+                $newProduct->setKey(\Pimcore\Model\Element\Service::getValidKey($productName, 'object'));
+            } else {
+                $newProduct->setKey(\Pimcore\Model\Element\Service::getValidKey($objectName, 'object'));
+            }
+
+            if ($type === 'Variant') {
+                $parts = explode("/", $productHierarchy);
+                $objectName = $parts[count($parts) - 1];
+
+                $rootProduct = Product::getByPath(self::PRODUCTS_PATH . $productHierarchy);
+
+                if (!$rootProduct instanceof Product) {
+                    self::$completelyFailed++;
+                    self::$errorLog .= 'The object for variant ' . $productName . self::IS_MISSING;
+                    return;
+                }
+
+                $newProduct->setParent($rootProduct);
+                $newProduct->setKey($productName);
+                $newProduct->setType(DataObject::OBJECT_TYPE_VARIANT);
+            } else {
+                $parentId = Utils::getOrCreateFolderIdByPath(self::PRODUCTS_PATH . $productHierarchy, 1);
+                $newProduct->setParentId($parentId);
+            }
+
+            if ($type === 'Variant') {
+                self::mapProductData($type, $productName, $productData, $countryCode, $newProduct);
+            } else {
+                self::mapProductData($type, $objectName, $productData, $countryCode, $newProduct);
+            }
+
+            $newProduct->save();
+        } catch (\Exception $e) {
+            dump($e->getMessage());
+        }
+    }
+
+    private static function mapProductData(
+        string $type,
+        string $productName,
+        array $productData,
+        string $countryCode,
+        Product $productObj
+    ) {
+        $fullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
+        self::setAssetData($productObj, $productData, $countryCode);
+        self::setSalesData($productObj, $productData, $countryCode);
+        self::setPricingData($productObj, $productData, $countryCode);
+        self::setMeasurementsData($productObj, $productData);
+        self::setTechnicalDetailsData($productObj, $productData);
+        self::setAdvanceTechnicalData($productObj, $productData);
+
+        if ($fullySuccessful) {
+            self::$fullySuccessful++;
+        } else {
+            self::$partialFailed++;
+        }
     }
 
     private static function setBaseData(
+        string $type,
         Product $productObj,
         array $productData,
         string $countryCode,
         string $productName
     ): bool {
-        $fullySuccessful = true;
-        $productObj->setSku($productData['SKU']);
-        $productObj->setName($productData['Name'], $countryCode);
-        $productObj->setDescription($productData['Description'], $countryCode);
-        $productObj->setCountry($productData['Country']);
+        try {
+            $fullySuccessful = true;
+            if ($type === 'Variant') {
+                $productObj->setSku($productData['SKU']);
+            }
 
-        $brand = Utils::getBrandIfExists('/Brands/' . $productData['Brand']);
-        if ($brand == null) {
-            self::$errorLog .= "Warning in the brand name: in " .
-                $productName . " the brand object of " .
-                $productData['Brand'] . self::IS_MISSING;
-            $fullySuccessful = false;
-        } else {
-            $productObj->setBrand([$brand]);
-        }
-        $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $productData['Manufacturer']);
-        if ($manufacturer == null) {
-            self::$errorLog .= "Warning in the manufacturer name: in " .
-                $productName . " the manufacturer object of " .
-                $productData['Manufacturer'] . self::IS_MISSING;
-            $fullySuccessful = false;
-        } else {
-            $productObj->setManufacturer([$manufacturer]);
-        }
+            $productObj->setName($productData['Name'], $countryCode);
+            $productObj->setDescription($productData['Description'], $countryCode);
+            $productObj->setCountry($productData['Country']);
 
-        $category = Utils::getCategoryIfExist('/Categories/' . $productData['Category']);
-        if ($category === null) {
-            self::$errorLog .= "Warning in the category name: in " .
-                $productName . " the category object of " .
-                $productData['Category'] . self::IS_MISSING;
-            $productObj->setSubCategory([]);
-            $fullySuccessful = false;
-        } else {
-            Utils::setCategoryAndSubCategories(
-                $productObj,
-                $category,
-                $productData['Category'],
-                $productData['Sub Categories']
-            );
+            $brand = Utils::getBrandIfExists('/Brands/' . $productData['Brand']);
+            if ($brand == null) {
+                self::$errorLog .= "Warning in the brand name: in " .
+                    $productName . " the brand object of " .
+                    $productData['Brand'] . self::IS_MISSING;
+                $fullySuccessful = false;
+            } else {
+                $productObj->setBrand([$brand]);
+            }
+            $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $productData['Manufacturer']);
+            if ($manufacturer == null) {
+                self::$errorLog .= "Warning in the manufacturer name: in " .
+                    $productName . " the manufacturer object of " .
+                    $productData['Manufacturer'] . self::IS_MISSING;
+                $fullySuccessful = false;
+            } else {
+                $productObj->setManufacturer([$manufacturer]);
+            }
+
+            $category = Utils::getCategoryIfExist('/Categories/' . $productData['Category']);
+            if ($category === null) {
+                self::$errorLog .= "Warning in the category name: in " .
+                    $productName . " the category object of " .
+                    $productData['Category'] . self::IS_MISSING;
+                $productObj->setSubCategory([]);
+                $fullySuccessful = false;
+            } else {
+                Utils::setCategoryAndSubCategories(
+                    $productObj,
+                    $category,
+                    $productData['Category'],
+                    $productData['Sub Categories']
+                );
+            }
+            $productObj->setColor($productData['Color']);
+            $productObj->setEnergyRating($productData['Energy Rating']);
+            return $fullySuccessful;
+        } catch (\Exception $e) {
+            dump($e->getMessage());
         }
-        $productObj->setColor($productData['Color']);
-        $productObj->setEnergyRating($productData['Energy Rating']);
-        return $fullySuccessful;
     }
 
     private static function setAssetData(Product $productObj, array $productData, $countryCode): void
@@ -359,27 +479,6 @@ class ProductStorageMethods
             && !empty($productData[self::CONNECTIVITY_TECHNOLGIES])
         ) {
             $productObj->setConnectivityTechnolgies([$productData[self::CONNECTIVITY_TECHNOLGIES]]);
-        }
-    }
-
-    private static function mapProductData(
-        string $productName,
-        array $productData,
-        string $countryCode,
-        Product $productObj
-    ) {
-        $fullySuccessful = self::setBaseData($productObj, $productData, $countryCode, $productName);
-        self::setAssetData($productObj, $productData, $countryCode);
-        self::setSalesData($productObj, $productData, $countryCode);
-        self::setPricingData($productObj, $productData, $countryCode);
-        self::setMeasurementsData($productObj, $productData);
-        self::setTechnicalDetailsData($productObj, $productData);
-        self::setAdvanceTechnicalData($productObj, $productData);
-
-        if ($fullySuccessful) {
-            self::$fullySuccessful++;
-        } else {
-            self::$partialFailed++;
         }
     }
 
