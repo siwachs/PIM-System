@@ -78,38 +78,102 @@ class ObjectListener
     }
 
     /**
-     * Logs an error if the product type is 'object' and it has a SKU (which is not expected for 'object' types).
+     * Logs errors based on product type and attributes.
      *
      * @param Product $product The Product object to be checked
-     * @throws ValidationException Throws a ValidationException if the product type is 'object' and it has a SKU
+     * @throws ValidationException Throws a ValidationException for invalid product types or attributes
      */
     private function errorLogger(Product $product): void
     {
-        // Check if the product type is 'object'
-        if ($product->getType() === 'object') {
-            $sku = $product->getSku();
+        $this->checkObjectType($product);
+        $this->checkVariantType($product);
+    }
 
-            // If SKU is not empty and is not null for an 'object' type, throw an exception
-            if (!empty($sku) || $sku !== null) {
-                throw new ValidationException("Object type cannot have SKU.");
-            }
+    /**
+     * Checks if the product type is 'object' and validates its attributes.
+     *
+     * @param Product $product The Product object to be checked
+     * @throws ValidationException Throws a ValidationException for 'object' type with invalid attributes
+     */
+    private function checkObjectType(Product $product): void
+    {
+        if ($product->getType() === 'object') {
+            $this->validateObjectAttributes($product);
+        }
+    }
+
+    /**
+     * Validates attributes for 'object' type products.
+     *
+     * @param Product $product The Product object to be checked
+     * @throws ValidationException Throws a ValidationException for invalid attributes of 'object' type
+     */
+    private function validateObjectAttributes(Product $product): void
+    {
+        $sku = $product->getSku();
+        if (!empty($sku) || $sku !== null) {
+            throw new ValidationException("Object type cannot have SKU.");
         }
 
-        // Check if the product type is 'variant'
+        $languages = \Pimcore\Tool::getValidLanguages();
+        foreach ($languages as $language) {
+            $this->validateObjectLanguageAttributes($product, $language);
+        }
+    }
+
+    /**
+     * Validates language attributes for 'object' type products.
+     *
+     * @param Product $product The Product object to be checked
+     * @param string $language The language to be validated
+     * @throws ValidationException Throws a ValidationException for invalid language attributes of 'object' type
+     */
+    private function validateObjectLanguageAttributes(Product $product, string $language): void
+    {
+        $basePrice = $product->getBasePrice($language);
+        if (!empty($basePrice) || $basePrice !== null) {
+            throw new ValidationException("Object type cannot have base price.");
+        }
+
+        $sellingPrice = $product->getSellingPrice($language);
+        if (!empty($sellingPrice) || $sellingPrice !== null) {
+            throw new ValidationException("Object type cannot have selling price.");
+        }
+    }
+
+    /**
+     * Checks if the product type is 'variant' and validates its attributes.
+     *
+     * @param Product $product The Product object to be checked
+     * @throws ValidationException Throws a ValidationException for 'variant' type with invalid attributes
+     */
+    private function checkVariantType(Product $product): void
+    {
         if ($product->getType() === 'variant') {
             $languages = \Pimcore\Tool::getValidLanguages();
             foreach ($languages as $language) {
-                $basePrice = $product->getBasePrice($language);
-                $sellingPrice =  $product->getSellingPrice($language);
-
-                if (empty($basePrice) || $basePrice === null) {
-                    throw new ValidationException("Variant type cannot have empty base price.");
-                }
-
-                if (empty($sellingPrice) || $sellingPrice === null) {
-                    throw new ValidationException("Variant type cannot have empty selling price.");
-                }
+                $this->validateVariantLanguageAttributes($product, $language);
             }
+        }
+    }
+
+    /**
+     * Validates language attributes for 'variant' type products.
+     *
+     * @param Product $product The Product object to be checked
+     * @param string $language The language to be validated
+     * @throws ValidationException Throws a ValidationException for invalid language attributes of 'variant' type
+     */
+    private function validateVariantLanguageAttributes(Product $product, string $language): void
+    {
+        $basePrice = $product->getBasePrice($language);
+        if (empty($basePrice) || $basePrice === null) {
+            throw new ValidationException("Variant type cannot have empty base price.");
+        }
+
+        $sellingPrice = $product->getSellingPrice($language);
+        if (empty($sellingPrice) || $sellingPrice === null) {
+            throw new ValidationException("Variant type cannot have empty selling price.");
         }
     }
 }

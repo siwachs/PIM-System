@@ -213,14 +213,16 @@ class ProductStorageMethods
         Product $productObj
     ) {
         $fullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
+        self::setAssetData($productObj, $productData, $countryCode);
+
         if ($type === 'Variant') {
-            self::setAssetData($productObj, $productData, $countryCode);
             self::setSalesData($productObj, $productData, $countryCode);
             self::setPricingData($productObj, $productData, $countryCode);
-            self::setMeasurementsData($productObj, $productData);
-            self::setTechnicalDetailsData($productObj, $productData);
-            self::setAdvanceTechnicalData($productObj, $productData);
         }
+
+        self::setMeasurementsData($productObj, $productData);
+        self::setTechnicalDetailsData($productObj, $productData);
+        self::setAdvanceTechnicalData($productObj, $productData);
 
         if ($fullySuccessful) {
             self::$fullySuccessful++;
