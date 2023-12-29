@@ -212,22 +212,26 @@ class ProductStorageMethods
         string $countryCode,
         Product $productObj
     ) {
-        $fullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
-        self::setAssetData($productObj, $productData, $countryCode);
+        try {
+            $fullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
+            self::setAssetData($productObj, $productData, $countryCode);
 
-        if ($type === 'Variant') {
-            self::setSalesData($productObj, $productData, $countryCode);
-            self::setPricingData($productObj, $productData, $countryCode);
-        }
+            if ($type === 'Variant') {
+                self::setSalesData($productObj, $productData, $countryCode);
+                self::setPricingData($productObj, $productData, $countryCode);
+            }
 
-        self::setMeasurementsData($productObj, $productData);
-        self::setTechnicalDetailsData($productObj, $productData);
-        self::setAdvanceTechnicalData($productObj, $productData);
+            self::setMeasurementsData($productObj, $productData);
+            self::setTechnicalDetailsData($productObj, $productData);
+            self::setAdvanceTechnicalData($productObj, $productData);
 
-        if ($fullySuccessful) {
-            self::$fullySuccessful++;
-        } else {
-            self::$partialFailed++;
+            if ($fullySuccessful) {
+                self::$fullySuccessful++;
+            } else {
+                self::$partialFailed++;
+            }
+        } catch (\Exception  $e) {
+            dump($e->getMessage());
         }
     }
 

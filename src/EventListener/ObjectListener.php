@@ -11,7 +11,7 @@ use Pimcore\Model\DataObject\Product;
 class ObjectListener
 {
     /**
-     * Filters subcategories of a Product before update.
+     * onObjectPreUpdate trigger before updating product.
      *
      * @param ElementEventInterface $event
      * @return void
@@ -22,9 +22,26 @@ class ObjectListener
             $object = $event->getObject();
 
             if ($object instanceof Product) {
-                $this->errorLogger($object);
                 $this->filterSubCategories($object);
                 $this->filterImages($object);
+                $this->errorLogger($object);
+            }
+        }
+    }
+
+    /**
+     * onObjectPostUpdate trigger after updating product.
+     *
+     * @param ElementEventInterface $event
+     * @return void
+     */
+    public function onObjectPostUpdate(ElementEventInterface $event): void
+    {
+        if ($event instanceof DataObjectEvent) {
+            $object = $event->getObject();
+
+            if ($object instanceof Product) {
+                // For Post Update tasks
             }
         }
     }
@@ -150,10 +167,7 @@ class ObjectListener
     private function checkVariantType(Product $product): void
     {
         if ($product->getType() === 'variant') {
-            $languages = \Pimcore\Tool::getValidLanguages();
-            foreach ($languages as $language) {
-                $this->validateVariantLanguageAttributes($product, $language);
-            }
+            $this->validateVariantLanguageAttributes($product);
         }
     }
 
@@ -161,19 +175,26 @@ class ObjectListener
      * Validates language attributes for 'variant' type products.
      *
      * @param Product $product The Product object to be checked
-     * @param string $language The language to be validated
      * @throws ValidationException Throws a ValidationException for invalid language attributes of 'variant' type
      */
-    private function validateVariantLanguageAttributes(Product $product, string $language): void
+    private function validateVariantLanguageAttributes(Product $product): void
     {
-        $basePrice = $product->getBasePrice($language);
-        if (empty($basePrice) || $basePrice === null) {
-            throw new ValidationException("Variant type cannot have empty base price.");
+        $sku = $product->getSku();
+        if (empty($sku) || $sku === null) {
+            throw new ValidationException("Variant type cannot have empty SKU.");
         }
 
-        $sellingPrice = $product->getSellingPrice($language);
-        if (empty($sellingPrice) || $sellingPrice === null) {
-            throw new ValidationException("Variant type cannot have empty selling price.");
+        $languages = \Pimcore\Tool::getValidLanguages();
+        foreach ($languages as $language) {
+            $basePrice = $product->getBasePrice($language);
+            if (empty($basePrice) || $basePrice === null) {
+                throw new ValidationException("Variant type cannot have empty base price.");
+            }
+
+            $sellingPrice = $product->getSellingPrice($language);
+            if (empty($sellingPrice) || $sellingPrice === null) {
+                throw new ValidationException("Variant type cannot have empty selling price.");
+            }
         }
     }
 }
