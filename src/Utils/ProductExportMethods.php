@@ -57,7 +57,7 @@ class ProductExportMethods
      * @param int $row Row number in the Excel sheet
      * @return void
      */
-    public static function exportVideoDataToExcel($video, Worksheet $sheet, int $row)
+    private static function exportVideoDataToExcel($video, Worksheet $sheet, int $row)
     {
         if ($video !== null) {
             $videoData = $video->getData();

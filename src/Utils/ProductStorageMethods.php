@@ -218,7 +218,12 @@ class ProductStorageMethods
 
             if ($type === 'Variant') {
                 self::setSalesData($productObj, $productData, $countryCode);
-                self::setPricingData($productObj, $productData, $countryCode);
+                $fullySuccessful = self::setPricingData(
+                    $productObj,
+                    $productData,
+                    $countryCode,
+                    $productName
+                );
             }
 
             self::setMeasurementsData($productObj, $productData);
@@ -286,9 +291,7 @@ class ProductStorageMethods
                     $productData['Sub Categories']
                 );
             }
-            if ($type === 'Variant') {
-                $productObj->setColor($productData['Color']);
-            }
+            $productObj->setColor($productData['Color']);
             $productObj->setEnergyRating($productData['Energy Rating']);
             return $fullySuccessful;
         } catch (\Exception $e) {
@@ -342,16 +345,29 @@ class ProductStorageMethods
         );
     }
 
-    private static function setPricingData(Product $productObj, array $productData, string $countryCode): void
-    {
-        $productObj->setBasePrice(
-            Utils::validateNumber($productData['Base Price']) ? $productData['Base Price'] : 0,
-            $countryCode
-        );
-        $productObj->setSellingPrice(
-            Utils::validateNumber($productData['Selling Price']) ? $productData['Selling Price'] : 0,
-            $countryCode
-        );
+    private static function setPricingData(
+        Product $productObj,
+        array $productData,
+        string $countryCode,
+        string $productName
+    ): bool {
+        $fullySuccessful = true;
+        if (Utils::validatePrice($productData['Base Price'])) {
+            $productObj->setBasePrice($productData['Base Price'], $countryCode);
+        } else {
+            $fullySuccessful = false;
+            self::$errorLog .= "Warning in the base price: in " .
+                $productName . " the base price is empty or invalid.";
+        }
+
+        if (Utils::validatePrice($productData['Selling Price'])) {
+            $productObj->setSellingPrice($productData['Selling Price'], $countryCode);
+        } else {
+            $fullySuccessful = false;
+            self::$errorLog .= "Warning in the selling price: in " .
+                $productName . " the selling price is empty or invalid.";
+        }
+
         $productObj->setDeliveryCharges(
             Utils::validateNumber($productData['Delivery Charges']) ? $productData['Delivery Charges'] : 0,
             $countryCode
@@ -364,6 +380,8 @@ class ProductStorageMethods
             Utils::validateNumber($productData['Discount']) ? $productData['Discount'] : 0,
             $countryCode
         );
+
+        return $fullySuccessful;
     }
 
     private static function setMeasurementsData(Product $productObj, array $productData): void

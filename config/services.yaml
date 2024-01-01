@@ -70,6 +70,19 @@ services:
                   method: onObjectPostUpdate,
               }
 
+    App\EventListener\WorkflowListener:
+        tags:
+            - {
+                  name: kernel.event_listener,
+                  event: workflow.product_workflow.transition.start_enrichment,
+                  method: onTransitionToEnrichment,
+              }
+            - {
+                  name: kernel.event_listener,
+                  event: workflow.product_workflow.transition.finish_enrichment,
+                  method: onTransitionToTechnicalities,
+              }
+
     App\Command\ImportBrandsCommand:
         arguments:
             $sender: 2

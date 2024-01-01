@@ -171,6 +171,18 @@ class BaseClass
     }
 
     /**
+     * Validates if a value is a number and greater than equal to zero.
+     *
+     * @param mixed $value The value to be validated
+     *
+     * @return bool Returns true if the value is a number and greater than or equal to zero; otherwise, false.
+     */
+    public static function validatePrice($value): bool
+    {
+        return is_numeric($value) && floatval($value) > 0;
+    }
+
+    /**
      * Creates a Pimcore Link object representing a Social Media Link.
      *
      * @param string $url   The URL of the social media link.

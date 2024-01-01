@@ -81,16 +81,19 @@ class ObjectListener
      */
     private function filterImages(Product $product): void
     {
-        $images = $product->getImages();
-        if ($images instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
-            $imageArray = $images->getItems();
-            $filteredImages = array_filter($imageArray, function ($image) {
-                return $image !== null;
-            });
+        $languages = \Pimcore\Tool::getValidLanguages();
+        foreach ($languages as $language) {
+            $images = $product->getImages($language);
+            if ($images instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
+                $imageArray = $images->getItems();
+                $filteredImages = array_filter($imageArray, function ($image) {
+                    return $image !== null;
+                });
 
-            // Allow only a maximum of 5 images
-            $filteredImages = array_slice($filteredImages, 0, 5);
-            $images->setItems($filteredImages);
+                // Allow only a maximum of 5 images
+                $filteredImages = array_slice($filteredImages, 0, 5);
+                $images->setItems($filteredImages);
+            }
         }
     }
 
@@ -182,19 +185,6 @@ class ObjectListener
         $sku = $product->getSku();
         if (empty($sku) || $sku === null) {
             throw new ValidationException("Variant type cannot have empty SKU.");
-        }
-
-        $languages = \Pimcore\Tool::getValidLanguages();
-        foreach ($languages as $language) {
-            $basePrice = $product->getBasePrice($language);
-            if (empty($basePrice) || $basePrice === null) {
-                throw new ValidationException("Variant type cannot have empty base price.");
-            }
-
-            $sellingPrice = $product->getSellingPrice($language);
-            if (empty($sellingPrice) || $sellingPrice === null) {
-                throw new ValidationException("Variant type cannot have empty selling price.");
-            }
         }
     }
 }
