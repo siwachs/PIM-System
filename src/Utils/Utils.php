@@ -565,6 +565,8 @@ class Utils extends BaseClass
         }
     }
 
+    
+
     public static function setCategoryAndSubCategories(
         Product $productObj,
         Category $category,

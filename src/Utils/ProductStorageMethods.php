@@ -217,7 +217,7 @@ class ProductStorageMethods
             self::setAssetData($productObj, $productData, $countryCode);
 
             if ($type === 'Variant') {
-                self::setSalesData($productObj, $productData, $countryCode);
+                $fullySuccessful = self::setSalesData($productObj, $productData, $countryCode, $productName);
                 $fullySuccessful = self::setPricingData(
                     $productObj,
                     $productData,
@@ -226,8 +226,8 @@ class ProductStorageMethods
                 );
             }
 
-            self::setMeasurementsData($productObj, $productData);
-            self::setTechnicalDetailsData($productObj, $productData);
+            $fullySuccessful = self::setMeasurementsData($productObj, $productData, $productName);
+            $fullySuccessful = self::setTechnicalDetailsData($productObj, $productData, $productName);
             self::setAdvanceTechnicalData($productObj, $productData);
 
             if ($fullySuccessful) {
@@ -291,7 +291,11 @@ class ProductStorageMethods
                     $productData['Sub Categories']
                 );
             }
-            $productObj->setColor($productData['Color']);
+
+            if ($type === 'Variant') {
+                $productObj->setColor($productData['Color']);
+            }
+
             $productObj->setEnergyRating($productData['Energy Rating']);
             return $fullySuccessful;
         } catch (\Exception $e) {
@@ -303,6 +307,7 @@ class ProductStorageMethods
     {
         $productObj->setMasterImage(Utils::getAsset($productData['Master Image Link']), $countryCode);
         Utils::addImagesToProductGallery($productData['Images Link'], $productObj, $countryCode);
+
         $video = Utils::getAsset($productData['Video Link']);
         if ($video !== null) {
             $videoPoster = Utils::getAsset($productData['Video Poster']);
@@ -322,19 +327,29 @@ class ProductStorageMethods
         }
     }
 
-    private static function setSalesData(Product $productObj, array $productData, string $countryCode)
-    {
-        $productObj->setQuantitySold(
-            Utils::validateNumber(
-                $productData['Quantity Sold']
-            ) ? $productData['Quantity Sold'] : 0,
-            $countryCode
-        );
-        $productObj->setRevenue(
-            Utils::validateNumber($productData['Revenue'])
-                ? $productData['Revenue'] : 0,
-            $countryCode
-        );
+    private static function setSalesData(
+        Product $productObj,
+        array $productData,
+        string $countryCode,
+        string $productName
+    ): bool {
+        $fullySuccessful = true;
+        if (Utils::validateNumber($productData['Quantity Sold'])) {
+            $productObj->setQuantitySold($productData['Quantity Sold'], $countryCode);
+        } else {
+            $fullySuccessful = false;
+            self::$errorLog .= "Warning in the quantity sold: in " .
+                $productName . " the quantity sold is empty or invalid.";
+        }
+
+        if (Utils::validateNumber($productData['Revenue'])) {
+            $productObj->setRevenue($productData['Revenue'], $countryCode);
+        } else {
+            $fullySuccessful = false;
+            self::$errorLog .= "Warning in the revenue: in " .
+                $productName . " the revenue is empty or invalid.";
+        }
+
         $productObj->setProductAvailablity(
             $productData['Product Availablity'] === 0 ? false : true,
             $countryCode
@@ -343,6 +358,8 @@ class ProductStorageMethods
             Utils::validateNumber($productData['Rating']) && $productData['Rating'] <= 5 ? $productData['Rating'] : 0,
             $countryCode
         );
+
+        return $fullySuccessful;
     }
 
     private static function setPricingData(
@@ -384,34 +401,61 @@ class ProductStorageMethods
         return $fullySuccessful;
     }
 
-    private static function setMeasurementsData(Product $productObj, array $productData): void
+    private static function setMeasurementsData(Product $productObj, array $productData, $productName): bool
     {
-        $productObj->setLength(
-            Utils::validateNumber($productData['Length']) ? $productData['Length'] : 0
-        );
+        $fullySuccessful = true;
+        if (Utils::validateNumber($productData['Length'])) {
+            $productObj->setLength($productData['Length']);
+        } else {
+            $fullySuccessful = false;
+        }
 
-        $productObj->setBreadth(
-            Utils::validateNumber($productData['Breadth']) ? $productData['Breadth'] : 0
-        );
-        $productObj->setHeight(
-            Utils::validateNumber($productData['Height']) ? $productData['Height'] : 0
-        );
+        if (Utils::validateNumber($productData['Breadth'])) {
+            $productObj->setBreadth($productData['Breadth']);
+        } else {
+            $fullySuccessful = false;
+        }
+
+        if (Utils::validateNumber($productData['Height'])) {
+            $productObj->setHeight($productData['Height']);
+        } else {
+            $fullySuccessful = false;
+        }
+
         $productObj->setDimensionUnit($productData['Dimension Unit']);
 
-        $productObj->setSize(
-            Utils::validateNumber($productData['Size']) ? $productData['Size'] : 0
-        );
+        if (Utils::validateNumber($productData['Size'])) {
+            $productObj->setSize($productData['Size']);
+        } else {
+            $fullySuccessful = false;
+        }
         $productObj->setSizeUnit($productData['Size Unit']);
 
-        $productObj->setWeight(
-            Utils::validateNumber($productData['Weight']) ? $productData['Weight'] : 0
-        );
+        if (Utils::validateNumber($productData['Weight'])) {
+            $productObj->setWeight($productData['Weight']);
+        } else {
+            $fullySuccessful = false;
+        }
         $productObj->setWeightUnit($productData['Weight Unit']);
+
+        if (!$fullySuccessful) {
+            self::$errorLog .= "Warning in the measurements: in " .
+                $productName . " Please verify measurments.";
+        }
+
+        return $fullySuccessful;
     }
 
-    private static function setTechnicalDetailsData(Product $productObj, array $productData): void
+    private static function setTechnicalDetailsData(Product $productObj, array $productData, string $productName): bool
     {
-        $productObj->setModelNumber($productData['Model Number']);
+        $fullySuccessful = true;
+        if (!empty($productData['Model Number'])) {
+            $productObj->setModelNumber($productData['Model Number']);
+        } else {
+            self::$errorLog .= "Warning in the technical details: in " .
+                $productName . " the model number is empty.";
+        }
+
         $productObj->setModelYear($productData['Model Year']);
         $productObj->setModelName($productData['Model Name']);
         $productObj->setHardwareInterface($productData['Hardware Interface']);
@@ -421,85 +465,103 @@ class ProductStorageMethods
         $productObj->setCountryOfOrigin($productData['Country Of Origin']);
         $productObj->setBatteriesRequired($productData['Batteries Required'] === 0 ? false : true);
         $productObj->setBatteriesIncluded($productData['Batteries Included'] === 0 ? false : true);
+
+        return $fullySuccessful;
     }
+
 
     private static function setAdvanceTechnicalData(Product $productObj, array $productData): void
     {
-        if (isset($productData[self::CAMERA]) && !empty($productData[self::CAMERA])) {
-            $camera = Utils::getCameraIfExist('/Cameras/' . $productData[self::CAMERA]);
-            if ($camera !== null) {
-                $productObj->setCamera([$camera]);
-            }
+        if (
+            isset($productData[self::CAMERA]) &&
+            !empty($productData[self::CAMERA]) &&
+            ($camera = Utils::getCameraIfExist('/Cameras/' . $productData[self::CAMERA])) !== null
+        ) {
+            $productObj->setCamera([$camera]);
         }
 
-        if (isset($productData[self::MOTHERBOARD]) && !empty($productData[self::MOTHERBOARD])) {
-            $motherboard = Utils::getMotherboardIfExist('/Motherboards/' . $productData[self::MOTHERBOARD]);
-            if ($motherboard !== null) {
-                $productObj->setMotherboard([$motherboard]);
-            }
+        if (
+            isset($productData[self::MOTHERBOARD]) &&
+            !empty($productData[self::MOTHERBOARD]) &&
+            ($motherboard = Utils::getMotherboardIfExist('/Motherboards/' . $productData[self::MOTHERBOARD])) !== null
+        ) {
+            $productObj->setMotherboard([$motherboard]);
         }
 
-        if (isset($productData[self::OPERATING_SYSTEM]) && !empty($productData[self::OPERATING_SYSTEM])) {
-            $os = Utils::getOperatingSystemIfExist('/Operating Systems/' . $productData[self::OPERATING_SYSTEM]);
-            if ($os !== null) {
-                $productObj->setOperatingSystem([$os]);
-            }
+        if (
+            isset($productData[self::OPERATING_SYSTEM]) &&
+            !empty($productData[self::OPERATING_SYSTEM]) &&
+            ($os = Utils::getOperatingSystemIfExist(
+                '/Operating Systems/' . $productData[self::OPERATING_SYSTEM]
+            )) !== null
+        ) {
+            $productObj->setOperatingSystem([$os]);
         }
 
-        if (isset($productData[self::PROCESSOR]) && !empty($productData[self::PROCESSOR])) {
-            $processor = Utils::getProcessorIfExist('/Processors/' . $productData[self::PROCESSOR]);
-            if ($processor !== null) {
-                $productObj->setProcessor([$processor]);
-            }
+        if (
+            isset($productData[self::PROCESSOR]) &&
+            !empty($productData[self::PROCESSOR]) &&
+            ($processor = Utils::getProcessorIfExist('/Processors/' . $productData[self::PROCESSOR])) !== null
+        ) {
+            $productObj->setProcessor([$processor]);
         }
 
-        if (isset($productData[self::RAM]) && !empty($productData[self::RAM])) {
-            $ram = Utils::getRAMIfExist('/RAMs/' . $productData[self::RAM]);
-            if ($ram !== null) {
-                $productObj->setRam([$ram]);
-            }
+        if (isset($productData[self::RAM]) && !empty($productData[self::RAM]) && ($ram = Utils::getRAMIfExist(
+            '/RAMs/' . $productData[self::RAM]
+        )) !== null) {
+            $productObj->setRam([$ram]);
         }
 
-        if (isset($productData[self::ROM]) && !empty($productData[self::ROM])) {
-            $rom = Utils::getROMIfExist('/ROMs/' . $productData[self::ROM]);
-            if ($rom !== null) {
-                $productObj->setRom([$rom]);
-            }
+        if (isset($productData[self::ROM]) && !empty($productData[self::ROM]) && ($rom = Utils::getROMIfExist(
+            '/ROMs/' . $productData[self::ROM]
+        )) !== null) {
+            $productObj->setRom([$rom]);
         }
 
-        if (isset($productData[self::SCREEN]) && !empty($productData[self::SCREEN])) {
-            $screen = Utils::getScreenIfExist('/Screens/' . $productData[self::SCREEN]);
-            if ($screen !== null) {
-                $productObj->setScreen([$screen]);
-            }
+        if (
+            isset($productData[self::SCREEN]) &&
+            !empty($productData[self::SCREEN]) &&
+            ($screen = Utils::getScreenIfExist(
+                '/Screens/' . $productData[self::SCREEN]
+            )) !== null
+        ) {
+            $productObj->setScreen([$screen]);
         }
 
-        if (isset($productData[self::SENSORS_SET]) && !empty($productData[self::SENSORS_SET])) {
-            $sensorsSet = Utils::getSensorsSetIfExist('/Sensor Sets/' . $productData[self::SENSORS_SET]);
-            if ($sensorsSet !== null) {
-                $productObj->setSensorsSet([$sensorsSet]);
-            }
+        if (
+            isset($productData[self::SENSORS_SET]) &&
+            !empty($productData[self::SENSORS_SET]) &&
+            ($sensorsSet = Utils::getSensorsSetIfExist(
+                '/Sensor Sets/' . $productData[self::SENSORS_SET]
+            )) !== null
+        ) {
+            $productObj->setSensorsSet([$sensorsSet]);
         }
 
-        if (isset($productData[self::SPEAKERS]) && !empty($productData[self::SPEAKERS])) {
-            $speakers = Utils::getSpeakersIfExist('/Speakers/' . $productData[self::SPEAKERS]);
-            if ($speakers !== null) {
-                $productObj->setSpeakers([$speakers]);
-            }
+        if (
+            isset($productData[self::SPEAKERS]) &&
+            !empty($productData[self::SPEAKERS]) &&
+            ($speakers = Utils::getSpeakersIfExist(
+                '/Speakers/' . $productData[self::SPEAKERS]
+            )) !== null
+        ) {
+            $productObj->setSpeakers([$speakers]);
         }
 
-        if (isset($productData[self::SSD]) && !empty($productData[self::SSD])) {
-            $ssd = Utils::getSSDIfExist('/SSDs/' . $productData[self::SSD]);
-            if ($ssd !== null) {
-                $productObj->setSsd([$ssd]);
-            }
+        if (
+            isset($productData[self::SSD]) &&
+            !empty($productData[self::SSD]) &&
+            ($ssd = Utils::getSSDIfExist('/SSDs/' . $productData[self::SSD])) !== null
+        ) {
+            $productObj->setSsd([$ssd]);
         }
 
-        if (isset($productData[self::HDD]) && !empty($productData[self::HDD])) {
-            $hdd = Utils::getHDDIfExist('/HDDs/' . $productData[self::HDD]);
-            if ($hdd !== null) {
-                $productObj->setHdd([$hdd]);
-            }
+        if (
+            isset($productData[self::HDD]) &&
+            !empty($productData[self::HDD]) &&
+            ($hdd = Utils::getHDDIfExist('/HDDs/' . $productData[self::HDD])) !== null
+        ) {
+            $productObj->setHdd([$hdd]);
         }
 
         if (
