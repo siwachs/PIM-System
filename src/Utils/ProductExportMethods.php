@@ -247,7 +247,7 @@ class ProductExportMethods
         $hdd = self::getFirstKeyOrNull($product->getHDD());
         $sheet->setCellValue('BB' . $row, $hdd === null ? "" : $hdd);
 
-        $sheet->setCellValue('BC' . $row, implode(", ", $product->getConnectivityTechnolgies()));
+        $sheet->setCellValue('BC' . $row, implode(", ", $product->getConnectivityTechnolgies() ?? []));
     }
 
 

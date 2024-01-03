@@ -53,7 +53,7 @@ class TokenValidationMiddleware
 
         $username = $token->claims()->get('username');
 
-        if (!in_array($username, ['admin', 'retailer', 'wholesaler']) || $token->isExpired(new DateTimeImmutable())) {
+        if (!in_array($username, ['admin', 'business']) || $token->isExpired(new DateTimeImmutable())) {
             return $this->generateUnauthorizedResponse('No valid token found.');
         }
 
