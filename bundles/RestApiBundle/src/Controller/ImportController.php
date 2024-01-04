@@ -20,6 +20,9 @@ class ImportController
      */
     public function importProducts(Request $request, TokenValidationMiddleware $tokenValidation): JsonResponse
     {
+        $fileLocation = $request->query->get('file-location');
+        $fileName = $request->query->get('file-name');
+        $fileExtension = $request->query->get('file-extension');
         $products = $request->query->get('sheet-name');
         $language = $request->query->get('locale');
 
@@ -34,6 +37,9 @@ class ImportController
             'php',
             $consolePath,
             'import:products',
+            $fileLocation,
+            $fileName,
+            $fileExtension,
             $products,
             $language
         ];

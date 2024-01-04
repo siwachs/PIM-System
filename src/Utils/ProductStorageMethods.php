@@ -9,6 +9,18 @@ use Pimcore\Model\DataObject\Data\Video;
 class ProductStorageMethods
 {
     const PRODUCTS_PATH = "/Products/";
+    const PROCESSORS_PATH = '/Processors/';
+    const CAMERAS_PATH = '/Cameras/';
+    const MOTHERBOARDS_PATH = '/Motherboards/';
+    const OPERATING_SYSTEMS_PATH = '/Operating Systems/';
+    const RAMS_PATH = '/RAMs/';
+    const ROMS_PATH = '/ROMs/';
+    const SCREENS_PATH = '/Screens/';
+    const SENSOR_SETS_PATH = '/Sensor Sets/';
+    const SPEAKERS_PATH = '/Speakers/';
+    const SSD_PATH = '/SSDs/';
+    const HDD_PATH = '/HDDs/';
+
     const IS_MISSING = " is missing.\n";
     const CAMERA = "Camera";
     const OPERATING_SYSTEM = "Operating System";
@@ -29,6 +41,16 @@ class ProductStorageMethods
     private static $completelyFailed = 0;
     private static $fullySuccessful = 0;
     private static $errorLog = "";
+
+    // Constants for log summary
+    const ASSET_FILENAME = "Products Import Summary.txt";
+    const ASSET_FILE_PATH = "/Logs/Products/Products Import Summary.txt";
+    const PARENT_DIRECTORY_PATH = "/Logs/Products";
+
+    // Constants for error log
+    const ERROR_ASSET_FILENAME = "Products Error Report.txt";
+    const ERROR_ASSET_FILE_PATH = "/Logs/Products/Products Error Report.txt";
+    const ERROR_PARENT_DIRECTORY_PATH = "/Logs/Products";
 
     public static function storeProducts($productArray, $countryCode)
     {
@@ -469,100 +491,100 @@ class ProductStorageMethods
         return $fullySuccessful;
     }
 
-
     private static function setAdvanceTechnicalData(Product $productObj, array $productData): void
     {
-        if (
+        $productObj->setCamera(
             isset($productData[self::CAMERA]) &&
-            !empty($productData[self::CAMERA]) &&
-            ($camera = Utils::getCameraIfExist('/Cameras/' . $productData[self::CAMERA])) !== null
-        ) {
-            $productObj->setCamera([$camera]);
-        }
+                !empty($productData[self::CAMERA]) &&
+                ($camera = Utils::getCameraIfExist(self::CAMERAS_PATH . $productData[self::CAMERA])) !== null ?
+                [$camera] :
+                $productObj->getCamera()
+        );
 
-        if (
+        $productObj->setMotherboard(
             isset($productData[self::MOTHERBOARD]) &&
-            !empty($productData[self::MOTHERBOARD]) &&
-            ($motherboard = Utils::getMotherboardIfExist('/Motherboards/' . $productData[self::MOTHERBOARD])) !== null
-        ) {
-            $productObj->setMotherboard([$motherboard]);
-        }
+                !empty($productData[self::MOTHERBOARD]) &&
+                ($motherboard = Utils::getMotherboardIfExist(
+                    self::MOTHERBOARDS_PATH . $productData[self::MOTHERBOARD]
+                )) !== null ?
+                [$motherboard] :
+                $productObj->getMotherboard()
+        );
 
-        if (
+        $productObj->setOperatingSystem(
             isset($productData[self::OPERATING_SYSTEM]) &&
-            !empty($productData[self::OPERATING_SYSTEM]) &&
-            ($os = Utils::getOperatingSystemIfExist(
-                '/Operating Systems/' . $productData[self::OPERATING_SYSTEM]
-            )) !== null
-        ) {
-            $productObj->setOperatingSystem([$os]);
-        }
+                !empty($productData[self::OPERATING_SYSTEM]) &&
+                ($os = Utils::getOperatingSystemIfExist(
+                    self::OPERATING_SYSTEMS_PATH . $productData[self::OPERATING_SYSTEM]
+                )) !== null ?
+                [$os] :
+                $productObj->getOperatingSystem()
+        );
 
-        if (
+        $productObj->setProcessor(
             isset($productData[self::PROCESSOR]) &&
-            !empty($productData[self::PROCESSOR]) &&
-            ($processor = Utils::getProcessorIfExist('/Processors/' . $productData[self::PROCESSOR])) !== null
-        ) {
-            $productObj->setProcessor([$processor]);
-        }
+                !empty($productData[self::PROCESSOR]) &&
+                ($processor = Utils::getProcessorIfExist(
+                    self::PROCESSORS_PATH . $productData[self::PROCESSOR]
+                )) !== null ?
+                [$processor] :
+                $productObj->getProcessor()
+        );
 
-        if (isset($productData[self::RAM]) && !empty($productData[self::RAM]) && ($ram = Utils::getRAMIfExist(
-            '/RAMs/' . $productData[self::RAM]
-        )) !== null) {
-            $productObj->setRam([$ram]);
-        }
+        $productObj->setRam(
+            isset($productData[self::RAM]) &&
+                !empty($productData[self::RAM]) &&
+                ($ram = Utils::getRAMIfExist(self::RAMS_PATH . $productData[self::RAM])) !== null ?
+                [$ram] :
+                $productObj->getRam()
+        );
 
-        if (isset($productData[self::ROM]) && !empty($productData[self::ROM]) && ($rom = Utils::getROMIfExist(
-            '/ROMs/' . $productData[self::ROM]
-        )) !== null) {
-            $productObj->setRom([$rom]);
-        }
+        $productObj->setRom(
+            isset($productData[self::ROM]) &&
+                !empty($productData[self::ROM]) &&
+                ($rom = Utils::getRAMIfExist(self::ROMS_PATH . $productData[self::ROM])) !== null ?
+                [$rom] :
+                $productObj->getRom()
+        );
 
-        if (
-            isset($productData[self::SCREEN]) &&
-            !empty($productData[self::SCREEN]) &&
-            ($screen = Utils::getScreenIfExist(
-                '/Screens/' . $productData[self::SCREEN]
-            )) !== null
-        ) {
-            $productObj->setScreen([$screen]);
-        }
+        $productObj->setScreen(
+            isset($productData[self::SCREEN]) && !empty($productData[self::SCREEN]) &&
+                ($screen = Utils::getScreenIfExist(self::SCREENS_PATH . $productData[self::SCREEN])) !== null ?
+                [$screen] :
+                $productObj->getScreen()
+        );
 
-        if (
-            isset($productData[self::SENSORS_SET]) &&
-            !empty($productData[self::SENSORS_SET]) &&
-            ($sensorsSet = Utils::getSensorsSetIfExist(
-                '/Sensor Sets/' . $productData[self::SENSORS_SET]
-            )) !== null
-        ) {
-            $productObj->setSensorsSet([$sensorsSet]);
-        }
+        $productObj->setSensorsSet(
+            isset($productData[self::SENSORS_SET]) && !empty($productData[self::SENSORS_SET]) &&
+                ($sensorsSet = Utils::getSensorsSetIfExist(
+                    self::SENSOR_SETS_PATH . $productData[self::SENSORS_SET]
+                )) !== null ?
+                [$sensorsSet] :
+                $productObj->getSensorsSet()
+        );
 
-        if (
-            isset($productData[self::SPEAKERS]) &&
-            !empty($productData[self::SPEAKERS]) &&
-            ($speakers = Utils::getSpeakersIfExist(
-                '/Speakers/' . $productData[self::SPEAKERS]
-            )) !== null
-        ) {
-            $productObj->setSpeakers([$speakers]);
-        }
+        $productObj->setSpeakers(
+            isset($productData[self::SPEAKERS]) && !empty($productData[self::SPEAKERS]) &&
+                ($speakers = Utils::getSpeakersIfExist(
+                    self::SPEAKERS_PATH . $productData[self::SPEAKERS]
+                )) !== null ?
+                [$speakers] :
+                $productObj->getSpeakers()
+        );
 
-        if (
-            isset($productData[self::SSD]) &&
-            !empty($productData[self::SSD]) &&
-            ($ssd = Utils::getSSDIfExist('/SSDs/' . $productData[self::SSD])) !== null
-        ) {
-            $productObj->setSsd([$ssd]);
-        }
+        $productObj->setSsd(
+            isset($productData[self::SSD]) && !empty($productData[self::SSD]) &&
+                ($ssd = Utils::getSSDIfExist(self::SSD_PATH . $productData[self::SSD])) !== null ?
+                [$ssd] :
+                $productObj->getSsd()
+        );
 
-        if (
-            isset($productData[self::HDD]) &&
-            !empty($productData[self::HDD]) &&
-            ($hdd = Utils::getHDDIfExist('/HDDs/' . $productData[self::HDD])) !== null
-        ) {
-            $productObj->setHdd([$hdd]);
-        }
+        $productObj->setHdd(
+            isset($productData[self::HDD]) && !empty($productData[self::HDD]) &&
+                ($hdd = Utils::getHDDIfExist(self::HDD_PATH . $productData[self::HDD])) !== null ?
+                [$hdd] :
+                $productObj->getHdd()
+        );
 
         if (
             isset($productData[self::CONNECTIVITY_TECHNOLGIES])
@@ -575,9 +597,9 @@ class ProductStorageMethods
     private static function logProductSummary()
     {
         Utils::logSummary(
-            "Products Import Summary.txt",
-            "/Logs/Products/Products Import Summary.txt",
-            "/Logs/Products",
+            self::ASSET_FILENAME,
+            self::ASSET_FILE_PATH,
+            self::PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -585,9 +607,9 @@ class ProductStorageMethods
         );
 
         Utils::logError(
-            "Products Error Report.txt",
-            "/Logs/Products/Products Error Report.txt",
-            "/Logs/Products",
+            self::ERROR_ASSET_FILENAME,
+            self::ERROR_ASSET_FILE_PATH,
+            self::ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

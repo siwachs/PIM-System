@@ -15,6 +15,8 @@ use Pimcore\Model\Notification\Service\NotificationService;
 
 class ImportProductsCommand extends Command
 {
+    const PIMCORE_ASSET_PATH = '/public/var/assets';
+
     protected static $defaultName = 'import:products';
     private $notificationService;
     private $sender;
@@ -34,6 +36,9 @@ class ImportProductsCommand extends Command
     protected function configure()
     {
         $this->setDescription('Imports products data')
+            ->addArgument('file-location', InputArgument::REQUIRED, 'Specify file location')
+            ->addArgument('file-name', InputArgument::REQUIRED, 'Specify file name')
+            ->addArgument('file-extension', InputArgument::REQUIRED, 'Specify file extension in .ext format')
             ->addArgument('sheet-name', InputArgument::REQUIRED, 'Specify the sheet name')
             ->addArgument('country-code', InputArgument::REQUIRED, 'Specify the Country code');
     }
@@ -41,8 +46,21 @@ class ImportProductsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Importing products data...');
+        $fileLocation = $input->getArgument('file-location');
+        $fileName = $input->getArgument('file-name');
+        $fileExtension = $input->getArgument('file-extension');
         $sheetName = $input->getArgument('sheet-name');
         $countryCode = $input->getArgument('country-code');
+
+        if (empty($fileLocation)) {
+            throw new \InvalidArgumentException('File location must be provided');
+        }
+        if (empty($fileName)) {
+            throw new \InvalidArgumentException('File name must be provided');
+        }
+        if (empty($fileExtension)) {
+            throw new \InvalidArgumentException('File extension must be provided');
+        }
         if (empty($sheetName)) {
             throw new \InvalidArgumentException('Sheet name must be provided');
         }
@@ -51,12 +69,12 @@ class ImportProductsCommand extends Command
         }
 
         try {
-            $excelAsset = Utils::getAsset("/Excel Sheets/Database.xlsx");
+            $excelAsset = Utils::getAsset($fileLocation . $fileName . $fileExtension);
             if ($excelAsset === null) {
                 throw new CustomExceptionMessage("Excel Asset not found or not an instance of Asset");
             }
 
-            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . "/public/var/assets" . $excelAsset->getFullPath();
+            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . self::PIMCORE_ASSET_PATH . $excelAsset->getFullPath();
 
             $spreadsheet = IOFactory::load($excelAssetLocalPath);
 

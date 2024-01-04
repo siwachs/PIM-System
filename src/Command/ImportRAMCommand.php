@@ -34,6 +34,9 @@ class ImportRAMCommand extends Command
     protected function configure()
     {
         $this->setDescription('Imports RAM data')
+            ->addArgument('file-location', InputArgument::REQUIRED, 'Specify file location')
+            ->addArgument('file-name', InputArgument::REQUIRED, 'Specify file name')
+            ->addArgument('file-extension', InputArgument::REQUIRED, 'Specify file extension in .ext format')
             ->addArgument('sheet-name', InputArgument::REQUIRED, 'Specify the sheet name')
             ->addArgument('country-code', InputArgument::REQUIRED, 'Specify the Country code');
     }
@@ -41,8 +44,21 @@ class ImportRAMCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Importing RAM data...');
+        $fileLocation = $input->getArgument('file-location');
+        $fileName = $input->getArgument('file-name');
+        $fileExtension = $input->getArgument('file-extension');
         $sheetName = $input->getArgument('sheet-name');
         $countryCode = $input->getArgument('country-code');
+
+        if (empty($fileLocation)) {
+            throw new \InvalidArgumentException('File location must be provided');
+        }
+        if (empty($fileName)) {
+            throw new \InvalidArgumentException('File name must be provided');
+        }
+        if (empty($fileExtension)) {
+            throw new \InvalidArgumentException('File extension must be provided');
+        }
         if (empty($sheetName)) {
             throw new \InvalidArgumentException('Sheet name must be provided');
         }
@@ -51,7 +67,7 @@ class ImportRAMCommand extends Command
         }
 
         try {
-            $excelAsset = Utils::getAsset("/Excel Sheets/Database.xlsx");
+            $excelAsset = Utils::getAsset($fileLocation . $fileName . $fileExtension);
             if ($excelAsset === null) {
                 throw new CustomExceptionMessage("Excel Asset not found or not an instance of Asset");
             }
