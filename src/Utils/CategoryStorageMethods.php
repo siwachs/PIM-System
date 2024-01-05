@@ -17,6 +17,16 @@ class CategoryStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for Categories log summary
+    const CATEGORIES_ASSET_FILENAME = "Categories Import Summary.txt";
+    const CATEGORIES_ASSET_FILE_PATH = "/Logs/Categories/Categories Import Summary.txt";
+    const CATEGORIES_PARENT_DIRECTORY_PATH = "/Logs/Categories";
+
+    // Constants for Categories error log
+    const CATEGORIES_ERROR_ASSET_FILENAME = "Categories Error Report.txt";
+    const CATEGORIES_ERROR_ASSET_FILE_PATH = "/Logs/Categories/Categories Error Report.txt";
+    const CATEGORIES_ERROR_PARENT_DIRECTORY_PATH = "/Logs/Categories";
+
     private static function mapData($category, $categoryObj, $countryCode)
     {
         $categoryObj->setName($category['Name'], $countryCode);
@@ -120,9 +130,9 @@ class CategoryStorageMethods
     private static function logCategorySummary()
     {
         Utils::logSummary(
-            "Categories Import Summary.txt",
-            "/Logs/Categories/Categories Import Summary.txt",
-            "/Logs/Categories",
+            self::CATEGORIES_ASSET_FILENAME,
+            self::CATEGORIES_ASSET_FILE_PATH,
+            self::CATEGORIES_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -130,9 +140,9 @@ class CategoryStorageMethods
         );
 
         Utils::logError(
-            "Categories Error Report.txt",
-            "/Logs/Categories/Categories Error Report.txt",
-            "/Logs/Categories",
+            self::CATEGORIES_ERROR_ASSET_FILENAME,
+            self::CATEGORIES_ERROR_ASSET_FILE_PATH,
+            self::CATEGORIES_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

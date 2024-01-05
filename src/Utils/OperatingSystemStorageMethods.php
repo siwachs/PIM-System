@@ -13,6 +13,16 @@ class OperatingSystemStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for Operating Systems log summary
+    const OPERATING_SYSTEMS_ASSET_FILENAME = "Operating Systems Import Summary.txt";
+    const OPERATING_SYSTEMS_ASSET_FILE_PATH = "/Logs/OperatingSystems/Operating Systems Import Summary.txt";
+    const OPERATING_SYSTEMS_PARENT_DIRECTORY_PATH = "/Logs/OperatingSystems";
+
+    // Constants for Operating Systems error log
+    const OPERATING_SYSTEMS_ERROR_ASSET_FILENAME = "Operating Systems Error Report.txt";
+    const OPERATING_SYSTEMS_ERROR_ASSET_FILE_PATH = "/Logs/OperatingSystems/Operating Systems Error Report.txt";
+    const OPERATING_SYSTEMS_ERROR_PARENT_DIRECTORY_PATH = "/Logs/OperatingSystems";
+
     private static function mapData($osName, $os, $countryCode, $osObj)
     {
         $osObj->setName($os['Name'], $countryCode);
@@ -131,9 +141,9 @@ class OperatingSystemStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "Operating Systems Import Summary.txt",
-            "/Logs/OperatingSystems/Operating Systems Import Summary.txt",
-            "/Logs/OperatingSystems",
+            self::OPERATING_SYSTEMS_ASSET_FILENAME,
+            self::OPERATING_SYSTEMS_ASSET_FILE_PATH,
+            self::OPERATING_SYSTEMS_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -141,9 +151,9 @@ class OperatingSystemStorageMethods
         );
 
         Utils::logError(
-            "Operating Systems Error Report.txt",
-            "/Logs/OperatingSystems/Operating Systems Error Report.txt",
-            "/Logs/OperatingSystems",
+            self::OPERATING_SYSTEMS_ERROR_ASSET_FILENAME,
+            self::OPERATING_SYSTEMS_ERROR_ASSET_FILE_PATH,
+            self::OPERATING_SYSTEMS_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

@@ -19,6 +19,16 @@ class SensorSetStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for SensorSets log summary
+    const SENSOR_SETS_ASSET_FILENAME = "SensorSet Import Summary.txt";
+    const SENSOR_SETS_ASSET_FILE_PATH = "/Logs/SensorSets/SensorSet Import Summary.txt";
+    const SENSOR_SETS_PARENT_DIRECTORY_PATH = "/Logs/SensorSets";
+
+    // Constants for SensorSets error log
+    const SENSOR_SETS_ERROR_ASSET_FILENAME = "SensorSet Error Report.txt";
+    const SENSOR_SETS_ERROR_ASSET_FILE_PATH = "/Logs/SensorSets/SensorSet Error Report.txt";
+    const SENSOR_SETS_ERROR_PARENT_DIRECTORY_PATH = "/Logs/SensorSets";
+
     /**
      * Map data for sensors
      *
@@ -284,9 +294,9 @@ class SensorSetStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "SensorSet Import Summary.txt",
-            "/Logs/SensorSets/SensorSet Import Summary.txt",
-            "/Logs/SensorSets",
+            self::SENSOR_SETS_ASSET_FILENAME,
+            self::SENSOR_SETS_ASSET_FILE_PATH,
+            self::SENSOR_SETS_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -294,9 +304,9 @@ class SensorSetStorageMethods
         );
 
         Utils::logError(
-            "SensorSet Error Report.txt",
-            "/Logs/SensorSets/SensorSet Error Report.txt",
-            "/Logs/SensorSets",
+            self::SENSOR_SETS_ERROR_ASSET_FILENAME,
+            self::SENSOR_SETS_ERROR_ASSET_FILE_PATH,
+            self::SENSOR_SETS_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

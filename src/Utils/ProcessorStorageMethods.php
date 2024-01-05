@@ -13,6 +13,16 @@ class ProcessorStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for Processors log summary
+    const PROCESSORS_ASSET_FILENAME = "Processors Import Summary.txt";
+    const PROCESSORS_ASSET_FILE_PATH = "/Logs/Processors/Processors Import Summary.txt";
+    const PROCESSORS_PARENT_DIRECTORY_PATH = "/Logs/Processors";
+
+    // Constants for Processors error log
+    const PROCESSORS_ERROR_ASSET_FILENAME = "Processors Error Report.txt";
+    const PROCESSORS_ERROR_ASSET_FILE_PATH = "/Logs/Processors/Processors Error Report.txt";
+    const PROCESSORS_ERROR_PARENT_DIRECTORY_PATH = "/Logs/Processors";
+
     private static function mapData($processorName, $processor, $countryCode, $processorObj)
     {
         $fullySuccessful = true;
@@ -147,9 +157,9 @@ class ProcessorStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "Processors Import Summary.txt",
-            "/Logs/Processors/Processors Import Summary.txt",
-            "/Logs/Processors",
+            self::PROCESSORS_ASSET_FILENAME,
+            self::PROCESSORS_ASSET_FILE_PATH,
+            self::PROCESSORS_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -157,9 +167,9 @@ class ProcessorStorageMethods
         );
 
         Utils::logError(
-            "Processors Error Report.txt",
-            "/Logs/Processors/Processors Error Report.txt",
-            "/Logs/Processors",
+            self::PROCESSORS_ERROR_ASSET_FILENAME,
+            self::PROCESSORS_ERROR_ASSET_FILE_PATH,
+            self::PROCESSORS_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

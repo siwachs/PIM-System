@@ -13,6 +13,16 @@ class ManufacturerStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for Manufacturers log summary
+    const MANUFACTURERS_ASSET_FILENAME = "Manufacturers Import Summary.txt";
+    const MANUFACTURERS_ASSET_FILE_PATH = "/Logs/Manufacturers/Manufacturers Import Summary.txt";
+    const MANUFACTURERS_PARENT_DIRECTORY_PATH = "/Logs/Manufacturers";
+
+    // Constants for Manufacturers error log
+    const MANUFACTURERS_ERROR_ASSET_FILENAME = "Manufacturers Error Report.txt";
+    const MANUFACTURERS_ERROR_ASSET_FILE_PATH = "/Logs/Manufacturers/Manufacturers Error Report.txt";
+    const MANUFACTURERS_ERROR_PARENT_DIRECTORY_PATH = "/Logs/Manufacturers";
+
     private static function mapData($manufacturerName, $manufacturer, $countryCode, $manufacturerObj)
     {
         $manufacturerObj->setLogo(Utils::getAsset('/LOGOS/' . $manufacturer['Logo']));
@@ -122,9 +132,9 @@ class ManufacturerStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "Manufacturers Import Summary.txt",
-            "/Logs/Manufacturers/Manufacturers Import Summary.txt",
-            "/Logs/Manufacturers",
+            self::MANUFACTURERS_ASSET_FILENAME,
+            self::MANUFACTURERS_ASSET_FILE_PATH,
+            self::MANUFACTURERS_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -132,9 +142,9 @@ class ManufacturerStorageMethods
         );
 
         Utils::logError(
-            "Manufacturers Error Report.txt",
-            "/Logs/Manufacturers/Manufacturers Error Report.txt",
-            "/Logs/Manufacturers",
+            self::MANUFACTURERS_ERROR_ASSET_FILENAME,
+            self::MANUFACTURERS_ERROR_ASSET_FILE_PATH,
+            self::MANUFACTURERS_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

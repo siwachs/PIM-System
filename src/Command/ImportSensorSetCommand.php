@@ -15,6 +15,8 @@ use Pimcore\Model\Notification\Service\NotificationService;
 
 class ImportSensorSetCommand extends Command
 {
+    const PIMCORE_ASSET_PATH = '/public/var/assets';
+
     protected static $defaultName = 'import:sensor-set';
     private $notificationService;
     private $sender;
@@ -72,7 +74,7 @@ class ImportSensorSetCommand extends Command
                 throw new CustomExceptionMessage("Excel Asset not found or not an instance of Asset");
             }
 
-            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . "/public/var/assets" . $excelAsset->getFullPath();
+            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . self::PIMCORE_ASSET_PATH . $excelAsset->getFullPath();
 
             $spreadsheet = IOFactory::load($excelAssetLocalPath);
 

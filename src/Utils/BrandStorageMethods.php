@@ -13,6 +13,16 @@ class BrandStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for log summary
+    const ASSET_FILENAME = "Brands Import Summary.txt";
+    const ASSET_FILE_PATH = "/Logs/Brands/Brands Import Summary.txt";
+    const PARENT_DIRECTORY_PATH = "/Logs/Brands";
+
+    // Constants for error log
+    const ERROR_ASSET_FILENAME = "Brands Error Report.txt";
+    const ERROR_ASSET_FILE_PATH = "/Logs/Brands/Brands Error Report.txt";
+    const ERROR_PARENT_DIRECTORY_PATH = "/Logs/Brands";
+
     private static function mapData($brandName, $brand, $countryCode, $brandObj)
     {
         $brandObj->setLogo(Utils::getAsset('/LOGOS/' . $brand['Logo']));
@@ -125,9 +135,9 @@ class BrandStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "Brands Import Summary.txt",
-            "/Logs/Brands/Brands Import Summary.txt",
-            "/Logs/Brands",
+            self::ASSET_FILENAME,
+            self::ASSET_FILE_PATH,
+            self::PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -135,9 +145,9 @@ class BrandStorageMethods
         );
 
         Utils::logError(
-            "Brands Error Report.txt",
-            "/Logs/Brands/Brands Error Report.txt",
-            "/Logs/Brands",
+            self::ERROR_ASSET_FILENAME,
+            self::ERROR_ASSET_FILE_PATH,
+            self::ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

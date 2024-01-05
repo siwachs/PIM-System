@@ -13,6 +13,16 @@ class RAMStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for RAM log summary
+    const RAM_ASSET_FILENAME = "RAM Import Summary.txt";
+    const RAM_ASSET_FILE_PATH = "/Logs/RAMs/RAM Import Summary.txt";
+    const RAM_PARENT_DIRECTORY_PATH = "/Logs/RAMs";
+
+    // Constants for RAM error log
+    const RAM_ERROR_ASSET_FILENAME = "RAM Error Report.txt";
+    const RAM_ERROR_ASSET_FILE_PATH = "/Logs/RAMs/RAM Error Report.txt";
+    const RAM_ERROR_PARENT_DIRECTORY_PATH = "/Logs/RAMs";
+
     private static function mapData($ramName, $ram, $countryCode, $ramObj)
     {
         $fullySuccessful = true;
@@ -134,9 +144,9 @@ class RAMStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "RAM Import Summary.txt",
-            "/Logs/RAMs/RAM Import Summary.txt",
-            "/Logs/RAMs",
+            self::RAM_ASSET_FILENAME,
+            self::RAM_ASSET_FILE_PATH,
+            self::RAM_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -144,9 +154,9 @@ class RAMStorageMethods
         );
 
         Utils::logError(
-            "RAM Error Report.txt",
-            "/Logs/RAMs/RAM Error Report.txt",
-            "/Logs/RAMs",
+            self::RAM_ERROR_ASSET_FILENAME,
+            self::RAM_ERROR_ASSET_FILE_PATH,
+            self::RAM_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

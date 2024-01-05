@@ -13,6 +13,16 @@ class SSDStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for SSDs log summary
+    const SSDS_ASSET_FILENAME = "SSDs Import Summary.txt";
+    const SSDS_ASSET_FILE_PATH = "/Logs/SSDs/SSDs Import Summary.txt";
+    const SSDS_PARENT_DIRECTORY_PATH = "/Logs/SSDs";
+
+    // Constants for SSDs error log
+    const SSDS_ERROR_ASSET_FILENAME = "SSDs Error Report.txt";
+    const SSDS_ERROR_ASSET_FILE_PATH = "/Logs/SSDs/SSDs Error Report.txt";
+    const SSDS_ERROR_PARENT_DIRECTORY_PATH = "/Logs/SSDs";
+
     private static function mapData($ssdName, $ssd, $countryCode, $ssdObj)
     {
         $fullySuccessful = true;
@@ -137,9 +147,9 @@ class SSDStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "SSDs Import Summary.txt",
-            "/Logs/SSDs/SSDs Import Summary.txt",
-            "/Logs/SSDs",
+            self::SSDS_ASSET_FILENAME,
+            self::SSDS_ASSET_FILE_PATH,
+            self::SSDS_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -147,9 +157,9 @@ class SSDStorageMethods
         );
 
         Utils::logError(
-            "SSDs Error Report.txt",
-            "/Logs/SSDs/SSDs Error Report.txt",
-            "/Logs/SSDs",
+            self::SSDS_ERROR_ASSET_FILENAME,
+            self::SSDS_ERROR_ASSET_FILE_PATH,
+            self::SSDS_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }

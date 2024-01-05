@@ -13,6 +13,16 @@ class MotherboardStorageMethods
     private static $fullySuccessful = 0;
     private static $errorLog = "";
 
+    // Constants for Motherboards log summary
+    const MOTHERBOARDS_ASSET_FILENAME = "Motherboards Import Summary.txt";
+    const MOTHERBOARDS_ASSET_FILE_PATH = "/Logs/Motherboards/Motherboards Import Summary.txt";
+    const MOTHERBOARDS_PARENT_DIRECTORY_PATH = "/Logs/Motherboards";
+
+    // Constants for Motherboards error log
+    const MOTHERBOARDS_ERROR_ASSET_FILENAME = "Motherboards Error Report.txt";
+    const MOTHERBOARDS_ERROR_ASSET_FILE_PATH = "/Logs/Motherboards/Motherboards Error Report.txt";
+    const MOTHERBOARDS_ERROR_PARENT_DIRECTORY_PATH = "/Logs/Motherboards";
+
     private static function mapData($motherboardName, $motherboard, $countryCode, $motherboardObj)
     {
         $fullySuccessful = true;
@@ -147,9 +157,9 @@ class MotherboardStorageMethods
     {
         // Log import summary and error report
         Utils::logSummary(
-            "Motherboards Import Summary.txt",
-            "/Logs/Motherboards/Motherboards Import Summary.txt",
-            "/Logs/Motherboards",
+            self::MOTHERBOARDS_ASSET_FILENAME,
+            self::MOTHERBOARDS_ASSET_FILE_PATH,
+            self::MOTHERBOARDS_PARENT_DIRECTORY_PATH,
             self::$totalObjects,
             self::$partialFailed,
             self::$completelyFailed,
@@ -157,9 +167,9 @@ class MotherboardStorageMethods
         );
 
         Utils::logError(
-            "Motherboards Error Report.txt",
-            "/Logs/Motherboards/Motherboards Error Report.txt",
-            "/Logs/Motherboards",
+            self::MOTHERBOARDS_ERROR_ASSET_FILENAME,
+            self::MOTHERBOARDS_ERROR_ASSET_FILE_PATH,
+            self::MOTHERBOARDS_ERROR_PARENT_DIRECTORY_PATH,
             self::$errorLog
         );
     }
