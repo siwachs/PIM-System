@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use Pimcore\Model\DataObject\Brand;
+use Pimcore\Model\DataObject\Manufacturer;
 use Pimcore\Model\DataObject\RAM;
 
 class RAMStorageMethods
@@ -32,7 +34,7 @@ class RAMStorageMethods
         $ramObj->setCapacity($ram['Capacity']);
         $ramObj->setSpeed($ram['Speed']);
 
-        $brand = Utils::getBrandIfExists('/Brands/' . $ram['Brand']);
+        $brand = Utils::getObjectByPathIfExists(Brand::class, '/Brands/' . $ram['Brand']);
         if ($brand == null) {
             self::$errorLog .= "Warning in the brand name: in " .
                 $ramName . " the brand object of " .
@@ -42,7 +44,7 @@ class RAMStorageMethods
             $ramObj->setBrand([$brand]);
         }
 
-        $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $ram['Manufacturer']);
+        $manufacturer = Utils::getObjectByPathIfExists(Manufacturer::class, '/Manufacturers/' . $ram['Manufacturer']);
         if ($manufacturer === null) {
             self::$errorLog .= "Warning in the manufacturer name: in " .
                 $ramName . " the manufacturer object of " .

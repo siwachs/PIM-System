@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use Pimcore\Model\DataObject\Brand;
+use Pimcore\Model\DataObject\Manufacturer;
 use Pimcore\Model\DataObject\Processor;
 
 class ProcessorStorageMethods
@@ -43,7 +45,7 @@ class ProcessorStorageMethods
             $processor['Quick Start Guide Title']
         ));
 
-        $brand = Utils::getBrandIfExists('/Brands/' . $processor['Brand']);
+        $brand = Utils::getObjectByPathIfExists(Brand::class, '/Brands/' . $processor['Brand']);
         if ($brand == null) {
             self::$errorLog .= "Warning in the brand name: in " .
                 $processorName . " the brand object of " .
@@ -53,7 +55,10 @@ class ProcessorStorageMethods
             $processorObj->setBrand([$brand]);
         }
 
-        $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $processor['Manufacturer']);
+        $manufacturer = Utils::getObjectByPathIfExists(
+            Manufacturer::class,
+            '/Manufacturers/' . $processor['Manufacturer']
+        );
         if ($manufacturer === null) {
             self::$errorLog .= "Warning in the manufacturer name: in " .
                 $processorName . " the manufacturer object of " .

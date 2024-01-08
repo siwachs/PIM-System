@@ -6,31 +6,24 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 use App\Utils\Utils;
 use App\Utils\CategoryStorageMethods;
 use App\Exceptions\CustomExceptionMessage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use Pimcore\Model\Notification\Service\NotificationService;
 
 class ImportCategoriesCommand extends Command
 {
-    const PIMCORE_ASSET_PATH = '/public/var/assets';
+    private $params;
+    const PIMCORE_ASSET_PATH_PARAMETER = 'pimcore_asset_path';
 
     protected static $defaultName = 'import:categories';
-    private $notificationService;
-    private $sender;
-    private $receiver;
 
-    public function __construct(
-        NotificationService $notificationService,
-        int $sender,
-        int $receiver
-    ) {
+    public function __construct(ParameterBagInterface $params)
+    {
         parent::__construct();
-        $this->notificationService = $notificationService;
-        $this->sender = $sender;
-        $this->receiver = $receiver;
+        $this->params = $params;
     }
 
     protected function configure()
@@ -46,26 +39,22 @@ class ImportCategoriesCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Importing categories data...');
+        $pimcoreAssetPath = $this->params->get(self::PIMCORE_ASSET_PATH_PARAMETER);
         $fileLocation = $input->getArgument('file-location');
         $fileName = $input->getArgument('file-name');
         $fileExtension = $input->getArgument('file-extension');
         $sheetName = $input->getArgument('sheet-name');
         $countryCode = $input->getArgument('country-code');
 
-        if (empty($fileLocation)) {
-            throw new \InvalidArgumentException('File location must be provided');
-        }
-        if (empty($fileName)) {
-            throw new \InvalidArgumentException('File name must be provided');
-        }
-        if (empty($fileExtension)) {
-            throw new \InvalidArgumentException('File extension must be provided');
-        }
-        if (empty($sheetName)) {
-            throw new \InvalidArgumentException('Sheet name must be provided');
-        }
-        if (empty($countryCode)) {
-            throw new \InvalidArgumentException('Country code must be provided');
+        if (
+            empty($fileLocation) ||
+            empty($fileName) ||
+            empty($fileExtension) ||
+            empty($sheetName) ||
+            empty($countryCode)
+        ) {
+            throw new \InvalidArgumentException('File location, name, extension, sheet name,
+            and country code must be provided');
         }
 
         try {
@@ -74,7 +63,7 @@ class ImportCategoriesCommand extends Command
                 throw new CustomExceptionMessage("Excel Asset not found or not an instance of Asset");
             }
 
-            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . self::PIMCORE_ASSET_PATH . $excelAsset->getFullPath();
+            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . $pimcoreAssetPath . $excelAsset->getFullPath();
 
             $spreadsheet = IOFactory::load($excelAssetLocalPath);
 
@@ -85,13 +74,6 @@ class ImportCategoriesCommand extends Command
 
             $data = Utils::sheetToAssocArray($sheet);
             CategoryStorageMethods::storeCategories($data, $countryCode);
-            Utils::sendNotification(
-                $this->notificationService,
-                $this->sender,
-                $this->receiver,
-                "From Categories Importer",
-                "All categories are imported"
-            );
 
             $output->writeln('Categories import completed.');
             return Command::SUCCESS;

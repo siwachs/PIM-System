@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Pimcore\Model\DataObject\Brand;
 use Pimcore\Model\DataObject\OperatingSystem;
 
 class OperatingSystemStorageMethods
@@ -37,7 +38,7 @@ class OperatingSystemStorageMethods
         $osObj->setUi($os['UI']);
         $osObj->setBit($os['Bit']);
 
-        $brand = Utils::getBrandIfExists('/Brands/' . $os['Brand']);
+        $brand = Utils::getObjectByPathIfExists(Brand::class, '/Brands/' . $os['Brand']);
         if ($brand == null) {
             self::$partialFailed++;
             self::$errorLog .= "Warning: The brand object of " .

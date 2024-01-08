@@ -2,9 +2,11 @@
 
 namespace App\Utils;
 
+use Pimcore\Model\DataObject\Brand;
 use Pimcore\Model\DataObject\SensorsSet;
 use Pimcore\Model\DataObject\Fieldcollection;
 use Pimcore\Model\DataObject\Fieldcollection\Data\Sensor;
+use Pimcore\Model\DataObject\Manufacturer;
 
 class SensorSetStorageMethods
 {
@@ -61,7 +63,7 @@ class SensorSetStorageMethods
         $sensorCollection->setSensorType($sensor['Sensor Type']);
 
         // Retrieve Brand and set if available
-        $brand = Utils::getBrandIfExists('/Brands/' . $sensor['Brand']);
+        $brand = Utils::getObjectByPathIfExists(Brand::class, '/Brands/' . $sensor['Brand']);
         if ($brand !== null) {
             $sensorCollection->setBrand([$brand]);
         } else {
@@ -73,7 +75,10 @@ class SensorSetStorageMethods
         }
 
         // Retrieve Manufacturer and set if available
-        $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $sensor['Manufacturer']);
+        $manufacturer = Utils::getObjectByPathIfExists(
+            Manufacturer::class,
+            '/Manufacturers/' . $sensor['Manufacturer']
+        );
         if ($manufacturer == null) {
             // Log if manufacturer is missing
             self::$errorLog .= "Warning in the manufacturer name: in " .

@@ -6,31 +6,23 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 use App\Utils\Utils;
 use App\Utils\BrandStorageMethods;
 use App\Exceptions\CustomExceptionMessage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use Pimcore\Model\Notification\Service\NotificationService;
 
 class ImportBrandsCommand extends Command
 {
-    const PIMCORE_ASSET_PATH = '/public/var/assets';
+    private $params;
 
     protected static $defaultName = 'import:brands';
-    private $notificationService;
-    private $sender;
-    private $receiver;
 
-    public function __construct(
-        NotificationService $notificationService,
-        int $sender,
-        int $receiver
-    ) {
+    public function __construct(ParameterBagInterface $params)
+    {
         parent::__construct();
-        $this->notificationService = $notificationService;
-        $this->sender = $sender;
-        $this->receiver = $receiver;
+        $this->params = $params;
     }
 
     protected function configure()
@@ -46,6 +38,7 @@ class ImportBrandsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Importing brands data...');
+        $pimcoreAssetPath = $this->params->get('pimcore_asset_path');
         $fileLocation = $input->getArgument('file-location');
         $fileName = $input->getArgument('file-name');
         $fileExtension = $input->getArgument('file-extension');
@@ -74,7 +67,7 @@ class ImportBrandsCommand extends Command
                 throw new CustomExceptionMessage("Excel Asset not found or not an instance of Asset");
             }
 
-            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . self::PIMCORE_ASSET_PATH . $excelAsset->getFullPath();
+            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . $pimcoreAssetPath . $excelAsset->getFullPath();
 
             $spreadsheet = IOFactory::load($excelAssetLocalPath);
 
@@ -85,13 +78,6 @@ class ImportBrandsCommand extends Command
 
             $data = Utils::sheetToAssocArray($sheet);
             BrandStorageMethods::storeBrands($data, $countryCode);
-            Utils::sendNotification(
-                $this->notificationService,
-                $this->sender,
-                $this->receiver,
-                "From Brands Importer",
-                "All brands are imported"
-            );
 
             $output->writeln('Brands import completed.');
             return Command::SUCCESS;

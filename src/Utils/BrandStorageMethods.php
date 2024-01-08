@@ -4,14 +4,16 @@ namespace App\Utils;
 
 use Pimcore\Model\DataObject\Brand;
 
+
+
 class BrandStorageMethods
 {
     // Properties for tracking import status
-    private static $totalObjects = 0;
-    private static $partialFailed = 0;
-    private static $completelyFailed = 0;
-    private static $fullySuccessful = 0;
-    private static $errorLog = "";
+    public static $totalObjects = 0;
+    public static $partialFailed = 0;
+    public static $completelyFailed = 0;
+    public static $fullySuccessful = 0;
+    public static $errorLog = "";
 
     // Constants for log summary
     const ASSET_FILENAME = "Brands Import Summary.txt";
@@ -23,24 +25,34 @@ class BrandStorageMethods
     const ERROR_ASSET_FILE_PATH = "/Logs/Brands/Brands Error Report.txt";
     const ERROR_PARENT_DIRECTORY_PATH = "/Logs/Brands";
 
+    // Constants for mapping data
+    const LOGO_PREFIX = '/LOGOS/';
+    const OBJECT_PATH = '/Brands/';
+    const PIMCORE_FOLDER_PATH = "/Brands";
+
+    // Constants for validating data
+    const YEAR_FIELD_NAME = 'Year Founded';
+    const SOCIAL_MEDIA_FIELDS = ['Social Media Link', 'Social Media Text', 'Social Media Title'];
+    const WEBSITE_LINK_FIELDS = ['Website Link', 'Website Link Text', 'Website Link Title'];
+
     private static function mapData($brandName, $brand, $countryCode, $brandObj)
     {
-        $brandObj->setLogo(Utils::getAsset('/LOGOS/' . $brand['Logo']));
+        $brandObj->setLogo(Utils::getAsset(self::LOGO_PREFIX . $brand['Logo']));
         $brandObj->setName($brand['Name'], $countryCode);
         $brandObj->setContact($brand['Contact'], $countryCode);
         $brandObj->setCountry($brand['Country']);
         $brandObj->setSocialMediaLink(Utils::getSocialMediaLinkObject(
-            $brand['Social Media Link'],
-            $brand['Social Media Text'],
-            $brand['Social Media Title']
+            $brand[self::SOCIAL_MEDIA_FIELDS[0]],
+            $brand[self::SOCIAL_MEDIA_FIELDS[1]],
+            $brand[self::SOCIAL_MEDIA_FIELDS[2]]
         ));
         $brandObj->setWebsiteLink(Utils::getSocialMediaLinkObject(
-            $brand['Website Link'],
-            $brand['Website Link Text'],
-            $brand['Website Link Title']
+            $brand[self::WEBSITE_LINK_FIELDS[0]],
+            $brand[self::WEBSITE_LINK_FIELDS[1]],
+            $brand[self::WEBSITE_LINK_FIELDS[2]]
         ));
-        if (Utils::isValidYearFounded($brand['Year Founded'] ?? 0)) {
-            $brandObj->setYearFounded($brand['Year Founded']);
+        if (Utils::validateNumber($brand[self::YEAR_FIELD_NAME], 'year')) {
+            $brandObj->setYearFounded($brand[self::YEAR_FIELD_NAME]);
             self::$fullySuccessful++;
         } else {
             self::$partialFailed++;
@@ -83,8 +95,6 @@ class BrandStorageMethods
         self::logBrandSummary();
     }
 
-    // ...
-
     /**
      * Fetch a brand based on provided brand name
      *
@@ -93,7 +103,7 @@ class BrandStorageMethods
      */
     private static function fetchBrand($brandName)
     {
-        return Brand::getByPath('/Brands/' . $brandName);
+        return Brand::getByPath(self::OBJECT_PATH . $brandName);
     }
 
     /**
@@ -122,7 +132,7 @@ class BrandStorageMethods
     {
         $newBrand = new Brand();
         $newBrand->setKey(\Pimcore\Model\Element\Service::getValidKey($brandName, 'object'));
-        $parentId = Utils::getOrCreateFolderIdByPath("/Brands", 1);
+        $parentId = Utils::getOrCreateFolderIdByPath(self::PIMCORE_FOLDER_PATH, 1);
         $newBrand->setParentId($parentId);
         self::mapData($brandName, $brand, $countryCode, $newBrand);
         $newBrand->save();

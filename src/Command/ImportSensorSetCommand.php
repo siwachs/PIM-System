@@ -6,31 +6,25 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 use App\Utils\Utils;
 use App\Utils\SensorSetStorageMethods;
 use App\Exceptions\CustomExceptionMessage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use Pimcore\Model\Notification\Service\NotificationService;
 
 class ImportSensorSetCommand extends Command
 {
-    const PIMCORE_ASSET_PATH = '/public/var/assets';
+    const PIMCORE_ASSET_PATH_PARAMETER = 'pimcore_asset_path';
 
     protected static $defaultName = 'import:sensor-set';
-    private $notificationService;
-    private $sender;
-    private $receiver;
 
-    public function __construct(
-        NotificationService $notificationService,
-        int $sender,
-        int $receiver
-    ) {
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
         parent::__construct();
-        $this->notificationService = $notificationService;
-        $this->sender = $sender;
-        $this->receiver = $receiver;
+        $this->params = $params;
     }
 
     protected function configure()
@@ -52,20 +46,17 @@ class ImportSensorSetCommand extends Command
         $sheetName = $input->getArgument('sheet-name');
         $countryCode = $input->getArgument('country-code');
 
-        if (empty($fileLocation)) {
-            throw new \InvalidArgumentException('File location must be provided');
-        }
-        if (empty($fileName)) {
-            throw new \InvalidArgumentException('File name must be provided');
-        }
-        if (empty($fileExtension)) {
-            throw new \InvalidArgumentException('File extension must be provided');
-        }
-        if (empty($sheetName)) {
-            throw new \InvalidArgumentException('Sheet name must be provided');
-        }
-        if (empty($countryCode)) {
-            throw new \InvalidArgumentException('Country code must be provided');
+        $pimcoreAssetPath = $this->params->get(self::PIMCORE_ASSET_PATH_PARAMETER);
+
+        if (
+            empty($fileLocation)
+            || empty($fileName)
+            || empty($fileExtension)
+            || empty($sheetName)
+            || empty($countryCode)
+        ) {
+            throw new \InvalidArgumentException('File location, name, extension, sheet name,
+             and country code must be provided');
         }
 
         try {
@@ -74,7 +65,7 @@ class ImportSensorSetCommand extends Command
                 throw new CustomExceptionMessage("Excel Asset not found or not an instance of Asset");
             }
 
-            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . self::PIMCORE_ASSET_PATH . $excelAsset->getFullPath();
+            $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . $pimcoreAssetPath . $excelAsset->getFullPath();
 
             $spreadsheet = IOFactory::load($excelAssetLocalPath);
 
@@ -85,14 +76,6 @@ class ImportSensorSetCommand extends Command
 
             $data = Utils::sheetToAssocArray($sheet);
             SensorSetStorageMethods::storeSensorSet($data, $countryCode);
-
-            Utils::sendNotification(
-                $this->notificationService,
-                $this->sender,
-                $this->receiver,
-                "From Sensor Set Importer",
-                "All sensor set data are imported"
-            );
 
             $output->writeln('Sensor set import completed.');
             return Command::SUCCESS;

@@ -3,6 +3,8 @@
 namespace App\Utils;
 
 use Pimcore\Model\DataObject\MotherBoard;
+use Pimcore\Model\DataObject\Brand;
+use Pimcore\Model\DataObject\Manufacturer;
 
 class MotherboardStorageMethods
 {
@@ -43,7 +45,7 @@ class MotherboardStorageMethods
             $motherboard['Quick Start Guide Title']
         ));
 
-        $brand = Utils::getBrandIfExists('/Brands/' . $motherboard['Brand']);
+        $brand = Utils::getObjectByPathIfExists(Brand::class, '/Brands/' . $motherboard['Brand']);
         if ($brand == null) {
             self::$errorLog .= "Warning in the brand name: in " .
                 $motherboardName . " the brand object of " .
@@ -53,7 +55,10 @@ class MotherboardStorageMethods
             $motherboardObj->setBrand([$brand]);
         }
 
-        $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $motherboard['Manufacturer']);
+        $manufacturer = Utils::getObjectByPathIfExists(
+            Manufacturer::class,
+            '/Manufacturers/' . $motherboard['Manufacturer']
+        );
         if ($manufacturer == null) {
             self::$errorLog .= "Warning in the manufacturer name: in " .
                 $motherboardName . " the manufacturer object of " .

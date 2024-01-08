@@ -36,7 +36,7 @@ class ManufacturerStorageMethods
             $manufacturer['Website Link Text'],
             $manufacturer['Website Link Title']
         ));
-        if (Utils::isValidYearFounded($manufacturer['Year Founded'] ?? 0)) {
+        if (Utils::validateNumber($manufacturer['Year Founded'], 'year')) {
             $manufacturerObj->setYearFounded($manufacturer['Year Founded']);
             self::$fullySuccessful++;
         } else {

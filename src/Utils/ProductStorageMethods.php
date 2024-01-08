@@ -4,9 +4,76 @@ namespace App\Utils;
 
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Brand;
+use Pimcore\Model\DataObject\Camera;
+use Pimcore\Model\DataObject\Category;
 use Pimcore\Model\DataObject\Data\Video;
+use Pimcore\Model\DataObject\HDD;
+use Pimcore\Model\DataObject\Manufacturer;
+use Pimcore\Model\DataObject\MotherBoard;
+use Pimcore\Model\DataObject\OperatingSystem;
+use Pimcore\Model\DataObject\Processor;
+use Pimcore\Model\DataObject\RAM;
+use Pimcore\Model\DataObject\ROM;
+use Pimcore\Model\DataObject\Screen;
+use Pimcore\Model\DataObject\SensorsSet;
+use Pimcore\Model\DataObject\Speakers;
+use Pimcore\Model\DataObject\SSD;
 
-class ProductStorageMethods
+class ProductStorageMethodsHelpers
+{
+    // Properties for tracking import status
+    public static $totalObjects = 0;
+    public static $partialFailed = 0;
+    public static $completelyFailed = 0;
+    public static $fullySuccessful = 0;
+    public static $errorLog = "";
+
+    public static function handleEmptyTypeVariant($productData)
+    {
+        $type = $productData['Type'];
+        $productName = $productData['Name'];
+        $sku = $productData['SKU'];
+
+        if ($type === 'Variant' && (empty($productName) || !preg_match('/^SKU\d+$/', $sku))) {
+            self::$completelyFailed++;
+            self::$errorLog .= "Error in " . $productName . ". The name or SKU field is empty or invalid.\n";
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function handleNonVariantEmptyFields($productData)
+    {
+        $type = $productData['Type'];
+        $objectName = $productData['Object Name'];
+        $productName = $productData['Name'];
+
+        if ($type !== 'Variant' && (empty($objectName) || empty($productName))) {
+            self::$completelyFailed++;
+            self::$errorLog .= "Error in object" . $objectName .
+                ". The name or object name field is empty or invalid.\n";
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function compareProductData($a, $b)
+    {
+        $isEmptyParentA = empty($a['Type']);
+        $isEmptyParentB = empty($b['Type']);
+
+        if ($isEmptyParentA !== $isEmptyParentB) {
+            return $isEmptyParentA ? -1 : 1;
+        }
+
+        return 0;
+    }
+}
+
+class ProductStorageMethods extends ProductStorageMethodsHelpers
 {
     const PRODUCTS_PATH = "/Products/";
     const PROCESSORS_PATH = '/Processors/';
@@ -34,13 +101,6 @@ class ProductStorageMethods
     const HDD = 'HDD';
     const SENSORS_SET = "Sensor Sets";
     const CONNECTIVITY_TECHNOLGIES = "Connectivity Technolgies";
-
-    // Properties for tracking import status
-    private static $totalObjects = 0;
-    private static $partialFailed = 0;
-    private static $completelyFailed = 0;
-    private static $fullySuccessful = 0;
-    private static $errorLog = "";
 
     // Constants for log summary
     const ASSET_FILENAME = "Products Import Summary.txt";
@@ -96,50 +156,6 @@ class ProductStorageMethods
 
         self::logProductSummary();
     }
-
-    private static function compareProductData($a, $b)
-    {
-        $isEmptyParentA = empty($a['Type']);
-        $isEmptyParentB = empty($b['Type']);
-
-        if ($isEmptyParentA !== $isEmptyParentB) {
-            return $isEmptyParentA ? -1 : 1;
-        }
-
-        return 0;
-    }
-
-    private static function handleEmptyTypeVariant($productData)
-    {
-        $type = $productData['Type'];
-        $productName = $productData['Name'];
-        $sku = $productData['SKU'];
-
-        if ($type === 'Variant' && (empty($productName) || !preg_match('/^SKU\d+$/', $sku))) {
-            self::$completelyFailed++;
-            self::$errorLog .= "Error in " . $productName . ". The name or SKU field is empty or invalid.\n";
-            return true;
-        }
-
-        return false;
-    }
-
-    private static function handleNonVariantEmptyFields($productData)
-    {
-        $type = $productData['Type'];
-        $objectName = $productData['Object Name'];
-        $productName = $productData['Name'];
-
-        if ($type !== 'Variant' && (empty($objectName) || empty($productName))) {
-            self::$completelyFailed++;
-            self::$errorLog .= "Error in object" . $objectName .
-                ". The name or object name field is empty or invalid.\n";
-            return true;
-        }
-
-        return false;
-    }
-
 
     private static function fetchProduct($objectName, $productHierarchy, $type, $sku)
     {
@@ -251,6 +267,9 @@ class ProductStorageMethods
             $fullySuccessful = self::setMeasurementsData($productObj, $productData, $productName);
             $fullySuccessful = self::setTechnicalDetailsData($productObj, $productData, $productName);
             self::setAdvanceTechnicalData($productObj, $productData);
+            if ($type === 'Variant') {
+                self::setClassificationStore($productObj, $productData);
+            }
 
             if ($fullySuccessful) {
                 self::$fullySuccessful++;
@@ -279,7 +298,7 @@ class ProductStorageMethods
             $productObj->setDescription($productData['Description'], $countryCode);
             $productObj->setCountry($productData['Country']);
 
-            $brand = Utils::getBrandIfExists('/Brands/' . $productData['Brand']);
+            $brand = Utils::getObjectByPathIfExists(Brand::class, '/Brands/' . $productData['Brand']);
             if ($brand == null) {
                 self::$errorLog .= "Warning in the brand name: in " .
                     $productName . " the brand object of " .
@@ -288,7 +307,11 @@ class ProductStorageMethods
             } else {
                 $productObj->setBrand([$brand]);
             }
-            $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $productData['Manufacturer']);
+
+            $manufacturer = Utils::getObjectByPathIfExists(
+                Manufacturer::class,
+                '/Manufacturers/' . $productData['Manufacturer']
+            );
             if ($manufacturer == null) {
                 self::$errorLog .= "Warning in the manufacturer name: in " .
                     $productName . " the manufacturer object of " .
@@ -298,7 +321,10 @@ class ProductStorageMethods
                 $productObj->setManufacturer([$manufacturer]);
             }
 
-            $category = Utils::getCategoryIfExist('/Categories/' . $productData['Category']);
+            $category = Utils::getObjectByPathIfExists(
+                Category::class,
+                '/Categories/' . $productData['Category']
+            );
             if ($category === null) {
                 self::$errorLog .= "Warning in the category name: in " .
                     $productName . " the category object of " .
@@ -314,9 +340,7 @@ class ProductStorageMethods
                 );
             }
 
-            if ($type === 'Variant') {
-                $productObj->setColor($productData['Color']);
-            }
+            $productObj->setColor($productData['Color']);
 
             $productObj->setEnergyRating($productData['Energy Rating']);
             return $fullySuccessful;
@@ -391,7 +415,7 @@ class ProductStorageMethods
         string $productName
     ): bool {
         $fullySuccessful = true;
-        if (Utils::validatePrice($productData['Base Price'])) {
+        if (Utils::validateNumber($productData['Base Price'], 'price')) {
             $productObj->setBasePrice($productData['Base Price'], $countryCode);
         } else {
             $fullySuccessful = false;
@@ -399,7 +423,7 @@ class ProductStorageMethods
                 $productName . " the base price is empty or invalid.";
         }
 
-        if (Utils::validatePrice($productData['Selling Price'])) {
+        if (Utils::validateNumber($productData['Selling Price'], 'price')) {
             $productObj->setSellingPrice($productData['Selling Price'], $countryCode);
         } else {
             $fullySuccessful = false;
@@ -443,7 +467,6 @@ class ProductStorageMethods
         } else {
             $fullySuccessful = false;
         }
-
         $productObj->setDimensionUnit($productData['Dimension Unit']);
 
         if (Utils::validateNumber($productData['Size'])) {
@@ -493,105 +516,135 @@ class ProductStorageMethods
 
     private static function setAdvanceTechnicalData(Product $productObj, array $productData): void
     {
-        $productObj->setCamera(
-            isset($productData[self::CAMERA]) &&
-                !empty($productData[self::CAMERA]) &&
-                ($camera = Utils::getCameraIfExist(self::CAMERAS_PATH . $productData[self::CAMERA])) !== null ?
-                [$camera] :
-                $productObj->getCamera()
-        );
+        // For Camera
+        $camera = null;
+        if (!empty($productData[self::CAMERA])) {
+            $cameraObj = Utils::getObjectByPathIfExists(Camera::class, self::CAMERAS_PATH . $productData[self::CAMERA]);
+            $camera = ($cameraObj instanceof Camera) ? $cameraObj : null;
+        }
+        $productObj->setCamera($camera !== null ? [$camera] : $productObj->getCamera());
 
-        $productObj->setMotherboard(
-            isset($productData[self::MOTHERBOARD]) &&
-                !empty($productData[self::MOTHERBOARD]) &&
-                ($motherboard = Utils::getMotherboardIfExist(
-                    self::MOTHERBOARDS_PATH . $productData[self::MOTHERBOARD]
-                )) !== null ?
-                [$motherboard] :
-                $productObj->getMotherboard()
-        );
+        // For Motherboard
+        $motherboard = null;
+        if (!empty($productData[self::MOTHERBOARD])) {
+            $motherboardObj = Utils::getObjectByPathIfExists(
+                MotherBoard::class,
+                self::MOTHERBOARDS_PATH . $productData[self::MOTHERBOARD]
+            );
+            $motherboard = ($motherboardObj instanceof MotherBoard) ? $motherboardObj : null;
+        }
+        $productObj->setMotherboard($motherboard !== null ? [$motherboard] : $productObj->getMotherboard());
 
+        $operatingSystem = null;
+        if (!empty($productData[self::OPERATING_SYSTEM])) {
+            $operatingSystemObj = Utils::getObjectByPathIfExists(
+                OperatingSystem::class,
+                self::OPERATING_SYSTEMS_PATH . $productData[self::OPERATING_SYSTEM]
+            );
+            $operatingSystem = ($operatingSystemObj instanceof OperatingSystem) ? $operatingSystemObj : null;
+        }
         $productObj->setOperatingSystem(
-            isset($productData[self::OPERATING_SYSTEM]) &&
-                !empty($productData[self::OPERATING_SYSTEM]) &&
-                ($os = Utils::getOperatingSystemIfExist(
-                    self::OPERATING_SYSTEMS_PATH . $productData[self::OPERATING_SYSTEM]
-                )) !== null ?
-                [$os] :
-                $productObj->getOperatingSystem()
+            $operatingSystem !== null ? [$operatingSystem] : $productObj->getOperatingSystem()
         );
 
-        $productObj->setProcessor(
-            isset($productData[self::PROCESSOR]) &&
-                !empty($productData[self::PROCESSOR]) &&
-                ($processor = Utils::getProcessorIfExist(
-                    self::PROCESSORS_PATH . $productData[self::PROCESSOR]
-                )) !== null ?
-                [$processor] :
-                $productObj->getProcessor()
-        );
+        // For Processor
+        $processor = null;
+        if (!empty($productData[self::PROCESSOR])) {
+            $processorObj = Utils::getObjectByPathIfExists(
+                Processor::class,
+                self::PROCESSORS_PATH . $productData[self::PROCESSOR]
+            );
+            $processor = ($processorObj instanceof Processor) ? $processorObj : null;
+        }
+        $productObj->setProcessor($processor !== null ? [$processor] : $productObj->getProcessor());
 
-        $productObj->setRam(
-            isset($productData[self::RAM]) &&
-                !empty($productData[self::RAM]) &&
-                ($ram = Utils::getRAMIfExist(self::RAMS_PATH . $productData[self::RAM])) !== null ?
-                [$ram] :
-                $productObj->getRam()
-        );
+        // For RAM
+        $ram = null;
+        if (!empty($productData[self::RAM])) {
+            $ramObj = Utils::getObjectByPathIfExists(RAM::class, self::RAMS_PATH . $productData[self::RAM]);
+            $ram = ($ramObj instanceof RAM) ? $ramObj : null;
+        }
+        $productObj->setRam($ram !== null ? [$ram] : $productObj->getRam());
 
-        $productObj->setRom(
-            isset($productData[self::ROM]) &&
-                !empty($productData[self::ROM]) &&
-                ($rom = Utils::getRAMIfExist(self::ROMS_PATH . $productData[self::ROM])) !== null ?
-                [$rom] :
-                $productObj->getRom()
-        );
+        // For ROM
+        $rom = null;
+        if (!empty($productData[self::ROM])) {
+            $romObj = Utils::getObjectByPathIfExists(ROM::class, self::ROMS_PATH . $productData[self::ROM]);
+            $rom = ($romObj instanceof ROM) ? $romObj : null;
+        }
+        $productObj->setRom($rom !== null ? [$rom] : $productObj->getRom());
 
-        $productObj->setScreen(
-            isset($productData[self::SCREEN]) && !empty($productData[self::SCREEN]) &&
-                ($screen = Utils::getScreenIfExist(self::SCREENS_PATH . $productData[self::SCREEN])) !== null ?
-                [$screen] :
-                $productObj->getScreen()
-        );
+        // For Screen
+        $screen = null;
+        if (!empty($productData[self::SCREEN])) {
+            $screenObj = Utils::getObjectByPathIfExists(Screen::class, self::SCREENS_PATH . $productData[self::SCREEN]);
+            $screen = ($screenObj instanceof Screen) ? $screenObj : null;
+        }
+        $productObj->setScreen($screen !== null ? [$screen] : $productObj->getScreen());
 
-        $productObj->setSensorsSet(
-            isset($productData[self::SENSORS_SET]) && !empty($productData[self::SENSORS_SET]) &&
-                ($sensorsSet = Utils::getSensorsSetIfExist(
-                    self::SENSOR_SETS_PATH . $productData[self::SENSORS_SET]
-                )) !== null ?
-                [$sensorsSet] :
-                $productObj->getSensorsSet()
-        );
+        // For Sensors Set
+        $sensorsSet = null;
+        if (!empty($productData[self::SENSORS_SET])) {
+            $sensorsSetObj = Utils::getObjectByPathIfExists(
+                SensorsSet::class,
+                self::SENSOR_SETS_PATH . $productData[self::SENSORS_SET]
+            );
+            $sensorsSet = ($sensorsSetObj instanceof SensorsSet) ? $sensorsSetObj : null;
+        }
+        $productObj->setSensorsSet($sensorsSet !== null ? [$sensorsSet] : $productObj->getSensorsSet());
 
-        $productObj->setSpeakers(
-            isset($productData[self::SPEAKERS]) && !empty($productData[self::SPEAKERS]) &&
-                ($speakers = Utils::getSpeakersIfExist(
-                    self::SPEAKERS_PATH . $productData[self::SPEAKERS]
-                )) !== null ?
-                [$speakers] :
-                $productObj->getSpeakers()
-        );
+        // For Speakers
+        $speakers = null;
+        if (!empty($productData[self::SPEAKERS])) {
+            $speakersObj = Utils::getObjectByPathIfExists(
+                Speakers::class,
+                self::SPEAKERS_PATH . $productData[self::SPEAKERS]
+            );
+            $speakers = ($speakersObj instanceof Speakers) ? $speakersObj : null;
+        }
+        $productObj->setSpeakers($speakers !== null ? [$speakers] : $productObj->getSpeakers());
 
-        $productObj->setSsd(
-            isset($productData[self::SSD]) && !empty($productData[self::SSD]) &&
-                ($ssd = Utils::getSSDIfExist(self::SSD_PATH . $productData[self::SSD])) !== null ?
-                [$ssd] :
-                $productObj->getSsd()
-        );
+        // For SSD
+        $ssd = null;
+        if (!empty($productData[self::SSD])) {
+            $ssdObj = Utils::getObjectByPathIfExists(SSD::class, self::SSD_PATH . $productData[self::SSD]);
+            $ssd = ($ssdObj instanceof SSD) ? $ssdObj : null;
+        }
+        $productObj->setSsd($ssd !== null ? [$ssd] : $productObj->getSsd());
 
-        $productObj->setHdd(
-            isset($productData[self::HDD]) && !empty($productData[self::HDD]) &&
-                ($hdd = Utils::getHDDIfExist(self::HDD_PATH . $productData[self::HDD])) !== null ?
-                [$hdd] :
-                $productObj->getHdd()
-        );
+        // For HDD
+        $hdd = null;
+        if (!empty($productData[self::HDD])) {
+            $hddObj = Utils::getObjectByPathIfExists(HDD::class, self::HDD_PATH . $productData[self::HDD]);
+            $hdd = ($hddObj instanceof HDD) ? $hddObj : null;
+        }
+        $productObj->setHdd($hdd !== null ? [$hdd] : $productObj->getHdd());
 
         if (
-            isset($productData[self::CONNECTIVITY_TECHNOLGIES])
-            && !empty($productData[self::CONNECTIVITY_TECHNOLGIES])
+            !empty($productData[self::CONNECTIVITY_TECHNOLGIES])
         ) {
             $productObj->setConnectivityTechnolgies([$productData[self::CONNECTIVITY_TECHNOLGIES]]);
         }
+    }
+
+    private static function setClassificationStore(Product $productObj, array $productData): void
+    {
+        $availableGroups = [
+            "Gaming and Entertainment" => 3,
+            "Photography Enthusiasts" => 4,
+            "Budget Conscious Users" => 5,
+            "Business Productivity" => 1
+        ];
+        $groups = $productData['Classification Groups'];
+        $groupNames = explode(',', $groups);
+        $groupNames = array_map('trim', $groupNames);
+        $activeGroups = [];
+        foreach ($groupNames as $groupName) {
+            if (array_key_exists($groupName, $availableGroups)) {
+                $activeGroups[$availableGroups[$groupName]] = true;
+            }
+        }
+        $productObj->getProductUsageScenarios()->setActiveGroups($activeGroups);
     }
 
     private static function logProductSummary()

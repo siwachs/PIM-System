@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Pimcore\Model\DataObject\Manufacturer;
 use Pimcore\Model\DataObject\SSD;
 
 class SSDStorageMethods
@@ -35,7 +36,7 @@ class SSDStorageMethods
         $ssdObj->setReadWriteSpeed($ssd['Read/Write Speed']);
         $ssdObj->setEnduranceOrLifespan($ssd['Endurance/Lifespan']);
 
-        $brand = Utils::getBrandIfExists('/Brands/' . $ssd['Brand']);
+        $brand = Utils::getObjectByPathIfExists(Manufacturer::class, '/Brands/' . $ssd['Brand']);
         if ($brand == null) {
             self::$errorLog .= "Warning: in the brand name, in " .
                 $ssdName . ", the brand object of " .
@@ -45,7 +46,7 @@ class SSDStorageMethods
             $ssdObj->setBrand([$brand]);
         }
 
-        $manufacturer = Utils::getManufacturerIfExists('/Manufacturers/' . $ssd['Manufacturer']);
+        $manufacturer = Utils::getObjectByPathIfExists(Manufacturer::class, '/Manufacturers/' . $ssd['Manufacturer']);
         if ($manufacturer === null) {
             self::$errorLog .= "Warning: in the manufacturer name, in " .
                 $ssdName . ", the manufacturer object of " .
