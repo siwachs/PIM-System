@@ -4,6 +4,36 @@ parameters:
     notification_sender: "siwachs128@gmail.com"
     notification_receiver: "siwachs128@gmail.com"
 
+    available_groups:
+        "Gaming and Entertainment": 3
+        "Photography Enthusiasts": 4
+        "Budget Conscious Users": 5
+        "Business Productivity": 1
+
+    group_attributes:
+        "Gaming and Entertainment":
+            "Processor Performance": 8
+            "Display Quality": 21
+            "Entertainment Apps": 11
+            "Store Description": 20
+        "Photography Enthusiasts":
+            "Camera Specs": 12
+            "Photography Modes": 13
+            "Image Stabilization": 14
+            "Editing Software Compatibility": 15
+            "Store Description": 20
+        "Budget Conscious Users":
+            "Value for Money": 16
+            "Performance": 17
+            "Essential Features": 18
+            "Affordability": 19
+            "Store Description": 20
+        "Business Productivity":
+            "Store Description": 20
+            "Productivity Apps": 5
+            "Multitasking Capabilities": 6
+            "Work Software Compatibility": 7
+
 services:
     _defaults:
         autowire: true

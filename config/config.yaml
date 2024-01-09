@@ -37,4 +37,4 @@ services:
 framework:
     mailer:
         transports:
-            main: smtp://siwachs128@gmail.com:pass@smtp.gmail.com:587
+            main: smtp://siwachs128@gmail.com:gmvdqrwidshqkcad@smtp.gmail.com:587

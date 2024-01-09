@@ -112,7 +112,7 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
     const ERROR_ASSET_FILE_PATH = "/Logs/Products/Products Error Report.txt";
     const ERROR_PARENT_DIRECTORY_PATH = "/Logs/Products";
 
-    public static function storeProducts($productArray, $countryCode)
+    public static function storeProducts($productArray, $countryCode, $params)
     {
         self::$totalObjects = count($productArray);
         usort($productArray, function ($a, $b) {
@@ -138,7 +138,15 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
                 $productObj = self::fetchProduct($objectName, $productHierarchy, $type, $sku);
 
                 if ($productObj instanceof Product) {
-                    self::updateProduct($type, $objectName, $productName, $productData, $countryCode, $productObj);
+                    self::updateProduct(
+                        $type,
+                        $objectName,
+                        $productName,
+                        $productData,
+                        $countryCode,
+                        $productObj,
+                        $params
+                    );
                 } else {
                     self::createProduct(
                         $objectName,
@@ -146,7 +154,8 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
                         $type,
                         $productName,
                         $productData,
-                        $countryCode
+                        $countryCode,
+                        $params
                     );
                 }
             } catch (\Exception $e) {
@@ -179,11 +188,12 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
         string $productName,
         array $productData,
         string $countryCode,
-        Product $productObj
+        Product $productObj,
+        mixed $params
     ) {
         try {
             if ($type === 'Variant') {
-                self::mapProductData($type, $productName, $productData, $countryCode, $productObj);
+                self::mapProductData($type, $productName, $productData, $countryCode, $productObj, $params);
             } else {
                 self::mapProductData($type, $objectName, $productData, $countryCode, $productObj);
             }
@@ -201,7 +211,8 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
         string $type,
         string $productName,
         array $productData,
-        string $countryCode
+        string $countryCode,
+        mixed $params
     ) {
         try {
             $newProduct = new Product();
@@ -232,7 +243,7 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
             }
 
             if ($type === 'Variant') {
-                self::mapProductData($type, $productName, $productData, $countryCode, $newProduct);
+                self::mapProductData($type, $productName, $productData, $countryCode, $newProduct, $params);
             } else {
                 self::mapProductData($type, $objectName, $productData, $countryCode, $newProduct);
             }
@@ -248,7 +259,8 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
         string $productName,
         array $productData,
         string $countryCode,
-        Product $productObj
+        Product $productObj,
+        mixed $params = null
     ) {
         try {
             $fullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
@@ -268,7 +280,7 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
             $fullySuccessful = self::setTechnicalDetailsData($productObj, $productData, $productName);
             self::setAdvanceTechnicalData($productObj, $productData);
             if ($type === 'Variant') {
-                self::setClassificationStore($productObj, $productData);
+                self::setClassificationStore($productObj, $productData, $params);
             }
 
             if ($fullySuccessful) {
@@ -627,21 +639,27 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
         }
     }
 
-    private static function setClassificationStore(Product $productObj, array $productData): void
+    private static function setClassificationStore(Product $productObj, array $productData, mixed $params): void
     {
-        $availableGroups = [
-            "Gaming and Entertainment" => 3,
-            "Photography Enthusiasts" => 4,
-            "Budget Conscious Users" => 5,
-            "Business Productivity" => 1
-        ];
+        $availableGroups = $params->get('available_groups');
+        $groupAttributes = $params->get('group_attributes');
+
         $groups = $productData['Classification Groups'];
         $groupNames = explode(',', $groups);
         $groupNames = array_map('trim', $groupNames);
         $activeGroups = [];
         foreach ($groupNames as $groupName) {
             if (array_key_exists($groupName, $availableGroups)) {
-                $activeGroups[$availableGroups[$groupName]] = true;
+                $groupId = $availableGroups[$groupName];
+                $activeGroups[$groupId] = true;
+                $groupAttributesArray = $groupAttributes[$groupName];
+                foreach ($groupAttributesArray as $keyDefinition => $keyId) {
+                    $productObj->getProductUsageScenarios()->setLocalizedKeyValue(
+                        $groupId,
+                        $keyId,
+                        $productData[$keyDefinition]
+                    );
+                }
             }
         }
         $productObj->getProductUsageScenarios()->setActiveGroups($activeGroups);

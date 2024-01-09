@@ -47,20 +47,15 @@ class ImportProductsCommand extends Command
         $sheetName = $input->getArgument('sheet-name');
         $countryCode = $input->getArgument('country-code');
 
-        if (empty($fileLocation)) {
-            throw new \InvalidArgumentException('File location must be provided');
-        }
-        if (empty($fileName)) {
-            throw new \InvalidArgumentException('File name must be provided');
-        }
-        if (empty($fileExtension)) {
-            throw new \InvalidArgumentException('File extension must be provided');
-        }
-        if (empty($sheetName)) {
-            throw new \InvalidArgumentException('Sheet name must be provided');
-        }
-        if (empty($countryCode)) {
-            throw new \InvalidArgumentException('Country code must be provided');
+        if (
+            empty($fileLocation)
+            || empty($fileName)
+            || empty($fileExtension)
+            || empty($sheetName)
+            || empty($countryCode)
+        ) {
+            throw new \InvalidArgumentException('File location, name, extension, sheet name,
+             and country code must be provided');
         }
 
         try {
@@ -79,7 +74,7 @@ class ImportProductsCommand extends Command
             }
 
             $data = Utils::sheetToAssocArray($sheet);
-            ProductStorageMethods::storeProducts($data, $countryCode);
+            ProductStorageMethods::storeProducts($data, $countryCode, $this->params);
 
             Utils::sendMail(
                 $receiver,
