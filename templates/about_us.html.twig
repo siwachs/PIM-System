@@ -1,15 +1,15 @@
 {% extends 'layout/app.html.twig' %}
 
 {% block PAGE_TITLE %}
-  <title>About Us</title>
+	<title>About Us</title>
 {% endblock %}
 
 {% block PAGE_CONTENT %}
-  <div class="container">
-    <div class="text-center my-3">{{ pimcore_image('about_us_image', { title: 'Drag your image here.', width: 200, height: 200, thumbnail: 'bruteForce' }) }}</div>
+	<div class="container">
+		<div class="text-center my-3">{{ pimcore_image('about_us_image', { title: 'Drag your image here.', width: 200, height: 200, thumbnail: 'bruteForce' }) }}</div>
 
-    <h1 class="my-3">{{ pimcore_input('about_us_heading', { width: 540 }) }}</h1>
+		<h1 class="my-3">{{ pimcore_input('about_us_heading', { width: 540 }) }}</h1>
 
-    <p class="mb-5">{{ pimcore_textarea('about_us_desc', { nl2br: true, height: 300, placeholder: 'About Us Description' }) }}</p>
-  </div>
+		<p class="mb-5">{{ pimcore_textarea('about_us_desc', { nl2br: true, height: 300, placeholder: 'About Us Description' }) }}</p>
+	</div>
 {% endblock %}

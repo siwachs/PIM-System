@@ -73,6 +73,11 @@ class ProductStorageMethodsHelpers
     }
 }
 
+/**
+ * Class ProductStorageMethods
+ *
+ * Utility class for handling the storage of product data in Pimcore.
+ */
 class ProductStorageMethods extends ProductStorageMethodsHelpers
 {
     const PRODUCTS_PATH = "/Products/";
@@ -112,6 +117,13 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
     const ERROR_ASSET_FILE_PATH = "/Logs/Products/Products Error Report.txt";
     const ERROR_PARENT_DIRECTORY_PATH = "/Logs/Products";
 
+    /**
+     * Stores products in Pimcore based on the provided product data.
+     *
+     * @param array  $productArray An array containing product data.
+     * @param string $countryCode  The country code for localization.
+     * @param mixed  $params       Additional parameters for product storage.
+     */
     public static function storeProducts($productArray, $countryCode, $params)
     {
         self::$totalObjects = count($productArray);

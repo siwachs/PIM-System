@@ -3,6 +3,9 @@ parameters:
     pimcore_asset_path: "/public/var/assets"
     notification_sender: "siwachs128@gmail.com"
     notification_receiver: "siwachs128@gmail.com"
+    notification_subject: "Pimcore Data Importer"
+    notification_message: "Data object have been imported."
+    notification_template_path: "/mail/importer_mail_template.html.twig"
 
     available_groups:
         "Gaming and Entertainment": 3
@@ -44,6 +47,9 @@ services:
         resource: "../src/Controller"
         public: true
         tags: ["controller.service_arguments"]
+
+    Pimcore\Mail:
+        class: Pimcore\Mail
 
     calculate_price:
         class: App\Controller\ActualPriceCalculator

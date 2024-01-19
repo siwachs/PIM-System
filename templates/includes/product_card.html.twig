@@ -1,19 +1,20 @@
 <div class="container m-3">
-  <div class="card" style="width: 18rem;">
-    {{ pimcore_image('product_card_image', { title: 'Drag your image here.', width: 150, height: 150, thumbnail: 'product_card' }) }}
+	<div class="card" style="width: 18rem;">
+		{{ pimcore_image('product_card_image', { title: 'Drag your image here.', width: 150, height: 150, thumbnail: 'product_card' }) }}
 
-    <div class="card-body">
-      <h5 class="card-title">{{ pimcore_input('product_card_heading', { width: 150 }) }}</h5>
-      <p class="card-text">{{ pimcore_input('product_card_desc', { width: 150 }) }}</p>
-    </div>
+		<div class="card-body">
+			<h5 class="card-title">{{ pimcore_input('product_card_heading', { width: 150 }) }}</h5>
+			<p class="card-text">{{ pimcore_input('product_card_desc', { width: 150 }) }}</p>
+		</div>
 
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Price: {{ pimcore_input('product_card_desc', { width: 100 }) }}</li>
-    </ul>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">Price:
+				{{ pimcore_input('product_card_desc', { width: 100 }) }}</li>
+		</ul>
 
-    <div class="card-body">
-      <a href="#" class="btn btn-primary">Buy Now</a>
-      <button type="button" class="btn btn-success">Add to Cart</button>
-    </div>
-  </div>
+		<div class="card-body">
+			<a href="#" class="btn btn-primary">Buy Now</a>
+			<button type="button" class="btn btn-success">Add to Cart</button>
+		</div>
+	</div>
 </div>

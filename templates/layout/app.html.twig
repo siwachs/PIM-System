@@ -1,78 +1,68 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-    <meta name="generator" content="Hugo 0.88.1" />
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="description" content=""/>
+		<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors"/>
+		<meta name="generator" content="Hugo 0.88.1"/>
 
-    {% if document is not defined or not document %}
-      {% set document = pimcore_document(1) %}
-    {% endif %}
+		{% if document is not defined or not document %}
+			{% set document = pimcore_document(1) %}
+		{% endif %}
 
-    {% block PAGE_TITLE %}
-      <title>Layout Template</title>
-    {% endblock %}
+		{% block PAGE_TITLE %}
+			<title>Layout Template</title>
+		{% endblock %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    {% block PAGE_CSS %}
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/> {% block PAGE_CSS %}{% endblock %}{% block PAGE_STYLE %}{% endblock %}
+		</head>
+		<body class="d-flex flex-column min-vh-100">
+			{% include 'includes/navbar.html.twig' %}
 
-    {% endblock %}
+			<main class="flex-grow-1"> {% block PAGE_CONTENT %}{% endblock %}
+				</main>
 
-    {% block PAGE_STYLE %}
+				<footer class="bg-dark text-light py-4">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-4">
+								<h5>Contact Us</h5>
+								<p>Email:
+									{{ pimcore_input('email', { width: 200 }) }}</p>
+								<p>Phone:
+									{{ pimcore_input('phone', { width: 200 }) }}</p>
+							</div>
 
-    {% endblock %}
-  </head>
-  <body class="d-flex flex-column min-vh-100">
-    {% include 'includes/navbar.html.twig' %}
+							<div class="col-md-4">
+								<h5>Follow Us</h5>
+								<ul class="list-unstyled">
+									<li>
+										<a href="#" class="text-light">Facebook</a>
+									</li>
+									<li>
+										<a href="#" class="text-light">Twitter</a>
+									</li>
+									<li>
+										<a href="#" class="text-light">Instagram</a>
+									</li>
+								</ul>
+							</div>
 
-    <main class="flex-grow-1">
-      {% block PAGE_CONTENT %}
+							<div class="col-md-4">
+								<h5>{{ pimcore_input('form_title', { width: 200 }) }}</h5>
+								<form action="" method="post">
+									<div class="mb-3">
+										<input type="email" class="form-control" placeholder="Enter your email"/>
+									</div>
+									<button type="submit" class="btn btn-primary">Subscribe</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</footer>
 
-      {% endblock %}
-    </main>
-
-    <footer class="bg-dark text-light py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h5>Contact Us</h5>
-            <p>Email: {{ pimcore_input('email', { width: 200 }) }}</p>
-            <p>Phone: {{ pimcore_input('phone', { width: 200 }) }}</p>
-          </div>
-
-          <div class="col-md-4">
-            <h5>Follow Us</h5>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" class="text-light">Facebook</a>
-              </li>
-              <li>
-                <a href="#" class="text-light">Twitter</a>
-              </li>
-              <li>
-                <a href="#" class="text-light">Instagram</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-md-4">
-            <h5>{{ pimcore_input('form_title', { width: 200 }) }}</h5>
-            <form action="" method="post">
-              <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Enter your email" />
-              </div>
-              <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    {% block PAGE_JS %}
-
-    {% endblock %}
-  </body>
-</html>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+				{% block PAGE_JS %}{% endblock %}
+			</body>
+		</html>

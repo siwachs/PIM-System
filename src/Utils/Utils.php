@@ -1,11 +1,26 @@
 <?php
 
+/**
+ * Utils Class
+ *
+ * This utility class provides various methods for common tasks related to Pimcore, PhpSpreadsheet,
+ * and general data manipulation. It includes functions for handling spreadsheet data, creating
+ * or retrieving folders, managing assets, adding images to product galleries, validating values,
+ * creating social media link objects, setting categories and sub-categories for products, logging
+ * summaries and errors, uploading files to Pimcore assets, and sending notifications and emails.
+ *
+ * @package App\Utils
+ * @category Utility
+ * @author Shubham Siwach
+ * @version 1.0
+ */
+
 namespace App\Utils;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use Pimcore\Mail;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
+use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Data\ImageGallery;
 use Pimcore\Model\DataObject\Data\Hotspotimage;
@@ -14,14 +29,11 @@ use Pimcore\Model\DataObject\Category;
 use Pimcore\Model\DataObject\Data\Link;
 use Pimcore\Model\Notification\Service\NotificationService;
 
-class BaseClass
-{
-}
-
 class Utils
 {
     const DEFAULT_ASSET_PARENT_PATH = '/';
 
+    // Constants for summary messages
     const SUMMARY_TOTAL_OBJECTS = 'Total Objects: ';
     const SUMMARY_PARTIAL_FAILED = 'Partial Failed Objects: ';
     const SUMMARY_COMPLETELY_FAILED = 'Completely Failed Objects: ';
@@ -384,15 +396,5 @@ class Utils
         string $message
     ) {
         $notificationService->sendToUser($receiver, $sender, $title, $message);
-    }
-
-    public static function sendMail(
-        string $receiver,
-        string $message
-    ): void {
-        $mail = new Mail();
-        $mail->to($receiver);
-        $mail->text($message);
-        $mail->send();
     }
 }

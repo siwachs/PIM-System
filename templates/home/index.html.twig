@@ -1,15 +1,15 @@
 {% extends 'layout/app.html.twig' %}
 
 {% block PAGE_TITLE %}
-  <title>HOME</title>
+	<title>HOME</title>
 {% endblock %}
 
 {% block PAGE_CONTENT %}
-  {{ pimcore_areablock('carousel-content', { allowed: ['gallery-carousel'] }) }}
+	{{ pimcore_areablock('carousel-content', { allowed: ['gallery-carousel'] }) }}
 
-  <div class="container mt-3 mb-5">
-    <h2 class="mb-3">{{ pimcore_input('featured-products', { width: 540 }) }}</h2>
+	<div class="container mt-3 mb-5">
+		<h2 class="mb-3">{{ pimcore_input('featured-products', { width: 540 }) }}</h2>
 
-    {{ pimcore_areablock('product-cards-contnet', { allowed: ['gallery-cards'] }) }}
-  </div>
+		{{ pimcore_areablock('product-cards-contnet', { allowed: ['gallery-cards'] }) }}
+	</div>
 {% endblock %}

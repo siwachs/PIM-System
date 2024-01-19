@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 use App\Utils\Utils;
+use App\Utils\PimcoreMailer;
 use App\Utils\ProductStorageMethods;
 use App\Exceptions\CustomExceptionMessage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -16,14 +17,17 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 class ImportProductsCommand extends Command
 {
     private $params;
+    private $pimcoreMailer;
 
     protected static $defaultName = 'import:products';
 
     public function __construct(
         ParameterBagInterface $params,
+        PimcoreMailer $pimcoreMailer
     ) {
         parent::__construct();
         $this->params = $params;
+        $this->pimcoreMailer = $pimcoreMailer;
     }
 
     protected function configure()
@@ -40,7 +44,11 @@ class ImportProductsCommand extends Command
     {
         $output->writeln('Importing products data...');
         $pimcoreAssetPath = $this->params->get('pimcore_asset_path');
+        $sender = $this->params->get('notification_sender');
         $receiver = $this->params->get('notification_receiver');
+        $notificationSubject = $this->params->get('notification_subject');
+        $notificationMessage = $this->params->get('notification_message');
+        $notificationTemplatePath = $this->params->get('notification_template_path');
         $fileLocation = $input->getArgument('file-location');
         $fileName = $input->getArgument('file-name');
         $fileExtension = $input->getArgument('file-extension');
@@ -75,10 +83,12 @@ class ImportProductsCommand extends Command
 
             $data = Utils::sheetToAssocArray($sheet);
             ProductStorageMethods::storeProducts($data, $countryCode, $this->params);
-
-            Utils::sendMail(
+            $this->pimcoreMailer->sendMail(
+                $sender,
                 $receiver,
-                "From Product Importer: All products are imported"
+                $notificationSubject,
+                $notificationMessage,
+                $notificationTemplatePath
             );
 
             $output->writeln('Products import completed.');

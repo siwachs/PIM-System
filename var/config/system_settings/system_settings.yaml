@@ -1,6 +1,6 @@
 pimcore:
     general:
-        domain: ''
+        domain: localhost
         redirect_to_maindomain: false
         language: en
         valid_languages:
