@@ -7,6 +7,11 @@ parameters:
     notification_message: "Data object have been imported."
     notification_template_path: "/importerMail"
 
+    invalid_args: "invalid_args"
+    file_not_found: "file_not_found"
+    invalid_sheet_name: "invalid_sheet_name"
+    product_import_complete: "product_import_complete"
+
     available_groups:
         "Gaming and Entertainment": 3
         "Photography Enthusiasts": 4

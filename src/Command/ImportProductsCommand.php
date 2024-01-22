@@ -13,22 +13,26 @@ use App\Utils\PimcoreMailer;
 use App\Utils\ProductStorageMethods;
 use App\Exceptions\CustomExceptionMessage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Pimcore\Translation\Translator;
 
 class ImportProductsCommand extends Command
 {
     const HOME_PATH = '/';
     private $params;
     private $pimcoreMailer;
+    private $adminTranslation;
 
     protected static $defaultName = 'import:products';
 
     public function __construct(
         ParameterBagInterface $params,
-        PimcoreMailer $pimcoreMailer
+        PimcoreMailer $pimcoreMailer,
+        Translator $adminTranslation
     ) {
         parent::__construct();
         $this->params = $params;
         $this->pimcoreMailer = $pimcoreMailer;
+        $this->adminTranslation = $adminTranslation;
     }
 
     protected function configure()
@@ -55,6 +59,13 @@ class ImportProductsCommand extends Command
         $notificationSubject = $this->params->get('notification_subject');
         $notificationMessage = $this->params->get('notification_message');
         $notificationTemplatePath = self::HOME_PATH . $countryCode . $this->params->get('notification_template_path');
+        $this->adminTranslation->setLocale($countryCode);
+
+        // Admin Translation Keys
+        $invalidArgs = $this->params->get('invalid_args');
+        $fileNotFound = $this->params->get('file_not_found');
+        $invalidSheetName = $this->params->get('invalid_sheet_name');
+        $productImportCompleted = $this->params->get('product_import_complete');
 
         if (
             empty($fileLocation)
@@ -63,14 +74,15 @@ class ImportProductsCommand extends Command
             || empty($sheetName)
             || empty($countryCode)
         ) {
-            throw new \InvalidArgumentException('File location, name, extension, sheet name,
-             and country code must be provided');
+            $errorMessage = $this->adminTranslation->trans($invalidArgs);
+            throw new \InvalidArgumentException($errorMessage);
         }
 
         try {
             $excelAsset = Utils::getAsset($fileLocation . $fileName . $fileExtension);
             if ($excelAsset === null) {
-                throw new CustomExceptionMessage("Excel Asset not found or not an instance of Asset");
+                $errorMessage = $this->adminTranslation->trans($fileNotFound);
+                throw new CustomExceptionMessage($errorMessage);
             }
 
             $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . $pimcoreAssetPath . $excelAsset->getFullPath();
@@ -79,7 +91,8 @@ class ImportProductsCommand extends Command
 
             $sheet = $spreadsheet->getSheetByName($sheetName);
             if ($sheet === null) {
-                throw new \InvalidArgumentException("Invalid Sheet name.");
+                $errorMessage = $this->adminTranslation->trans($invalidSheetName);
+                throw new \InvalidArgumentException($errorMessage);
             }
 
             $data = Utils::sheetToAssocArray($sheet);
@@ -92,7 +105,8 @@ class ImportProductsCommand extends Command
                 $notificationTemplatePath
             );
 
-            $output->writeln('Products import completed.');
+            $successMessage = $this->adminTranslation->trans($productImportCompleted);
+            $output->writeln($successMessage);
             return Command::SUCCESS;
         } catch (CustomExceptionMessage $e) {
             $output->writeln("Error: " . $e->getMessage());
