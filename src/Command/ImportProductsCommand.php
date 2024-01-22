@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ImportProductsCommand extends Command
 {
+    const HOME_PATH = '/';
     private $params;
     private $pimcoreMailer;
 
@@ -44,16 +45,16 @@ class ImportProductsCommand extends Command
     {
         $output->writeln('Importing products data...');
         $pimcoreAssetPath = $this->params->get('pimcore_asset_path');
-        $sender = $this->params->get('notification_sender');
-        $receiver = $this->params->get('notification_receiver');
-        $notificationSubject = $this->params->get('notification_subject');
-        $notificationMessage = $this->params->get('notification_message');
-        $notificationTemplatePath = $this->params->get('notification_template_path');
         $fileLocation = $input->getArgument('file-location');
         $fileName = $input->getArgument('file-name');
         $fileExtension = $input->getArgument('file-extension');
         $sheetName = $input->getArgument('sheet-name');
         $countryCode = $input->getArgument('country-code');
+        $sender = $this->params->get('notification_sender');
+        $receiver = $this->params->get('notification_receiver');
+        $notificationSubject = $this->params->get('notification_subject');
+        $notificationMessage = $this->params->get('notification_message');
+        $notificationTemplatePath = self::HOME_PATH . $countryCode . $this->params->get('notification_template_path');
 
         if (
             empty($fileLocation)

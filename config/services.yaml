@@ -5,7 +5,7 @@ parameters:
     notification_receiver: "siwachs128@gmail.com"
     notification_subject: "Pimcore Data Importer"
     notification_message: "Data object have been imported."
-    notification_template_path: "/mail/importer_mail_template.html.twig"
+    notification_template_path: "/importerMail"
 
     available_groups:
         "Gaming and Entertainment": 3

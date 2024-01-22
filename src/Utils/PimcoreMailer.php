@@ -46,19 +46,10 @@ class PimcoreMailer extends FrontendController
         string $templatePath
     ): void {
         try {
-            $response = $this->render($templatePath, [
-                'subject' => $subject,
-                'from' => $sender,
-                'to' => $receiver,
-                'message' => $message
-            ]);
-
-            $template = $response->getContent();
-
             // Set email details and send
             $this->pimcoreMailer->to($receiver);
             $this->pimcoreMailer->subject($subject);
-            $this->pimcoreMailer->html($template);
+            $this->pimcoreMailer->setDocument($templatePath);
             $this->pimcoreMailer->send();
         } catch (\Exception $e) {
             dump($e->getMessage());
