@@ -10,24 +10,18 @@ use \Pimcore\Model\DataObject\Data\Video;
 
 class ProductExportMethods
 {
+    const SHEET_ENDING = 'BD';
+
     /**
      * Sets headers (column names) in an Excel spreadsheet.
      *
      * @param Worksheet $sheet The worksheet object to set headers on.
+     * @param mixed $params   Additional parameters
      * @return void
      */
-    public static function setExcelHeaders(Worksheet $sheet)
+    public static function setExcelHeaders(Worksheet $sheet, mixed $params)
     {
-        $headers = [
-            'SKU', 'Name', 'Description', 'Country', 'Brand', 'Manufacturer', 'Category', 'Sub Categories',
-            'Color', 'Energy Rating', 'Master Image Link', 'Images Link', 'Video Link', 'Video Poster',
-            'Video Title', 'Video Description', 'Quantity Sold', 'Revenue', 'Product Availability', 'Rating',
-            'Base Price', 'Selling Price', 'Delivery Charges', 'Tax', 'Discount', 'Length', 'Breadth', 'Height',
-            'Dimension Unit', 'Size', 'Size Unit', 'Weight', 'Weight Unit', 'Model Number', 'Model Year',
-            'Model Name', 'Hardware Interface', 'Power Source', 'Voltage', 'Wattage', 'Country Of Origin',
-            'Batteries Required', 'Batteries Included', 'Camera', 'Motherboard', 'Operating System', 'Processor',
-            'RAM', 'ROM', 'Screen', 'Sensors Set', 'Speakers', 'SSD', 'HDD', 'Connectivity Technolgies'
-        ];
+        $headers = $params->get('headers');
 
         $column = 'A';
         foreach ($headers as $header) {
@@ -276,7 +270,7 @@ class ProductExportMethods
             $row++;
         }
 
-        for ($column = 'A'; $column !== 'BD'; $column++) {
+        for ($column = 'A'; $column !== self::SHEET_ENDING; $column++) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
             $sheet->getStyle($column . '1')->getFont()->setBold(true);
         }

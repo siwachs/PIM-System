@@ -24,16 +24,24 @@ class ImportProductsCommand extends Command
 
     protected static $defaultName = 'import:products';
 
+    /**
+     * @param ParameterBagInterface $params The parameter bag containing parameters.
+     * @param PimcoreMailer $pimcoreMailer    The Pimcore mailer instance.
+     * @param Translator $adminTranslation The translator for admin-related translations.
+     */
     public function __construct(
         ParameterBagInterface $params,
         PimcoreMailer $pimcoreMailer,
         Translator $adminTranslation
     ) {
         parent::__construct();
+
+        // Assign the injected dependencies to class properties
         $this->params = $params;
         $this->pimcoreMailer = $pimcoreMailer;
         $this->adminTranslation = $adminTranslation;
     }
+
 
     protected function configure()
     {
@@ -74,15 +82,13 @@ class ImportProductsCommand extends Command
             || empty($sheetName)
             || empty($countryCode)
         ) {
-            $errorMessage = $this->adminTranslation->trans($invalidArgs);
-            throw new \InvalidArgumentException($errorMessage);
+            throw new \InvalidArgumentException($this->adminTranslation->trans($invalidArgs));
         }
 
         try {
             $excelAsset = Utils::getAsset($fileLocation . $fileName . $fileExtension);
             if ($excelAsset === null) {
-                $errorMessage = $this->adminTranslation->trans($fileNotFound);
-                throw new CustomExceptionMessage($errorMessage);
+                throw new CustomExceptionMessage($this->adminTranslation->trans($fileNotFound));
             }
 
             $excelAssetLocalPath = PIMCORE_PROJECT_ROOT . $pimcoreAssetPath . $excelAsset->getFullPath();
@@ -91,8 +97,7 @@ class ImportProductsCommand extends Command
 
             $sheet = $spreadsheet->getSheetByName($sheetName);
             if ($sheet === null) {
-                $errorMessage = $this->adminTranslation->trans($invalidSheetName);
-                throw new \InvalidArgumentException($errorMessage);
+                throw new \InvalidArgumentException($this->adminTranslation->trans($invalidSheetName));
             }
 
             $data = Utils::sheetToAssocArray($sheet);
@@ -105,8 +110,7 @@ class ImportProductsCommand extends Command
                 $notificationTemplatePath
             );
 
-            $successMessage = $this->adminTranslation->trans($productImportCompleted);
-            $output->writeln($successMessage);
+            $output->writeln($this->adminTranslation->trans($productImportCompleted));
             return Command::SUCCESS;
         } catch (CustomExceptionMessage $e) {
             $output->writeln("Error: " . $e->getMessage());
