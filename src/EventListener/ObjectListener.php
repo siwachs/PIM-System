@@ -3,9 +3,9 @@
 namespace App\EventListener;
 
 use Pimcore\Event\Model\ElementEventInterface;
-use Pimcore\Model\DataObject;
 use Pimcore\Model\Element\ValidationException;
 use Pimcore\Event\Model\DataObjectEvent;
+use Pimcore\Model\DataObject\Category;
 use Pimcore\Model\DataObject\Product;
 
 class ObjectListener
@@ -22,7 +22,7 @@ class ObjectListener
             $object = $event->getObject();
 
             if ($object instanceof Product) {
-                $this->filterSubCategories($object);
+                $this->validateCategory($object);
                 $this->filterImages($object);
                 $this->errorLogger($object);
             }
@@ -30,46 +30,45 @@ class ObjectListener
     }
 
     /**
-     * onObjectPostUpdate trigger after updating product.
+     * onObjectPreDelete trigger before deleting category.
      *
      * @param ElementEventInterface $event
      * @return void
      */
-    public function onObjectPostUpdate(ElementEventInterface $event): void
+    public function onObjectPreDelete(ElementEventInterface $event): void
     {
         if ($event instanceof DataObjectEvent) {
             $object = $event->getObject();
 
-            if ($object instanceof Product) {
-                // For Post Update tasks
+            if ($object instanceof Category) {
+                $products = $object->getProducts();
+                foreach ($products as $product) {
+                    $product->setCategory([]);
+                    $product->setPublished(false);
+                    $product->save();
+                }
             }
         }
     }
 
     /**
-     * Filters subcategories of a Product.
-     * Subcategories cannot have parent categories.
+     * Validates the category of a product.
      *
-     * @param Product $product
+     * @param Product $product The product to validate.
+     *
      * @return void
      */
-    private function filterSubCategories(Product $product): void
+    public function validateCategory(Product $product): void
     {
         $category = $product->getCategory();
         if (empty($category)) {
-            $product->setSubCategory([]);
             return;
         }
-
-        $categoryVariants = $category[0]->getChildren([DataObject::OBJECT_TYPE_VARIANT]);
-        $categoryVariantIds = array_map(fn ($variant) => $variant->getId(), iterator_to_array($categoryVariants));
-
-        $subCategoriesArray = $product->getSubCategory();
-        $subCategoriesArray = array_filter($subCategoriesArray, function ($subCategory) use ($categoryVariantIds) {
-            return in_array($subCategory->getId(), $categoryVariantIds, true);
-        });
-
-        $product->setSubCategory($subCategoriesArray);
+        $categoryPathArray = explode('/', $category[0]->getFullPath());
+        $categoryPathArray = array_filter($categoryPathArray);
+        if (count($categoryPathArray) <= 2) {
+            throw new ValidationException('Only child category allowed.');
+        }
     }
 
     /**

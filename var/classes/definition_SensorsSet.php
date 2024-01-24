@@ -9,7 +9,7 @@
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
- * - sensors [fieldcollections]
+ * - sensors [manyToManyRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'SensorsSet',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1703667584,
+   'modificationDate' => 1706077547,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -156,7 +156,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldDefinitionsCache' => NULL,
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
              'name' => 'sensors',
              'title' => 'Sensors',
              'tooltip' => '',
@@ -167,24 +167,46 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'allowedTypes' => 
+             'classes' => 
             array (
-              0 => 'sensor',
+              0 => 
+              array (
+                'classes' => 'Sensor',
+              ),
             ),
-             'lazyLoading' => true,
+             'displayMode' => NULL,
+             'pathFormatterClass' => '',
              'maxItems' => NULL,
-             'disallowAddRemove' => false,
-             'disallowReorder' => false,
-             'collapsed' => false,
-             'collapsible' => false,
-             'border' => false,
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+              0 => 
+              array (
+                'assetTypes' => '',
+              ),
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+              0 => 
+              array (
+                'documentTypes' => '',
+              ),
+            ),
+             'enableTextSelection' => false,
+             'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,

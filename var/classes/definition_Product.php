@@ -3,7 +3,6 @@
 /**
  * Inheritance: yes
  * Variants: yes
- * Title: Product
  *
  * Fields Summary:
  * - sku [input]
@@ -27,7 +26,6 @@
  * - brand [manyToManyObjectRelation]
  * - manufacturer [manyToManyObjectRelation]
  * - category [manyToManyObjectRelation]
- * - subCategory [manyToManyObjectRelation]
  * - color [input]
  * - energyRating [input]
  * - length [numeric]
@@ -67,10 +65,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Product',
    'name' => 'Product',
-   'title' => 'Product',
+   'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1704735665,
+   'modificationDate' => 1706087435,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -812,7 +810,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => 1,
-                 'visibleFields' => 'logo,name',
+                 'visibleFields' => 'fullpath,logo,name',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -852,7 +850,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => 1,
-                 'visibleFields' => 'name,logo',
+                 'visibleFields' => 'fullpath,logo,name',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -892,7 +890,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => 1,
-                 'visibleFields' => 'name,description',
+                 'visibleFields' => 'fullpath,name',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -904,46 +902,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'height' => '',
               )),
               6 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'name' => 'subCategory',
-                 'title' => 'Sub Category',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'Category',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'maxItems' => NULL,
-                 'visibleFields' => 'name,description',
-                 'allowToCreateNewObject' => false,
-                 'allowToClearRelation' => true,
-                 'optimizedAdminLoading' => false,
-                 'enableTextSelection' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'width' => '',
-                 'height' => '',
-              )),
-              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'color',
                  'title' => 'Color',
@@ -973,7 +931,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              8 => 
+              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'energyRating',
                  'title' => 'Energy Rating',

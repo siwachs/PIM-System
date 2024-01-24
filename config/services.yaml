@@ -132,8 +132,8 @@ services:
               }
             - {
                   name: kernel.event_listener,
-                  event: pimcore.dataobject.postUpdate,
-                  method: onObjectPostUpdate,
+                  event: pimcore.dataobject.preDelete,
+                  method: onObjectPreDelete,
               }
 
     # Workflow Listeners

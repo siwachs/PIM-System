@@ -11,6 +11,7 @@
  * -- description [textarea]
  * -- slug [input]
  * -- keywords [input]
+ * - products [reverseObjectRelation]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -20,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1703065703,
+   'modificationDate' => 1706085910,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -215,6 +216,48 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
              'fieldDefinitionsCache' => NULL,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
+             'name' => 'products',
+             'title' => 'Products',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+            ),
+             'displayMode' => NULL,
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'visibleFields' => 
+            array (
+            ),
+             'allowToCreateNewObject' => false,
+             'allowToClearRelation' => true,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'ownerClassName' => 'Product',
+             'ownerClassId' => NULL,
+             'ownerFieldName' => 'category',
+             'lazyLoading' => true,
           )),
         ),
          'locked' => false,

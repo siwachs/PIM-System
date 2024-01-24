@@ -20,65 +20,12 @@ use Pimcore\Model\DataObject\SensorsSet;
 use Pimcore\Model\DataObject\Speakers;
 use Pimcore\Model\DataObject\SSD;
 
-class ProductStorageMethodsHelpers
-{
-    // Properties for tracking import status
-    public static $totalObjects = 0;
-    public static $partialFailed = 0;
-    public static $completelyFailed = 0;
-    public static $fullySuccessful = 0;
-    public static $errorLog = "";
-
-    public static function handleEmptyTypeVariant($productData)
-    {
-        $type = $productData['Type'];
-        $productName = $productData['Name'];
-        $sku = $productData['SKU'];
-
-        if ($type === 'Variant' && (empty($productName) || !preg_match('/^SKU\d+$/', $sku))) {
-            self::$completelyFailed++;
-            self::$errorLog .= "Error in " . $productName . ". The name or SKU field is empty or invalid.\n";
-            return true;
-        }
-
-        return false;
-    }
-
-    public static function handleNonVariantEmptyFields($productData)
-    {
-        $type = $productData['Type'];
-        $objectName = $productData['Object Name'];
-        $productName = $productData['Name'];
-
-        if ($type !== 'Variant' && (empty($objectName) || empty($productName))) {
-            self::$completelyFailed++;
-            self::$errorLog .= "Error in object" . $objectName .
-                ". The name or object name field is empty or invalid.\n";
-            return true;
-        }
-
-        return false;
-    }
-
-    public static function compareProductData($a, $b)
-    {
-        $isEmptyParentA = empty($a['Type']);
-        $isEmptyParentB = empty($b['Type']);
-
-        if ($isEmptyParentA !== $isEmptyParentB) {
-            return $isEmptyParentA ? -1 : 1;
-        }
-
-        return 0;
-    }
-}
-
 /**
  * Class ProductStorageMethods
  *
  * Utility class for handling the storage of product data in Pimcore.
  */
-class ProductStorageMethods extends ProductStorageMethodsHelpers
+class ProductStorageMethods
 {
     const PRODUCTS_PATH = "/Products/";
     const PROCESSORS_PATH = '/Processors/';
@@ -116,6 +63,56 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
     const ERROR_ASSET_FILENAME = "Products Error Report.txt";
     const ERROR_ASSET_FILE_PATH = "/Logs/Products/Products Error Report.txt";
     const ERROR_PARENT_DIRECTORY_PATH = "/Logs/Products";
+
+    // Properties for tracking import status
+    public static $totalObjects = 0;
+    public static $partialFailed = 0;
+    public static $completelyFailed = 0;
+    public static $fullySuccessful = 0;
+    public static $errorLog = "";
+
+    private static function handleEmptyTypeVariant($productData)
+    {
+        $type = $productData['Type'];
+        $productName = $productData['Name'];
+        $sku = $productData['SKU'];
+
+        if ($type === 'Variant' && (empty($productName) || !preg_match('/^SKU\d+$/', $sku))) {
+            self::$completelyFailed++;
+            self::$errorLog .= "Error in product (" . $productName . "). The name or SKU field is empty or invalid.\n";
+            return true;
+        }
+
+        return false;
+    }
+
+    private static function handleNonVariantEmptyFields($productData)
+    {
+        $type = $productData['Type'];
+        $objectName = $productData['Object Name'];
+        $productName = $productData['Name'];
+
+        if ($type !== 'Variant' && (empty($objectName) || empty($productName))) {
+            self::$completelyFailed++;
+            self::$errorLog .= "Error in object (" . $objectName .
+                "). The name or object name field is empty or invalid.\n";
+            return true;
+        }
+
+        return false;
+    }
+
+    private static function compareProductData($a, $b)
+    {
+        $isEmptyParentA = empty($a['Type']);
+        $isEmptyParentB = empty($b['Type']);
+
+        if ($isEmptyParentA !== $isEmptyParentB) {
+            return $isEmptyParentA ? -1 : 1;
+        }
+
+        return 0;
+    }
 
     /**
      * Stores products in Pimcore based on the provided product data.
@@ -275,12 +272,14 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
         mixed $params = null
     ) {
         try {
-            $fullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
+            $baseDataFullySuccessful = self::setBaseData($type, $productObj, $productData, $countryCode, $productName);
             self::setAssetData($productObj, $productData, $countryCode);
+            $salesDataFullySuccessful = true;
+            $pricingDataFullySuccessful = true;
 
             if ($type === 'Variant') {
-                $fullySuccessful = self::setSalesData($productObj, $productData, $countryCode, $productName);
-                $fullySuccessful = self::setPricingData(
+                $salesDataFullySuccessful = self::setSalesData($productObj, $productData, $countryCode, $productName);
+                $pricingDataFullySuccessful = self::setPricingData(
                     $productObj,
                     $productData,
                     $countryCode,
@@ -288,14 +287,20 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
                 );
             }
 
-            $fullySuccessful = self::setMeasurementsData($productObj, $productData, $productName);
-            $fullySuccessful = self::setTechnicalDetailsData($productObj, $productData, $productName);
+            $measurmentsDataFullySuccessful = self::setMeasurementsData($productObj, $productData, $productName);
+            $technicalDataFullySuccessful = self::setTechnicalDetailsData($productObj, $productData, $productName);
             self::setAdvanceTechnicalData($productObj, $productData);
             if ($type === 'Variant') {
                 self::setClassificationStore($productObj, $productData, $params);
             }
 
-            if ($fullySuccessful) {
+            if (
+                $baseDataFullySuccessful &&
+                $salesDataFullySuccessful &&
+                $pricingDataFullySuccessful &&
+                $measurmentsDataFullySuccessful &&
+                $technicalDataFullySuccessful
+            ) {
                 self::$fullySuccessful++;
             } else {
                 self::$partialFailed++;
@@ -324,9 +329,9 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
 
             $brand = Utils::getObjectByPathIfExists(Brand::class, '/Brands/' . $productData['Brand']);
             if ($brand == null) {
-                self::$errorLog .= "Warning in the brand name: in " .
-                    $productName . " the brand object of " .
-                    $productData['Brand'] . self::IS_MISSING;
+                self::$errorLog .= "Warning in the brand name: in (" .
+                    $productName . ") the brand object of (" .
+                    $productData['Brand'] . ")" . self::IS_MISSING;
                 $fullySuccessful = false;
             } else {
                 $productObj->setBrand([$brand]);
@@ -337,9 +342,9 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
                 '/Manufacturers/' . $productData['Manufacturer']
             );
             if ($manufacturer == null) {
-                self::$errorLog .= "Warning in the manufacturer name: in " .
-                    $productName . " the manufacturer object of " .
-                    $productData['Manufacturer'] . self::IS_MISSING;
+                self::$errorLog .= "Warning in the manufacturer name: in (" .
+                    $productName . ") the manufacturer object of (" .
+                    $productData['Manufacturer'] . ")" . self::IS_MISSING;
                 $fullySuccessful = false;
             } else {
                 $productObj->setManufacturer([$manufacturer]);
@@ -347,21 +352,15 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
 
             $category = Utils::getObjectByPathIfExists(
                 Category::class,
-                '/Categories/' . $productData['Category']
+                '/Categories/' . $productData['Category'] . '/' . $productData['Sub Category']
             );
             if ($category === null) {
-                self::$errorLog .= "Warning in the category name: in " .
-                    $productName . " the category object of " .
-                    $productData['Category'] . self::IS_MISSING;
-                $productObj->setSubCategory([]);
+                self::$errorLog .= "Warning in the category name: in (" .
+                    $productName . ") the category object of (" .
+                    $productData['Sub Category'] . ")" . self::IS_MISSING;
                 $fullySuccessful = false;
             } else {
-                Utils::setCategoryAndSubCategories(
-                    $productObj,
-                    $category,
-                    $productData['Category'],
-                    $productData['Sub Categories']
-                );
+                $productObj->setCategory([$category]);
             }
 
             $productObj->setColor($productData['Color']);
@@ -408,16 +407,16 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
             $productObj->setQuantitySold($productData['Quantity Sold'], $countryCode);
         } else {
             $fullySuccessful = false;
-            self::$errorLog .= "Warning in the quantity sold: in " .
-                $productName . " the quantity sold is empty or invalid.";
+            self::$errorLog .= "Warning in the quantity sold: in (" .
+                $productName . ") the quantity sold is empty or invalid.";
         }
 
         if (Utils::validateNumber($productData['Revenue'])) {
             $productObj->setRevenue($productData['Revenue'], $countryCode);
         } else {
             $fullySuccessful = false;
-            self::$errorLog .= "Warning in the revenue: in " .
-                $productName . " the revenue is empty or invalid.";
+            self::$errorLog .= "Warning in the revenue: in (" .
+                $productName . ") the revenue is empty or invalid.";
         }
 
         $productObj->setProductAvailablity(
@@ -443,16 +442,16 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
             $productObj->setBasePrice($productData['Base Price'], $countryCode);
         } else {
             $fullySuccessful = false;
-            self::$errorLog .= "Warning in the base price: in " .
-                $productName . " the base price is empty or invalid.";
+            self::$errorLog .= "Warning in the base price: in (" .
+                $productName . ") the base price is empty or invalid.";
         }
 
         if (Utils::validateNumber($productData['Selling Price'], 'price')) {
             $productObj->setSellingPrice($productData['Selling Price'], $countryCode);
         } else {
             $fullySuccessful = false;
-            self::$errorLog .= "Warning in the selling price: in " .
-                $productName . " the selling price is empty or invalid.";
+            self::$errorLog .= "Warning in the selling price: in (" .
+                $productName . ") the selling price is empty or invalid.";
         }
 
         $productObj->setDeliveryCharges(
@@ -508,8 +507,8 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
         $productObj->setWeightUnit($productData['Weight Unit']);
 
         if (!$fullySuccessful) {
-            self::$errorLog .= "Warning in the measurements: in " .
-                $productName . " Please verify measurments.";
+            self::$errorLog .= "Warning in the measurements: in (" .
+                $productName . "). Please verify measurments.";
         }
 
         return $fullySuccessful;
@@ -521,8 +520,8 @@ class ProductStorageMethods extends ProductStorageMethodsHelpers
         if (!empty($productData['Model Number'])) {
             $productObj->setModelNumber($productData['Model Number']);
         } else {
-            self::$errorLog .= "Warning in the technical details: in " .
-                $productName . " the model number is empty.";
+            self::$errorLog .= "Warning in the technical details: in (" .
+                $productName . ") the model number is empty.";
         }
 
         $productObj->setModelYear($productData['Model Year']);

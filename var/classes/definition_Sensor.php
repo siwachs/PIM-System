@@ -1,26 +1,44 @@
 <?php
 
 /**
+ * Inheritance: no
+ * Variants: no
+ *
  * Fields Summary:
- * - productCode [input]
  * - localizedfields [localizedfields]
  * -- name [input]
  * -- description [textarea]
- * -- sensorType [textarea]
- * - brand [manyToManyObjectRelation]
- * - manufacturer [manyToManyObjectRelation]
+ * - brand [manyToOneRelation]
+ * - manufacturer [manyToOneRelation]
+ * - sensorType [select]
+ * - accuracy [input]
  */
 
-return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
+return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'key' => 'sensor',
+   'id' => 'Sensor',
+   'name' => 'Sensor',
+   'title' => '',
+   'description' => '',
+   'creationDate' => NULL,
+   'modificationDate' => 1706077504,
+   'userOwner' => 2,
+   'userModification' => 2,
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Sensor',
-   'group' => 'Ecommerce',
+   'listingParentClass' => '',
+   'useTraits' => '',
+   'listingUseTraits' => '',
+   'encryption' => false,
+   'encryptedTables' => 
+  array (
+  ),
+   'allowInherit' => false,
+   'allowVariants' => false,
+   'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'name' => NULL,
+     'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
@@ -34,10 +52,10 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-         'name' => 'Sensor',
+         'name' => 'Base Data',
          'type' => NULL,
          'region' => NULL,
-         'title' => 'Sensor',
+         'title' => 'Base Data',
          'width' => '',
          'height' => '',
          'collapsible' => false,
@@ -47,36 +65,6 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'productCode',
-             'title' => 'Product Code',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '^SET\\d+-SNSR\\d+$',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'name' => 'localizedfields',
              'title' => '',
@@ -152,31 +140,6 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
                  'height' => '',
                  'width' => '',
               )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'sensorType',
-                 'title' => 'Sensor Type',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
-              )),
             ),
              'region' => NULL,
              'layout' => NULL,
@@ -194,8 +157,8 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'labelAlign' => 'left',
              'fieldDefinitionsCache' => NULL,
           )),
-          2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
              'name' => 'brand',
              'title' => 'Brand',
              'tooltip' => '',
@@ -222,22 +185,22 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             ),
              'displayMode' => 'grid',
              'pathFormatterClass' => '',
-             'maxItems' => 1,
-             'visibleFields' => 
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
             array (
             ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
+             'documentsAllowed' => false,
+             'documentTypes' => 
             array (
             ),
              'width' => '',
-             'height' => '',
           )),
-          3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
              'name' => 'manufacturer',
              'title' => 'Manufacturer',
              'tooltip' => '',
@@ -264,19 +227,100 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             ),
              'displayMode' => 'grid',
              'pathFormatterClass' => '',
-             'maxItems' => 1,
-             'visibleFields' => 
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
             array (
             ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
+             'documentsAllowed' => false,
+             'documentTypes' => 
             array (
             ),
              'width' => '',
-             'height' => '',
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'name' => 'sensorType',
+             'title' => 'Sensor Type',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'Motion',
+                'value' => 'Motion',
+              ),
+              1 => 
+              array (
+                'key' => 'Light',
+                'value' => 'Light',
+              ),
+              2 => 
+              array (
+                'key' => 'Temprature',
+                'value' => 'Temprature',
+              ),
+              3 => 
+              array (
+                'key' => 'Gravity',
+                'value' => 'Gravity',
+              ),
+            ),
+             'defaultValue' => '',
+             'columnLength' => 190,
+             'dynamicOptions' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => 'configure',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'accuracy',
+             'title' => 'Accuracy',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,
@@ -302,8 +346,47 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'fieldDefinitionsCache' => NULL,
+   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
+   'group' => 'Ecommerce',
+   'showAppLoggerTab' => false,
+   'linkGeneratorReference' => '',
+   'previewGeneratorReference' => '',
+   'compositeIndices' => 
+  array (
+  ),
+   'showFieldLookup' => false,
+   'propertyVisibility' => 
+  array (
+    'grid' => 
+    array (
+      'id' => true,
+      'key' => false,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+    'search' => 
+    array (
+      'id' => true,
+      'key' => false,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+  ),
+   'enableGridLocking' => false,
+   'deletedDataComponents' => 
+  array (
+  ),
    'blockedVarsForExport' => 
+  array (
+  ),
+   'fieldDefinitionsCache' => 
+  array (
+  ),
+   'activeDispatchingEvents' => 
   array (
   ),
 ));
